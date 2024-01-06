@@ -1,3 +1,0 @@
-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
-
-Build when a change is pushed to GitLab. GitLab webhook URL: http://fm-16.compute.dtu.dk:8080/project/WS_project
