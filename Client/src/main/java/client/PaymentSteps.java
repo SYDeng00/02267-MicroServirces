@@ -1,18 +1,8 @@
 package client;
 
-import static org.junit.Assert.assertEquals;
-//
-//import javax.ws.rs.client.Entity;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.fasterxml.jackson.core.JsonParseException;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.MediaType;
-import snippet.ClientService;
 
 public class PaymentSteps {
 	public String customer_Account;

@@ -1,7 +1,4 @@
-package snippet;
-
-
-import com.google.gson.JsonObject;
+package client;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
