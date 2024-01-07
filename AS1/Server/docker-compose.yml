@@ -1,0 +1,9 @@
+version: '3'
+services:
+  simpledtupay:
+    build: .
+    image: simpledtupay
+    container_name: simpledtupay
+    ports:
+     - "8080:8080"
+
