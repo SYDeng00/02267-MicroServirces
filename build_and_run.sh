@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-pushd code-with-quarkus
+pushd AS1/Server
 mvn package
 # Create a new docker image if necessary.
 docker-compose build
@@ -17,6 +17,6 @@ popd
 # Give the Web server a chance to finish start up
 sleep 2 
 
-pushd demo_client
+pushd AS1/Client
 mvn test
 popd
