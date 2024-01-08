@@ -25,14 +25,15 @@ public class AllPaymentSteps {
     @Given("a customer with a bank account with balance {int}")
     public void a_customer_with_a_bank_account_with_balance(Integer int1) throws BankServiceException_Exception {
 
-        customeraccountID=callBankAuthService.CreateOneAccount(new Customer("Mis","Aro","cprMis", int1.doubleValue(), "customer"));
+        customeraccountID=callBankAuthService.CreateOneAccount(new Customer("Mis1","Aro1","cprMis1", int1.doubleValue(), "customer"));
         System.out.println(customeraccountID);
         assertTrue(true, "The bank account is created for the customer");
 
     }
     @And("that the customer is registered with DTU Pay")
     public void that_the_customer_is_registered_with_dtu_pay() throws BankServiceException_Exception {
-        generalController.regDtuPayUser(new Customer("Mis","Aro","cprMis",customeraccountID,"customer"));
+        merchantaccountID = generalController.regDtuPayUser(new Customer("Mis2","Aro2","cprMis2",customeraccountID,"customer"));
+        System.out.println(merchantaccountID);
         assertTrue(true, "The customer is registered");
     }
     @Given("a merchant with a bank account with balance {int}")
