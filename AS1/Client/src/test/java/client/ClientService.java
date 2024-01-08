@@ -29,13 +29,6 @@ public class ClientService {
         return response.readEntity(String.class);
     }
     
-    public String createdtuAccount(Customer customer)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
-
-        Response response = simplepay.path("customers")
-                .request()
-                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
-        return response.readEntity(String.class);
-    }
     
     public String regDTUUser(Customer customer) {
     	 Response response = simplepay.path("customers")
