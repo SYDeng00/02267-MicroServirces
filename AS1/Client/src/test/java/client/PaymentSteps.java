@@ -18,7 +18,7 @@ public class PaymentSteps {
 
 	@Given("a customer with a bank account with balance {int}")
 	public void aCustomerWithABankAccountWithBalance(Integer int1) {
-    	this.customer_Account = "cdd62abf-3134-4347-bd10-1cdf68f8d36c";
+    	this.customer_Account = "05ffba2a-4b69-4833-a133-a6cafcb4c5c2";
     	this.customer_Balance = int1;
 	}
 
@@ -30,7 +30,7 @@ public class PaymentSteps {
 	@Given("a merchant with a bank account with balance {int}")
 	public void aMerchantWithABankAccountWithBalance(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
-		this.merchant_Account = "04e859c5-0f58-45ae-a249-6f117965159f";
+		this.merchant_Account = "629b6050-9ea0-484a-a637-55c2e27b81c6";
 		merchant_Balance = int1;
 	}
 
