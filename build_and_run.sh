@@ -20,3 +20,4 @@ sleep 2
 pushd AS1/Client
 mvn test
 popd
+  
