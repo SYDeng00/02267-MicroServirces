@@ -34,11 +34,14 @@ public class PaymentSteps {
 
 	@Given("a customer with a bank account with balance {int}")
 	public void aCustomerWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
-        customer=new Customer("Mis1","Aro1","cprMis1", int1.doubleValue(), "customer");
-        String customerAccount=clientService.createAccount(customer);
-        System.out.println(customerAccount);
+		CallBankAuthService callBankAuthService = new CallBankAuthService();
+        
+        customer=new Customer("Mis11","Aro11","cprMis11", int1.doubleValue(), "customer");
+        customer_Account=callBankAuthService.CreateOneAccount(customer);
+        System.out.println(customer_Account);
         System.out.println(customer);
-        assertTrue(true, "The bank account is created for the customer");
+        
+   
 	}
 
 	@Given("that the customer is registered with DTU Pay")
@@ -46,15 +49,15 @@ public class PaymentSteps {
 		customer.setBankAccount(customer_Account);
         caccountID = clientService.regDTUUser(customer);
         System.out.println(caccountID);
-        assertTrue(true, "The customer is registered");
+//        assertTrue(true, "The customer is registered");
 	}
 
 	@Given("a merchant with a bank account with balance {int}")
 	public void aMerchantWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
-		merchant=new Customer("Mis1","Aro1","cprMis1", int1.doubleValue(), "customer");
-        clientService.createAccount(merchant);
+		merchant=new Customer("Mis22","Aro22","cprMis22", int1.doubleValue(), "customer");
+        merchant_Account =callBankAuthService.CreateOneAccount(merchant);
         System.out.println(merchant);
-        assertTrue(true, "The bank account is created for the customer");
+//        assertTrue(true, "The bank account is created for the customer");
 	}
 
 	@Given("that the merchant is registered with DTU Pay")
@@ -62,7 +65,7 @@ public class PaymentSteps {
 		merchant.setBankAccount(merchant_Account);
         maccountID = clientService.regDTUUser(merchant);
         System.out.println(maccountID);
-        assertTrue(true, "The customer is registered");
+//        assertTrue(true, "The customer is registered");
 
 	}
 
@@ -78,16 +81,15 @@ public class PaymentSteps {
 
 	@Then("the balance of the customer at the bank is {int} kr")
 	public void theBalanceOfTheCustomerAtTheBankIsKr(Integer int1) throws BankServiceException_Exception {
-		
-		int balance = clientService.getBalance(customer_Account);
+		int balance=(int) generalController.getBalance(customer_Account).doubleValue();
+
 //        generalController.deleteAccount(customeraccountID);
         assertEquals(int1,balance);
 	}
 
 	@Then("the balance of the merchant at the bank is {int} kr")
 	public void theBalanceOfTheMerchantAtTheBankIsKr(Integer int1) throws BankServiceException_Exception {
-		int balance = clientService.getBalance(merchant_Account);
-		System.out.println(balance);
+		int balance=(int) generalController.getBalance(merchant_Account).doubleValue();
 //      generalController.deleteAccount(customeraccountID);
       assertEquals(int1,balance);
 	}

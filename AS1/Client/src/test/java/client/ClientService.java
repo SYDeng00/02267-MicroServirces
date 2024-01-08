@@ -21,12 +21,19 @@ public class ClientService {
     }
     
 
-    // 创建账户
-    public String createAccount(Customer jsonData)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
+    public String createAccount(Customer customer)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
 
-        Response response = simplepay.path("b")
+        Response response = simplepay.path("bank")
                 .request()
-                .post(Entity.entity(jsonData, MediaType.APPLICATION_JSON));
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+        return response.readEntity(String.class);
+    }
+    
+    public String createdtuAccount(Customer customer)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
+
+        Response response = simplepay.path("customers")
+                .request()
+                .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
         return response.readEntity(String.class);
     }
     
@@ -36,8 +43,9 @@ public class ClientService {
                  .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
          return response.readEntity(String.class);
     }
+    
+    
 
-    // 转账
     public String transferMoney(Trade trade) {
         System.out.println(trade);
         try {
