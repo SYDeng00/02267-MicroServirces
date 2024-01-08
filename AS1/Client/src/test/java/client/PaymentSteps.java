@@ -3,6 +3,10 @@ package client;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
+import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 
 public class PaymentSteps {
 	public String customer_Account;
@@ -14,7 +18,7 @@ public class PaymentSteps {
 
 	@Given("a customer with a bank account with balance {int}")
 	public void aCustomerWithABankAccountWithBalance(Integer int1) {
-    	this.customer_Account = "12ec8efc-f3db-43b0-83d5-9a4248dac88b";
+    	this.customer_Account = "cdd62abf-3134-4347-bd10-1cdf68f8d36c";
     	this.customer_Balance = int1;
 	}
 
@@ -26,7 +30,7 @@ public class PaymentSteps {
 	@Given("a merchant with a bank account with balance {int}")
 	public void aMerchantWithABankAccountWithBalance(Integer int1) {
 	    // Write code here that turns the phrase above into concrete actions
-		this.merchant_Account = "690fd7eb-1edd-4600-961c-23685795f2ff";
+		this.merchant_Account = "04e859c5-0f58-45ae-a249-6f117965159f";
 		merchant_Balance = int1;
 	}
 
@@ -46,20 +50,20 @@ public class PaymentSteps {
                 ",\"customerBalance\":" + this.customer_Balance +
                 ",\"merchantBalance\":" + this.merchant_Balance + "}]";
 
-//		JsonParser parser = new JsonParser();
-//
-//		JsonObject jsonObject = parser.parse(jsonData).getAsJsonObject();
+
 		//String rt = clientService.transferMoney(Entity.entity(jsonData, MediaType.APPLICATION_JSON_TYPE));
 		String rt = clientService.transferMoney(jsonData);
 		// Replace "name" with the key you want to find
 		System.out.println(rt);
 
+//		JsonParser parser = new JsonParser();
 //
-		String mb= rt.get("merchantBalance").getAsString();
-		String cb= rt.get("customerBalance").getAsString();
-//
-//		assertEquals(merchant_Balance + balance,mb);
-//		assertEquals(customer_Balance-balance,cb);
+//		JsonObject jsonObject = parser.parse(rt).getAsJsonObject();
+//		String mb= jsonObject.get("merchantBalance").getAsString();
+//		String cb= jsonObject.get("customerBalance").getAsString();
+////
+//		assertEquals(String.valueOf(merchant_Balance + balance),mb);
+//		assertEquals(String.valueOf(customer_Balance-balance),cb);
 	}
 
 	@Then("the payment is successful")
