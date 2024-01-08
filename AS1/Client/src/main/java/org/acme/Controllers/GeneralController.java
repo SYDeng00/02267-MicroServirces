@@ -17,18 +17,6 @@ import java.util.List;
 public class GeneralController {
     private GeneralServices generalServices = new GeneralServices();
 
-    @Path("/bank")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String regBankUser(Customer customer) throws BankServiceException_Exception {
-        String bAccNo = generalServices.addNewBankUser(customer);
-        if (!bAccNo.isEmpty())
-            return "Bank Account number =" + bAccNo;
-
-        else return "No bank Account Created!!!";
-    }
-    
     @Path("/customers")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -35,12 +35,15 @@ public class GeneralServices {
         }
         public int addNewDtuPayUser(Customer newCustomer) throws BankServiceException_Exception {
 
-            
+            if (callBankAuthService.validAccount(newCustomer.getBankAccount())){
                 int nextId = customers.size() + 1;
                 newCustomer.setId(nextId);
                 customers.add(newCustomer);
                 return nextId;
-            
+            }
+            else {
+                return -1;
+            }
         }
         public Double getCustomerAccountBalance(String accountNumber) {
             Optional<Customer> opCustomers = customers.stream().filter(t->t.getBankAccount().equals(accountNumber)).findFirst();

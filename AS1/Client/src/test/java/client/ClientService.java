@@ -1,6 +1,9 @@
 package client;
 
 
+import org.acme.Models.Customer;
+import org.acme.Models.Trade;
+
 import com.google.gson.JsonObject;
 
 import jakarta.ws.rs.client.Client;
@@ -16,25 +19,33 @@ public class ClientService {
 
     public ClientService() {
     }
+    
 
     // 创建账户
-    public String createAccount(String jsonData)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
+    public String createAccount(Customer jsonData)  {        // String jsonData = "{\"id\":1,\"cpr\":\"test_cpr1\",\"lstname\":\"last1\",\"firstname\":\"first1\",\"balence\":1000.0,\"bankAccount\":null,\"userType\":\"customer\"}";
 
-        Response response = simplepay.path("customers")
+        Response response = simplepay.path("b")
                 .request()
                 .post(Entity.entity(jsonData, MediaType.APPLICATION_JSON));
         return response.readEntity(String.class);
     }
+    
+    public String regDTUUser(Customer customer) {
+    	 Response response = simplepay.path("customers")
+                 .request()
+                 .post(Entity.entity(customer, MediaType.APPLICATION_JSON));
+         return response.readEntity(String.class);
+    }
 
     // 转账
-    public String transferMoney(String jsonData) {
-        System.out.println(jsonData);
+    public String transferMoney(Trade trade) {
+        System.out.println(trade);
         try {
             // Convert JsonObject to String for the request
 
             Response response = simplepay.path("trades")
                     .request()
-                    .post(Entity.entity(jsonData, MediaType.APPLICATION_JSON));
+                    .post(Entity.entity(trade, MediaType.APPLICATION_JSON));
 
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 return response.readEntity(String.class);
@@ -48,6 +59,39 @@ public class ClientService {
             return "Error: " + e.getMessage();
         }
     }
+    
+    public int getBalance(String id) {
+    	try {
+    		Response response =  simplepay.path("/accounts/"+id+"/balance")
+                    .request()
+                    .get();
+    		//System.out.println(response.readEntity(String.class));
+    		return response.readEntity(Integer.class);
+    	}catch(Exception e) {
+    		return 0;
+    	}
+    }
+    
+    public String deleteAccount(String id) {
+        try {
+            Response response = simplepay.path("/accounts/" + id) // Corrected the path
+                                       .request()
+                                       .delete(); // No parameter here
+
+            // Check the response status and handle accordingly
+            if (response.getStatusInfo().getFamily() == Response.Status.Family.SUCCESSFUL) {
+                return response.readEntity(String.class); // Or handle the response as needed
+            } else {
+                // Handle non-successful response, possibly returning or logging the error details
+                return "Failed with status code: " + response.getStatus();
+            }
+        } catch(Exception e) {
+            // It's usually a good practice to log the exception details
+            e.printStackTrace();
+            return "Error: " + e.getMessage(); // Returning more informative error message
+        }
+    }
+
 
 
     public String createTrade() {
