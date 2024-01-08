@@ -55,11 +55,11 @@ public class PaymentSteps {
 		System.out.println(rt);
 
 //
-//		String mb= jsonObject.get("merchantBalance").getAsString();
-//		String cb= jsonObject.get("customerBalance").getAsString();
+		mb= jsonObject.get("merchantBalance").getAsString();
+		cb= jsonObject.get("customerBalance").getAsString();
 //
-//		assertEquals(merchant_Balance + balance,mb);
-//		assertEquals(customer_Balance-balance,cb);
+		assertEquals(merchant_Balance + balance,mb);
+		assertEquals(customer_Balance-balance,cb);
 	}
 
 	@Then("the payment is successful")
