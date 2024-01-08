@@ -55,8 +55,8 @@ public class PaymentSteps {
 		System.out.println(rt);
 
 //
-		String mb= jsonObject.get("merchantBalance").getAsString();
-		String cb= jsonObject.get("customerBalance").getAsString();
+		String mb= rt.get("merchantBalance").getAsString();
+		String cb= rt.get("customerBalance").getAsString();
 //
 		assertEquals(merchant_Balance + balance,mb);
 		assertEquals(customer_Balance-balance,cb);
