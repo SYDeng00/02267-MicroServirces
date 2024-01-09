@@ -38,7 +38,7 @@ public class PaymentSteps {
 	public void aCustomerWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
 		CallBankAuthService callBankAuthService = new CallBankAuthService();
 
-		customer = new Customer("AAAAAA1", "BBBBBB2", "CCCCCC3", int1.doubleValue(), "customer");
+		customer = new Customer("AAAAAA2", "BBBBBB3", "CCCCCC4", int1.doubleValue(), "customer");
 		customer_Account = callBankAuthService.CreateOneAccount(customer);
 		System.out.println(customer_Account);
 		System.out.println(customer);
@@ -55,7 +55,7 @@ public class PaymentSteps {
 
 	@Given("a merchant with a bank account with balance {int}")
 	public void aMerchantWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
-		merchant = new Customer("DDDDDD4", "EEEEEE5", "FFFFFF6", int1.doubleValue(), "customer");
+		merchant = new Customer("DDDDDD5", "EEEEEE6", "FFFFFF7", int1.doubleValue(), "customer");
 		merchant_Account = callBankAuthService.CreateOneAccount(merchant);
 		System.out.println(merchant);
 //        assertTrue(true, "The bank account is created for the customer");
@@ -94,7 +94,6 @@ public class PaymentSteps {
 		BigDecimal balance = callBankAuthService.checkBalance(merchant_Account);
 		BigDecimal expectedBalance = BigDecimal.valueOf(int1);
 		assertEquals(expectedBalance, balance.intValue());
-		assertEquals(int1, balance);
 	}
 
 	@After
