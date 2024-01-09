@@ -38,7 +38,7 @@ public class PaymentSteps {
 	public void aCustomerWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
 		CallBankAuthService callBankAuthService = new CallBankAuthService();
 
-		customer = new Customer("AAAAA", "BBBBB", "CCCCC", int1.doubleValue(), "customer");
+		customer = new Customer("AAAAAA", "BBBBBB", "CCCCCC", int1.doubleValue(), "customer");
 		customer_Account = callBankAuthService.CreateOneAccount(customer);
 		System.out.println(customer_Account);
 		System.out.println(customer);
@@ -55,7 +55,7 @@ public class PaymentSteps {
 
 	@Given("a merchant with a bank account with balance {int}")
 	public void aMerchantWithABankAccountWithBalance(Integer int1) throws BankServiceException_Exception {
-		merchant = new Customer("DDDDD", "EEEEE", "FFFFF", int1.doubleValue(), "customer");
+		merchant = new Customer("DDDDDD", "EEEEEE", "FFFFFF", int1.doubleValue(), "customer");
 		merchant_Account = callBankAuthService.CreateOneAccount(merchant);
 		System.out.println(merchant);
 //        assertTrue(true, "The bank account is created for the customer");
@@ -85,12 +85,15 @@ public class PaymentSteps {
 
 		BigDecimal balance = callBankAuthService.checkBalance(customer_Account);
 //        generalController.deleteAccount(customeraccountID);
-		assertEquals(int1, balance.intValue());
+		BigDecimal expectedBalance = BigDecimal.valueOf(int1);
+		assertEquals(expectedBalance, balance.intValue());
 	}
 
 	@Then("the balance of the merchant at the bank is {int} kr")
 	public void theBalanceOfTheMerchantAtTheBankIsKr(Integer int1) throws BankServiceException_Exception {
 		BigDecimal balance = callBankAuthService.checkBalance(merchant_Account);
+		BigDecimal expectedBalance = BigDecimal.valueOf(int1);
+		assertEquals(expectedBalance, balance.intValue());
 		assertEquals(int1, balance);
 	}
 
