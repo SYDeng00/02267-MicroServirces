@@ -1,6 +1,6 @@
 package payment;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import domin.DTUPayAccount;
 import domin.DTUPay_Interface;
+import domin.Payment;
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
@@ -28,12 +29,15 @@ public class DTUPaySteps {
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
 
-	
 	public List<String> tokens = new ArrayList<>();;
-	
+
+
+	public Integer payment_amount;
+	public String payment_result;
 	
 	DTUPay_Interface dtuPay = new DTUPay_Interface();
 	BankService bank = new BankServiceService().getBankServicePort();
+	
 
 
 	// Account test
@@ -102,16 +106,40 @@ public class DTUPaySteps {
 		try {
 			tokens = dtuPay.getTokens(customerDtuPayID);
 		} catch (Exception e) {
-		    // Handle the exception, e.g., log it
-		    e.printStackTrace();
+			// Handle the exception, e.g., log it
+			e.printStackTrace();
 		}
-		
 
 	}
 
 	@Then("the customer receives tokens")
 	public void theCustomerReceivesTokens() {
 		assertFalse(tokens.isEmpty());
+	}
+
+	// Payment test
+	// Author: Siyuan Deng
+
+	@Given("the merchant initiates a payment for {int} kr by the customer")
+	public void theMerchantInitiatesAPaymentForKrByTheCustomer(Integer amount) {
+		payment_amount = amount;
+				
+	}
+
+	@When("the merchant has received a token from the customer")
+	public void theMerchantHasReceivedATokenFromTheCustomer() {
+		String token = null;
+		if (!tokens.isEmpty()) {
+		     token = tokens.get(0); 
+		}
+
+		Payment payment = new Payment(merchantDtuPayID, BigDecimal.valueOf(payment_amount), token);
+		payment_result = dtuPay.createPayment(payment);
+	}
+
+	@Then("the payment is successful")
+	public void thePaymentIsSuccessful() {
+		assertEquals("payment is successful",payment_result);
 	}
 
 }

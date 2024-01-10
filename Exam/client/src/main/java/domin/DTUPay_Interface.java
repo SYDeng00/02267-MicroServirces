@@ -22,26 +22,45 @@ public class DTUPay_Interface {
 		return response.readEntity(String.class);
 
 	}
-	
-	public List<String> getTokens(String customerDtuPayID) throws Exception {
-	    try {
-	        Response response = dtuPayURL.path("/tokens/"+customerDtuPayID)
-	                .request()
-	                .post(Entity.entity(customerDtuPayID, MediaType.APPLICATION_JSON));
 
-	        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-	            return response.readEntity(new GenericType<List<String>>() {});
-	        } else {
-	            
-	            System.out.println("Error: " + response.getStatus());
-	            System.out.println("Error Body: " + response.readEntity(String.class));
-	            return Collections.emptyList();
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        throw e;
-	    }
+	public List<String> getTokens(String customerDtuPayID) throws Exception {
+		try {
+			Response response = dtuPayURL.path("/tokens/" + customerDtuPayID).request()
+					.post(Entity.entity(customerDtuPayID, MediaType.APPLICATION_JSON));
+
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+				return response.readEntity(new GenericType<List<String>>() {
+				});
+			} else {
+
+				System.out.println("Error: " + response.getStatus());
+				System.out.println("Error Body: " + response.readEntity(String.class));
+				return Collections.emptyList();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
+	public String createPayment(Payment payment) {
+		try {
+			Response response = dtuPayURL.path("/payments").request()
+					.post(Entity.entity(payment, MediaType.APPLICATION_JSON));
+
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+				return response.readEntity(String.class);
+			} else {
+
+				System.out.println("Error: " + response.getStatus());
+				System.out.println("Error Body: " + response.readEntity(String.class));
+				return "payment fail";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		}
+	}
 
 }
