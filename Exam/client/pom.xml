@@ -101,7 +101,6 @@
 			<artifactId>resteasy-client</artifactId>
 			<version>6.2.2.Final</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
