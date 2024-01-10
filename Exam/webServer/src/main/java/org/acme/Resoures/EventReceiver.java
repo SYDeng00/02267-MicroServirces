@@ -19,7 +19,7 @@ public class EventReceiver implements IEventReceiver{
     Connection connection;
     Channel channel;
     String QUEUE_NAME = "message_service";
-
+    EventReceiver service;
     @Override
     public void receiveEvent(Event event) throws Exception {
         // TODO Auto-generated method stub
@@ -46,6 +46,7 @@ public class EventReceiver implements IEventReceiver{
     }
 
     public EventReceiver() throws IOException, TimeoutException{
+        this.service = 
         connection = connectionFactory.newConnection();
         channel = connection.createChannel();
         // channel.queueDeclare(QUEUE_NAME, false, false, false, null);

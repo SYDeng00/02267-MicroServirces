@@ -13,6 +13,7 @@ public class Event {
     
     //private UUID eventID;
     private String service;
+    
     public Callback getCallback() {
         return callback;
     }
