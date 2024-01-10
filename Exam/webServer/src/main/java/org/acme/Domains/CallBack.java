@@ -1,5 +1,5 @@
 package org.acme.Domains;
 
-public class CallBack {
-    
+public class Callback {
+    public int a;
 }
