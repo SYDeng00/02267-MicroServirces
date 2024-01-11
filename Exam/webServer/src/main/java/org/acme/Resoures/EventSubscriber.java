@@ -31,6 +31,7 @@ public class EventSubscriber implements IEventSubscriber {
     private static final String QUEUE_TYPE = "topic";
     DeliverCallback deliverCallback;
 
+    @Override
     public void subscribeEvent() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("rabbitMq");
@@ -62,10 +63,6 @@ public class EventSubscriber implements IEventSubscriber {
         
     }
 
-    @Override
-    public void subscribeEvent(Message message) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subscribeEvent'");
-    }
+    
 
 }
