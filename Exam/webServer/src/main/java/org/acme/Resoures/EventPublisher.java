@@ -26,7 +26,7 @@ public class EventPublisher implements IEventPublisher {
     @Override
     public void publishEvent(Message message) throws Exception {
         try{
-            connectionfactory.setHost("rabbitMq");
+            connectionfactory.setHost("rabbitmq");
             connection = connectionfactory.newConnection();
             channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, QUEUE_TYPE);

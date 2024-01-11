@@ -1,17 +1,12 @@
 package org.acme.Resoures;
 
-import org.acme.Domains.CallBack;
 import org.acme.Domains.Callback;
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
 
-import java.nio.charset.StandardCharsets;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,6 +18,7 @@ public class EventSubscriber implements IEventSubscriber {
     ConnectionFactory connectionfactory = new ConnectionFactory();
     Connection connection;
     Channel channel;
+    IEventSubscriber service;
     Gson gson = new Gson();
     String queue = "payment_service";
     private String QUEUE_NAME="publisher_queue";
@@ -30,11 +26,13 @@ public class EventSubscriber implements IEventSubscriber {
     private static final String TOPIC = "event_topic";
     private static final String QUEUE_TYPE = "topic";
     DeliverCallback deliverCallback;
-
+    public EventSubscriber(IEventSubscriber service){
+        this.service = service;
+    }
     @Override
     public void subscribeEvent() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("rabbitMq");
+        factory.setHost("rabbitmq");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.exchangeDeclare(EXCHANGE_NAME, QUEUE_TYPE);
