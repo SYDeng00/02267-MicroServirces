@@ -9,6 +9,7 @@ public class receiverrepo  implements IEventSubscriber{
     
     @Override
     public void subscribeEvent() throws Exception {
+        //Input your own logic to cope with the message
         System.out.println("received");
     }
 

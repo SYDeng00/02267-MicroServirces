@@ -6,7 +6,7 @@ import jakarta.validation.Payload;
 
 public class Message {
     private String evenType;
-    private Object[] arguement;
+    private Object[] payload;
     private String status;
     private UUID messageID = UUID.randomUUID();
     
@@ -19,9 +19,9 @@ public class Message {
 
 
     
-    public Message(String evenType, Object[] arguement) {
+    public Message(String evenType, Object[] payload) {
         this.evenType = evenType;
-        this.arguement = arguement;
+        this.payload = payload;
     }
     public Callback getCallback() {
         return callback;
@@ -61,11 +61,11 @@ public class Message {
     public void setEvenType(String evenType) {
         this.evenType = evenType;
     }
-    public Object[] getArguement() {
-        return arguement;
+    public Object[] getPayload() {
+        return payload;
     }
-    public void setArguement(Object[] arguement) {
-        this.arguement = arguement;
+    public void setPayload(Object[] payload) {
+        this.payload = payload;
     }
     public String getStatus() {
         return status;
