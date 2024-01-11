@@ -15,7 +15,7 @@ public class Message {
     private UUID requestID;
     private Callback callback = new Callback();
     
-    private String service;
+    private String service="default_service";
 
 
     

@@ -13,31 +13,32 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 
-public class EventSubscriber implements IEventSubscriber {
+public class EventSubscriber {
 
     ConnectionFactory connectionfactory = new ConnectionFactory();
     Connection connection;
     Channel channel;
     IEventSubscriber service;
     Gson gson = new Gson();
-    String queue = "payment_service";
     private String QUEUE_NAME="publisher_queue";
+
     private static final String EXCHANGE_NAME = "exchange_events";
     private static final String TOPIC = "event_topic";
     private static final String QUEUE_TYPE = "topic";
+    private IEventSubscriber callback;
     DeliverCallback deliverCallback;
-    public EventSubscriber(IEventSubscriber service){
-        this.service = service;
+    public  EventSubscriber(IEventSubscriber callback){
+        this.callback = callback;
     }
-    @Override
+
     public void subscribeEvent() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("rabbitmq");
+        factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.exchangeDeclare(EXCHANGE_NAME, QUEUE_TYPE);
-        String queueName = channel.queueDeclare().getQueue();
-        channel.queueBind(queueName, EXCHANGE_NAME, TOPIC);
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, QUEUE_NAME);
+
 
         deliverCallback = (consumerTag, delivery) -> {
             String request = new String(delivery.getBody(), "UTF-8");
@@ -47,18 +48,14 @@ public class EventSubscriber implements IEventSubscriber {
             Callback callback = new Callback(message.getService(),message.getEvent());
             message.setCallback(callback);
             try {
-                this.generateReply(message);
+                System.out.println("In consume");
+                this.callback.subscribeEvent();
             } catch (Exception e) {
                 e.getStackTrace();
             }
         };
-        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+        channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
         });
-    }
-
-    @Override
-    public void generateReply(Message message) {
-        
     }
 
     

@@ -18,6 +18,8 @@ public class EventPublisher implements IEventPublisher {
     Gson gson = new Gson();
     String queue = "payment_service";
     private String QUEUE_NAME="publisher_queue";
+    
+    private static final String ROUTING_KEY = "my_routing_key";
     private static final String EXCHANGE_NAME = "exchange_events";
     private static final String TOPIC = "event_topic";
     private static final String QUEUE_TYPE = "topic";
@@ -26,17 +28,21 @@ public class EventPublisher implements IEventPublisher {
     @Override
     public void publishEvent(Message message) throws Exception {
         try{
-            connectionfactory.setHost("rabbitmq");
+            connectionfactory.setHost("localhost");
+            // connectionfactory.setUsername("admin");
+            // connectionfactory.setPassword("admin");
+            // connectionfactory.setPort(15672);
+            // connectionfactory.setVirtualHost("/");
             connection = connectionfactory.newConnection();
             channel = connection.createChannel();
             channel.exchangeDeclare(EXCHANGE_NAME, QUEUE_TYPE);
-            String queueName = channel.queueDeclare().getQueue();
-            channel.queueBind(queueName, EXCHANGE_NAME, TOPIC);
 
            // channel.queueDeclare(message.getService(),false,false,false,null);
             String payload = new Gson().toJson(message);
+            channel.queueDeclare(QUEUE_NAME,true,false,false,null);
+            channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, QUEUE_NAME);
             System.out.println("Rabbit sending"+payload);
-            channel.basicPublish(this.QUEUE_NAME,message.getService(),null,gson.toJson(message).getBytes(StandardCharsets.UTF_8));
+            channel.basicPublish(EXCHANGE_NAME,QUEUE_NAME,null,gson.toJson(message).getBytes(StandardCharsets.UTF_8));
         }catch(Exception e){
             e.printStackTrace();
         }

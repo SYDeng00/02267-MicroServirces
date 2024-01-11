@@ -9,11 +9,17 @@ public class receiverrepo  implements IEventSubscriber{
     
     @Override
     public void subscribeEvent() throws Exception {
-        this.generateReply(null);
-    }
-    
-    @Override
-    public void generateReply(Message message) {
         System.out.println("received");
     }
+
+    public void received() throws Exception{
+        try{
+            EventSubscriber subscriber = new EventSubscriber(new receiverrepo());
+            subscriber.subscribeEvent();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

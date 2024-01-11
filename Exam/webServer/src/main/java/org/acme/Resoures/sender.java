@@ -17,6 +17,9 @@ public class sender {
     @GET
     public void sender() throws Exception{
         publisher.publishEvent(new Message("sender",new Object[]{token}));
+
+        receiverrepo re = new receiverrepo();
+        re.received();
     }
     
     
