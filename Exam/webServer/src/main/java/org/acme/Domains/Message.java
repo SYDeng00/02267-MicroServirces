@@ -4,25 +4,31 @@ import java.util.UUID;
 
 import jakarta.validation.Payload;
 
-public class Event {
+public class Message {
     private String evenType;
     private Object[] arguement;
     private String status;
     private UUID messageID = UUID.randomUUID();
-    public Payload payload;
     
-    //private UUID eventID;
+
+    private String event;
+    private UUID requestID;
+    private Callback callback = new Callback();
+    
     private String service;
+
+
     
+    public Message(String evenType, Object[] arguement) {
+        this.evenType = evenType;
+        this.arguement = arguement;
+    }
     public Callback getCallback() {
         return callback;
     }
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
-    private String event;
-    private UUID requestID;
-    private Callback callback = new Callback();
     
     public UUID getRequestID() {
         return requestID;
@@ -42,10 +48,10 @@ public class Event {
     public void setEvent(String event) {
         this.event = event;
     }
-    public Event(){
+    public Message(){
 
     }
-    public Event(String service, String event){
+    public Message(String service, String event){
         this.service = service;
         this.event = event;
     }
@@ -67,12 +73,7 @@ public class Event {
     public void setStatus(String status) {
         this.status = status;
     }
-    // public UUID getEventID() {
-    //     return eventID;
-    // }
-    // public void setEventID(UUID eventID) {
-    //     this.eventID = eventID;
-    // }
+ 
      public UUID getMessageID() {
         return messageID;
     }
@@ -80,10 +81,5 @@ public class Event {
         this.messageID = messageID;
     }
 
-    public Payload getPayload() {
-        return payload;
-    }
-    public void setPayload(Payload payload) {
-        this.payload = payload;
-    }
+
 }
