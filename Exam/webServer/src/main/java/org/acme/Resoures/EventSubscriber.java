@@ -50,7 +50,7 @@ public class EventSubscriber implements IEventSubscriber {
             try {
                 this.generateReply(message);
             } catch (Exception e) {
-                throw new Error(e);
+                e.getStackTrace();
             }
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
