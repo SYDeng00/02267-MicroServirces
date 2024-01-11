@@ -1,5 +1,6 @@
 package org.acme.Resoures;
 
+import java.rmi.server.ObjID;
 import java.util.UUID;
 
 import org.acme.Domains.Payment;
@@ -28,19 +29,33 @@ public class PaymentBroker implements IEventSubscriber{
                 eventPublisher.publish(new Messsage(VALID_TOKENS,new Obeject[]{payload[1]}));
                 break;
             case VALID_RESULT:
-                Object[] rt = message.getPayload();
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(rt[0]);
-                boolean validResult = gson.fromJson(jsonString, boolean.class);
+    
+                boolean validResult = this.typeTransfer(payload[0], boolean.class)
                 if(validResult){
-                    BankService bank = new BankServiceService().getBankServicePort();
-                    Payment payment = paymentRepository.getPayment(typeTransfer(payload[0], UUID.class));
-                    bank.transferMoneyFromTo();
+                   Payment payment = paymentRepository.getPayment(typeTransfer(payload[0], UUID.class));
                     
+                    eventPublisher.publish(new Message(REQUEST_BANK_ACCOUNTS,new Object[]{payload[0],payload[1].getCustomerID() }));
                 }else{
-
+                    //TODO
                 }
-                eventPublisher.publish(new Message(VALID_RESULT,));
+                break;
+            case GET_ACCOUNTS:
+                try {
+                    BankService bank = new BankServiceService().getBankServicePort();
+                    Payment payment = paymentRepository.getPayment(typeTransfer(payload[0],UUID.class));
+                    bank.transferMoneyFromTo(payload[1], payload[2], payment.getAmount(),null);
+                    eventPublisher.publish(new Message(UPDATE_PAYMENTS_REPORT,new Object(
+                        payment.getPaymentID(),payment.getToekn(),getCustomerID(),payment.getAmount())));
+                    paymentRepository.removePayment(payment.getPaymentID());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            break;
+
+
+
+                
             
             default:
                 break;

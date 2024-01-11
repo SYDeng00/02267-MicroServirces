@@ -12,7 +12,7 @@ public class PaymentRepository implements IPaymentRepository{
     HashMap<UUID,Payment> payments = new HashMap<>();
     @Override
     public void addPayment(Payment payment) {
-        payments.put(payment.getUUID(), payment);
+        payments.put(payment.getPaymentID(), payment);
     }
 
     @Override
@@ -28,8 +28,6 @@ public class PaymentRepository implements IPaymentRepository{
 
     @Override
     public void removePayment(UUID paymentID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removePayment'");
     }
 
     

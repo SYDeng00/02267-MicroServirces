@@ -3,19 +3,23 @@ package org.acme.Domains;
 import java.util.List;
 import java.util.UUID;
 
+import org.acme.Models.Token;
+
+import com.ibm.asyncutil.locks.AsyncLock.LockToken;
+
 public class Payment {
     private UUID paymentID;
     private UUID MerchantID;
-    private List<String> tokens;
+    private Token token;
     private double amount;
 
 
     public Payment(){}
     
-    public Payment(UUID paymentID, UUID merchantID, List<String> tokens, double amount) {
+    public Payment(UUID paymentID, UUID merchantID, Token token, double amount) {
             this.paymentID = paymentID;
             MerchantID = merchantID;
-            this.tokens = tokens;
+            this.token = token;
             this.amount = amount;
     }
 
@@ -26,11 +30,12 @@ public class Payment {
     public void setMerchantID(UUID merchantID) {
         MerchantID = merchantID;
     }
-    public List<String> getTokens() {
-        return tokens;
+
+    public Token getToken() {
+        return token;
     }
-    public void setTokens(List<String> tokens) {
-        this.tokens = tokens;
+    public void setToken(List<String> tokens) {
+        this.token = token;
     }
     public double getAmount() {
         return amount;
