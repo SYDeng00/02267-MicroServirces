@@ -1,10 +1,10 @@
-package org.acme.Models;
+// package org.acme.Models;
 
-import java.util.UUID;
+// import java.util.UUID;
 
-public class Merchant {
-    private UUID MerchantID;
-    private String firstName;
-    private String lastName;
-    private String accountID;
-}
+// public class Merchant {
+//     private UUID MerchantID;
+//     private String firstName;
+//     private String lastName;
+//     private String accountID;
+// }

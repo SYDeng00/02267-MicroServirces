@@ -3,6 +3,7 @@ package domin;
 import java.util.Collections;
 import java.util.List;
 
+import io.cucumber.messages.IdGenerator.UUID;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -16,14 +17,14 @@ public class DTUPay_Interface {
 	WebTarget dtuPayURL = clientPayment.target("http://localhost:8080/");
 
 	//
-	public String createDTUPayAccount(DTUPayAccount customer) {
+	public UUID createDTUPayAccount(DTUPayAccount customer) {
 		Response response = dtuPayURL.path("customers").request()
 				.post(Entity.entity(customer, MediaType.APPLICATION_JSON));
-		return response.readEntity(String.class);
+		return response.readEntity(UUID.class);
 
 	}
 
-	public List<String> getTokens(String customerDtuPayID) throws Exception {
+	public List<String> getTokens(UUID customerDtuPayID) throws Exception {
 		try {
 			Response response = dtuPayURL.path("/tokens/" + customerDtuPayID).request()
 					.post(Entity.entity(customerDtuPayID, MediaType.APPLICATION_JSON));

@@ -1,5 +1,6 @@
 package org.acme.Domains;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,17 +9,23 @@ import org.acme.Models.Token;
 import com.ibm.asyncutil.locks.AsyncLock.LockToken;
 
 public class Payment {
-    private UUID paymentID;
+    private UUID PaymentID;
     private UUID MerchantID;
-    private Token token;
-    private double amount;
+    private Token Token;
+    private BigDecimal Amount;
 
 
     public Payment(){}
     
-    public Payment(UUID paymentID, UUID merchantID, Token token, double amount) {
+    public Payment(UUID merchantID, org.acme.Domains.Token token, BigDecimal amount) {
+        MerchantID = merchantID;
+        Token = token;
+        Amount = amount;
+    }
+
+    public Payment(UUID paymentID, UUID merchantID, Token token, BigDecimal amount) {
             this.paymentID = paymentID;
-            MerchantID = merchantID;
+            this.MerchantID = merchantID;
             this.token = token;
             this.amount = amount;
     }
@@ -37,7 +44,7 @@ public class Payment {
     public void setToken(List<String> tokens) {
         this.token = token;
     }
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
     public void setAmount(double amount) {

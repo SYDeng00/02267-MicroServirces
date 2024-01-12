@@ -1,7 +1,6 @@
-package domin;
+package org.acme.payment_facade.Domains;
 
 import java.math.BigDecimal;
-
 import java.util.UUID;
 
 public class Payment {
@@ -12,8 +11,8 @@ public class Payment {
     public Payment(){}
 
 
-    public Payment(UUID merchantDtuPayID2, String token, BigDecimal amount) {
-        this.merchantDtuPayID = merchantDtuPayID2;
+    public Payment(UUID merchantDtuPayID, String token, BigDecimal amount) {
+        this.merchantDtuPayID = merchantDtuPayID;
         this.token = token;
         this.amount = amount;
     }
