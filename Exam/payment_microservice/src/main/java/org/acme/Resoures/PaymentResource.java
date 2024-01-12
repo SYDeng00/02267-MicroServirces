@@ -2,36 +2,117 @@ package org.acme.Resoures;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+// @QuarkusMain
+// public class PaymentResource {
+//     static PaymentBroker paymentBroker;
+//     public PaymentResource() {
+//         try {
+//             paymentBroker = new PaymentBroker();
+//         } catch (Exception e) {
+//             // Handle the exception or log it
+//             e.printStackTrace();
+//         }
+        
+//     }
+   
+    
+//     public static void main(String[] args){
+//         //PaymentBroker paymentBroker = new PaymentBroker();
+
+//         PaymentResource paymentResource = new PaymentResource();
+//         System.out.println("Payment service lauched, start Broker");
+//         try {
+//             paymentBroker.received();
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//         Quarkus.run();
+//     }
+// }
+
+import io.quarkus.runtime.QuarkusApplication;
+
+// @QuarkusMain
+// public class PaymentResource implements QuarkusApplication {
+
+//     static PaymentBroker paymentBroker;
+
+//     public static void main(String[] args) {
+//         Quarkus.run(PaymentResource.class, args);
+//     }
+
+//     @Override
+//     public int run(String... args) throws Exception {
+//         try {
+//             paymentBroker = new PaymentBroker();
+//         } catch (Exception e) {
+//             // Handle the exception or log it
+//             e.printStackTrace();
+//         }
+
+//         System.out.println("Payment service launched, start Broker");
+
+//         try {
+//             paymentBroker.received();
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+
+//         // You can perform additional initialization or tasks here
+
+//         return 0; // Exit code
+//     }
+// }
+
+
+
 @QuarkusMain
-public class PaymentResource {
+public class PaymentResource implements QuarkusApplication {
+
     static PaymentBroker paymentBroker;
-    public PaymentResource() {
+
+    public static void main(String[] args) {
+        Quarkus.run(PaymentResource.class, args);
+    }
+
+    @Override
+    public int run(String... args) throws Exception {
         try {
             paymentBroker = new PaymentBroker();
         } catch (Exception e) {
             // Handle the exception or log it
             e.printStackTrace();
         }
-        
-    }
-   
-    
-    public static void main(String[] args){
-        //PaymentBroker paymentBroker = new PaymentBroker();
-        PaymentResource paymentResource = new PaymentResource();
-        System.out.println("Payment service lauched, start Broker");
+
+        System.out.println("Payment service launched, start Broker");
+
         try {
             paymentBroker.received();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Quarkus.run();
+
+        // Run a long-lived task or thread
+        startLongRunningTask();
+
+        // Quarkus application will continue running
+
+        return 0; // Exit code
+    }
+
+    private void startLongRunningTask() {
+        // Example: Start a background thread
+        Thread backgroundThread = new Thread(() -> {
+            while (true) {
+                // Perform some long-running task
+                try {
+                    Thread.sleep(5000); // Sleep for 5 seconds as an example
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        backgroundThread.setDaemon(true);
+        backgroundThread.start();
     }
 }
