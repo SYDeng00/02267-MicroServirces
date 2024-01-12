@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.acme.Models.Token;
 
-import com.ibm.asyncutil.locks.AsyncLock.LockToken;
 
 public class Payment {
     private UUID PaymentID;
@@ -17,17 +16,17 @@ public class Payment {
 
     public Payment(){}
     
-    public Payment(UUID merchantID, org.acme.Domains.Token token, BigDecimal amount) {
+    public Payment(UUID merchantID, Token token, BigDecimal amount) {
         MerchantID = merchantID;
         Token = token;
         Amount = amount;
     }
 
     public Payment(UUID paymentID, UUID merchantID, Token token, BigDecimal amount) {
-            this.paymentID = paymentID;
+            this.PaymentID = paymentID;
             this.MerchantID = merchantID;
-            this.token = token;
-            this.amount = amount;
+            this.Token = token;
+            this.Amount = amount;
     }
 
     
@@ -39,24 +38,24 @@ public class Payment {
     }
 
     public Token getToken() {
-        return token;
+        return Token;
     }
-    public void setToken(List<String> tokens) {
-        this.token = token;
+    public void setToken(Token token) {
+        this.Token = token;
     }
     public BigDecimal getAmount() {
-        return amount;
+        return Amount;
     }
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setAmount(BigDecimal amount) {
+        this.Amount = amount;
     }
 
     public UUID getPaymentID() {
-        return paymentID;
+        return PaymentID;
     }
 
     public void setPaymentID(UUID paymentID) {
-        this.paymentID = paymentID;
+        this.PaymentID = paymentID;
     }
 
     

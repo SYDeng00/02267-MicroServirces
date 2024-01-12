@@ -29,7 +29,7 @@ public class PaymentBroker implements IEventSubscriber{
                     paymentID,
                     merchanUuid,
                     token,
-                    amount));
+                    new BigDecimal(amount)));
                 eventPublisher.publishEvent(new Message(PaymentConfig.VALID_TOKENS,new Object[]{token}));
                 break;
             case PaymentConfig.VALID_RESULT:
@@ -53,7 +53,7 @@ public class PaymentBroker implements IEventSubscriber{
                     bank.transferMoneyFromTo(
                         merchanUuid2.toString(), 
                         customerUuid.toString(), 
-                        new BigDecimal(payment.getAmount()),
+                        payment.getAmount(),
                         "");
                     
                     eventPublisher.publishEvent(
