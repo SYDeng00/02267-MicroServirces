@@ -45,11 +45,11 @@ public class EventSubscriber {
             System.out.println("[x] receiving "+request);
 
             Message message = new Gson().fromJson(request, Message.class);
-            Callback callback = new Callback(message.getService(),message.getEvent());
+            Callback callback = new Callback(message.getService(),message.getPayload());
             message.setCallback(callback);
             try {
                 System.out.println("In consume");
-                this.callback.subscribeEvent();
+                this.callback.subscribeEvent(message);
             } catch (Exception e) {
                 e.getStackTrace();
             }

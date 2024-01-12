@@ -5,22 +5,19 @@ import java.util.UUID;
 import jakarta.validation.Payload;
 
 public class Message {
-    private String evenType;
+    private String eventType;
     private Object[] payload;
     private String status;
     private UUID messageID = UUID.randomUUID();
     
-
-    private String event;
-    private UUID requestID;
     private Callback callback = new Callback();
     
     private String service="default_service";
 
 
     
-    public Message(String evenType, Object[] payload) {
-        this.evenType = evenType;
+    public Message(String eventType, Object[] payload) {
+        this.eventType = eventType;
         this.payload = payload;
     }
     public Callback getCallback() {
@@ -29,37 +26,23 @@ public class Message {
     public void setCallback(Callback callback) {
         this.callback = callback;
     }
-    
-    public UUID getRequestID() {
-        return requestID;
-    }
-    public void setRequestID(UUID requestID) {
-        this.requestID = requestID;
-    }
+ 
     public String getService() {
         return service;
     }
     public void setService(String service) {
         this.service = service;
     }
-    public String getEvent() {
-        return event;
-    }
-    public void setEvent(String event) {
-        this.event = event;
-    }
+  
     public Message(){
 
     }
-    public Message(String service, String event){
-        this.service = service;
-        this.event = event;
+   
+    public String getEventType() {
+        return eventType;
     }
-    public String getEvenType() {
-        return evenType;
-    }
-    public void setEvenType(String evenType) {
-        this.evenType = evenType;
+    public void setEvenType(String eventType) {
+        this.eventType = eventType;
     }
     public Object[] getPayload() {
         return payload;

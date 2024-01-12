@@ -37,11 +37,12 @@
     <version>3.12.14</version>
 </dependency>
 
-        <!-- <dependency>
-            <groupId>com.example</groupId>
+    <dependency>
+            <groupId>org.acme</groupId>
             <artifactId>message-utils</artifactId>
-            <version>3.0.0</version>
-        </dependency> -->
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- General REST framework -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>

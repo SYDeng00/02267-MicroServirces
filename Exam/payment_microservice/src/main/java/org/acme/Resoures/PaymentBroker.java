@@ -3,15 +3,13 @@ package org.acme.Resoures;
 import java.rmi.server.ObjID;
 import java.util.UUID;
 
+import org.acme.Domains.Message;
 import org.acme.Domains.Payment;
 import org.acme.Interfaces.IEventSubscriber;
-
 import com.google.gson.Gson;
 
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceService;
-import io.cucumber.plugin.event.EventPublisher;
-import org.acme.Resoures.Config;
 
 public class PaymentBroker implements IEventSubscriber{
 
@@ -20,26 +18,24 @@ public class PaymentBroker implements IEventSubscriber{
     @Override 
     public void subscribeEvent(Message message) throws Exception {
         // The message need to be import from message-utils
-        String event = message.get("eventType");
-        Object[] payload = message.get("payload");
+        String event = message.getEvenType();
+        Object[] payload = message.getPayload();
         switch (event) {
-            case MERCHANT_ASK_PAYMENT:
+            case PaymentConfig.MERCHANT_ASK_PAYMENT:
                 UUID paymentID = UUID.randomUUID();
                 paymentRepository.addPayment(new Payment(paymentID,payload[0],payload[1],payload[2]));
-                eventPublisher.publish(new Messsage(VALID_TOKENS,new Obeject[]{payload[1]}));
+                eventPublisher.publishEvent(new Messsage(PaymentConfig.VALID_TOKENS,new Obeject[]{payload[1]}));
                 break;
-            case VALID_RESULT:
-    
+            case PaymentConfig.VALID_RESULT:
                 boolean validResult = this.typeTransfer(payload[0], boolean.class)
                 if(validResult){
                    Payment payment = paymentRepository.getPayment(typeTransfer(payload[0], UUID.class));
-                    
-                    eventPublisher.publish(new Message(REQUEST_BANK_ACCOUNTS,new Object[]{payload[0],payload[1].getCustomerID() }));
+                    eventPublisher.publishEvent(new Message(PaymentConfig.REQUEST_BANK_ACCOUNTS,new Object[]{payload[0],payload[1].getCustomerID() }));
                 }else{
                     //TODO
                 }
                 break;
-            case GET_ACCOUNTS:
+            case PaymentConfig.GET_ACCOUNTS:
                 try {
                     BankService bank = new BankServiceService().getBankServicePort();
                     Payment payment = paymentRepository.getPayment(typeTransfer(payload[0],UUID.class));
@@ -55,7 +51,6 @@ public class PaymentBroker implements IEventSubscriber{
 
 
 
-                
             
             default:
                 break;

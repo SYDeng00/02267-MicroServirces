@@ -4,16 +4,16 @@ package org.acme.Domains;
 
 public class Callback {
     private String service;
-    private String event;    
+    private Object[] payload;    
     
     
     public Callback(){
 
     }
 
-    public Callback(String service, String event){
+    public Callback(String service, Object[] payload){
         this.service = service;
-        this.event = event;
+        this.payload = payload;
     }
 
     public void setService(String service){
@@ -24,11 +24,11 @@ public class Callback {
         return this.service;
     }
 
-    public void setEvent(String event){
-        this.event = event;
+    public void setPayload(String event){
+        this.payload = payload;
     }
 
-    public String getEvent(){
-        return this.event;
+    public Object[] getPayload(){
+        return this.payload;
     }
 }
