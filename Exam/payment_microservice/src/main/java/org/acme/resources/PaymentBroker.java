@@ -17,6 +17,7 @@ public class PaymentBroker implements IEventSubscriber {
 
     private static final Logger LOG = Logger.getLogger(PaymentBroker.class);
 
+    // Processes different types of payment-related messages.
     @Override
     public void subscribeEvent(Message message) throws Exception {
         // The message need to be import from message-utils
@@ -39,10 +40,12 @@ public class PaymentBroker implements IEventSubscriber {
             LOG.trace("-------------------------------\nRefund request received");
                 paymentHandler.getRefund(payload);
             default:
+                // Default case for unhandled events.
                 break;
         }
     }
 
+    // Static method for converting an object to a specified type using Gson.
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();
         String json = gson.toJson(payload);
