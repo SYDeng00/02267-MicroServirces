@@ -9,11 +9,9 @@ public class Payment {
     private UUID paymentId;
     private UUID merchantId;
     private UUID customerId=null;
-    
-
+    private UUID messageId;
     private String token;
     private BigDecimal amount;
-
 
     public Payment(){}
     
@@ -23,14 +21,20 @@ public class Payment {
         this.token = token;
         this.amount = amount;
     }
-
-    public Payment(UUID paymentId, UUID merchantId, UUID customertID, String token, BigDecimal amount) {
-            this.paymentId = paymentId;
-            this.merchantId = merchantId;
-            this.customerId = customertID;
-            this.token = token;
-            this.amount = amount;
+    public Payment(UUID paymentId, UUID messageId, UUID merchantId, String token, BigDecimal amount) {
+        this.merchantId = merchantId;
+        this.paymentId = paymentId;
+        this.token = token;
+        this.amount = amount;
+        this.merchantId = messageId;
     }
+    // public Payment(UUID paymentId, UUID merchantId, UUID customertID, String token, BigDecimal amount) {
+    //         this.paymentId = paymentId;
+    //         this.merchantId = merchantId;
+    //         this.customerId = customertID;
+    //         this.token = token;
+    //         this.amount = amount;
+    // }
 
     
     public UUID getMerchantId() {
@@ -67,5 +71,29 @@ public class Payment {
 
     public void setCustomerID(UUID customerID) {
         this.customerId = customerID;
+    }
+
+    public UUID getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(UUID paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public UUID getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
+    }
+
+    public UUID getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(UUID messageId) {
+        this.messageId = messageId;
     }
 }
