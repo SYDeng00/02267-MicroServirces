@@ -1,4 +1,4 @@
-package org.acme.domains;
+package org.acme.Domains;
 
 import java.math.BigDecimal;
 import java.util.UUID;

@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.acme.interfaces.IPaymentRepository;
-import org.acme.domains.Payment;
-import org.acme.domains.Refund;
+import org.acme.Domains.Payment;
+import org.acme.Domains.Refund;
+import org.acme.Interfaces.IPaymentRepository;
 
 public class PaymentRepository implements IPaymentRepository{
     HashMap<UUID,Payment> payments = new HashMap<>();

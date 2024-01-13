@@ -16,7 +16,7 @@ public class PaymentConfig {
     // is null
 
     public static final String SEND_PAYMENT_RESULT = "PaymentResult";
-    // {UUID->paymmentID, UUID messageId,String->reason}
+    // {UUID->paymmentID, UUID+:messageId,String->reason}
 
     public static final String SEND_REQUEST_BANK_ACCOUNTS = "RequestBankAccounts";
     // {UUID->paymentID, UUID->merchantID, UUID->customerID, String->payment
