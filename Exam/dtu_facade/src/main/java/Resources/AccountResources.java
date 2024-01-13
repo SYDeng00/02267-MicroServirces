@@ -49,11 +49,11 @@ import jakarta.ws.rs.core.Response;
 @Path("/")
 public class AccountResources implements IEventSubscriber {
     EventPublisher publisher = new EventPublisher();
-    EventSubscriber subscriber = new EventSubscriber(this); // 假设 EventSubscriber 能够订阅消息队列
-    String receivedId; // 用于存储接收到的ID
+    EventSubscriber subscriber = new EventSubscriber(this); 
+    String receivedId; 
 
     public AccountResources() {
-        // 订阅事件
+
         try {
 			subscriber.subscribeEvent("AccountResources");
 		} catch (Exception e) {
@@ -70,8 +70,7 @@ public class AccountResources implements IEventSubscriber {
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker",
                     new Object[] { account }));
 
-            // 等待或检索接收到的ID（需要一种同步或异步的机制）
-            // 这里的实现依赖于您的具体需求和架构
+
             String id = waitForIdOrRetrieveIt();
 
             return Response.status(201).entity("The Account was successful - ID: " + id).build();
@@ -82,7 +81,7 @@ public class AccountResources implements IEventSubscriber {
 
     @Override
     public void subscribeEvent(Message message) {
-        // 解析消息并提取ID
+
         if (message.getEventType().equals(AccountConfig.RETURN_ID) && message.getService().equals("AccountResources")) {
             Gson gson = new Gson();
             receivedId = gson.fromJson(gson.toJson(message.getPayload()[0]), String.class);
@@ -90,7 +89,7 @@ public class AccountResources implements IEventSubscriber {
     }
 
     private String waitForIdOrRetrieveIt() {
-        // 实现等待或检索ID的逻辑
+
         return receivedId;
     }
 }
