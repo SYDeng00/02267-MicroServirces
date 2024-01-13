@@ -1,5 +1,10 @@
-package org.acme.resources;
-
+package org.acme.Resources;
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class PaymentConfig {
     private PaymentConfig() {
         throw new UnsupportedOperationException("This class should not be instantiated.");

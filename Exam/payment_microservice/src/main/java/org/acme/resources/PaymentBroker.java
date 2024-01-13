@@ -1,4 +1,4 @@
-package org.acme.resources;
+package org.acme.Resources;
 
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
@@ -7,9 +7,14 @@ import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
 import org.jboss.logging.Logger;
 
-import com.google.gson.Gson;
-
-
+/**
+ * This is message broker. By implements IEventSubscriber,
+ * subscribeEvent() can act as the callback function in EventSubscriber method
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class PaymentBroker implements IEventSubscriber {
     EventPublisher eventPublisher = new EventPublisher();
     PaymentRepository paymentRepository = new PaymentRepository();
@@ -43,13 +48,6 @@ public class PaymentBroker implements IEventSubscriber {
                 // Default case for unhandled events.
                 break;
         }
-    }
-
-    // Static method for converting an object to a specified type using Gson.
-    public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
-        Gson gson = new Gson();
-        String json = gson.toJson(payload);
-        return gson.fromJson(json, objectClass);
     }
 
     public void received() throws Exception {

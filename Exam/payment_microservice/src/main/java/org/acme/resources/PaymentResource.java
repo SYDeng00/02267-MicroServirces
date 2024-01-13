@@ -1,11 +1,18 @@
-package org.acme.resources;
+package org.acme.Resources;
 
 import org.jboss.logging.Logger;
-
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
-
 import io.quarkus.runtime.QuarkusApplication;
+
+/**
+ * This is the main clss of microservice,
+ * used for automatically run the subscriber functions
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 
 @QuarkusMain
 public class PaymentResource implements QuarkusApplication {

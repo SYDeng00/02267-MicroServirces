@@ -7,7 +7,12 @@ import java.util.UUID;
 import org.acme.Domains.Message;
 
 import main.java.org.acme.payment_facade.Interfaces.IPaymentFacadeRepositories;
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class PaymentFacadeRepositories  implements IPaymentFacadeRepositories{
     static HashMap<UUID,Message> messages = new HashMap<>();
 
@@ -31,5 +36,4 @@ public class PaymentFacadeRepositories  implements IPaymentFacadeRepositories{
     public void  removeMessage(UUID MessageID) {
         messages.remove(MessageID);
     }
-
 }

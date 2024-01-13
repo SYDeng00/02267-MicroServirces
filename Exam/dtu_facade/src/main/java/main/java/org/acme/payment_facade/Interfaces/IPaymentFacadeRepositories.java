@@ -5,7 +5,12 @@ import java.util.UUID;
 
 import org.acme.Domains.Message;
 
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public interface IPaymentFacadeRepositories{
      void addMessage(Message message);
      Message getMessage(UUID MessageID);

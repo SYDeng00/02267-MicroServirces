@@ -1,10 +1,14 @@
+
 package org.acme.Domains;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-
-
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class Payment {
     private UUID paymentId;
     private UUID merchantId;
@@ -28,14 +32,6 @@ public class Payment {
         this.amount = amount;
         this.merchantId = messageId;
     }
-    // public Payment(UUID paymentId, UUID merchantId, UUID customertID, String token, BigDecimal amount) {
-    //         this.paymentId = paymentId;
-    //         this.merchantId = merchantId;
-    //         this.customerId = customertID;
-    //         this.token = token;
-    //         this.amount = amount;
-    // }
-
     
     public UUID getMerchantId() {
         return merchantId;

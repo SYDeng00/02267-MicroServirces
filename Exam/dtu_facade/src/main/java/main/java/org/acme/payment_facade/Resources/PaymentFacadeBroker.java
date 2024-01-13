@@ -12,7 +12,12 @@ import com.google.gson.Gson;
 
 import main.java.org.acme.payment_facade.Domains.Payment;
 import main.java.org.acme.payment_facade.Repositories.PaymentFacadeRepositories;
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class PaymentFacadeBroker implements IEventSubscriber {
     CompletableFuture<String> waitFormessageReply = new CompletableFuture<>();
     PaymentFacadeRepositories paymentFacadeRepositories = new PaymentFacadeRepositories();
@@ -27,8 +32,6 @@ public class PaymentFacadeBroker implements IEventSubscriber {
                             payment.getToken(),
                             payment.getAmount() });
             publisher.publishEvent(message);
-            // this.received();
-            // wait for this
             waitFormessageReply.join();
         } catch (Exception e) {
             waitFormessageReply.complete("404");

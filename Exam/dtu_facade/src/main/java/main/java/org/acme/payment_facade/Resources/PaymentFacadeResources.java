@@ -6,7 +6,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import main.java.org.acme.payment_facade.Domains.Payment;
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 @Path("/")
 public class PaymentFacadeResources {
     @POST
