@@ -1,4 +1,4 @@
-package org.acme.Domains;
+package org.acme.domains;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -6,66 +6,66 @@ import java.util.UUID;
 
 
 public class Payment {
-    private UUID PaymentID;
-    private UUID MerchantID;
-    private UUID CustomerID;
+    private UUID paymentId;
+    private UUID merchantId;
+    private UUID customerId=null;
     
 
-    private String Token;
-    private BigDecimal Amount;
+    private String token;
+    private BigDecimal amount;
 
 
     public Payment(){}
     
-    public Payment(UUID merchantID, UUID customertID,String token, BigDecimal amount) {
-        this.MerchantID = merchantID;
-        this.CustomerID = customertID;
-        this.Token = token;
-        this.Amount = amount;
+    public Payment(UUID paymentId, UUID merchantId, String token, BigDecimal amount) {
+        this.merchantId = merchantId;
+        this.paymentId = paymentId;
+        this.token = token;
+        this.amount = amount;
     }
 
-    public Payment(UUID paymentID, UUID merchantID, UUID customertID, String token, BigDecimal amount) {
-            this.PaymentID = paymentID;
-            this.MerchantID = merchantID;
-            this.CustomerID = customertID;
-            this.Token = token;
-            this.Amount = amount;
+    public Payment(UUID paymentId, UUID merchantId, UUID customertID, String token, BigDecimal amount) {
+            this.paymentId = paymentId;
+            this.merchantId = merchantId;
+            this.customerId = customertID;
+            this.token = token;
+            this.amount = amount;
     }
 
     
-    public UUID getMerchantID() {
-        return MerchantID;
+    public UUID getMerchantId() {
+        return merchantId;
     }
-    public void setMerchantID(UUID merchantID) {
-        MerchantID = merchantID;
+    public void setMerchantId(UUID merchantID) {
+        merchantId = merchantID;
     }
 
     public String getToken() {
-        return Token;
+        return token;
     }
     public void setToken(String token) {
-        this.Token = token;
+        this.token = token;
     }
     public BigDecimal getAmount() {
-        return Amount;
+        return amount;
     }
     public void setAmount(BigDecimal amount) {
-        this.Amount = amount;
+        this.amount = amount;
     }
 
     public UUID getPaymentID() {
-        return PaymentID;
+        return paymentId;
     }
 
     public void setPaymentID(UUID paymentID) {
-        this.PaymentID = paymentID;
+        this.paymentId = paymentID;
     }
 
     public UUID getCustomerID() {
-        return CustomerID;
+        return customerId;
     }
 
     public void setCustomerID(UUID customerID) {
-        CustomerID = customerID;
+        this.customerId = customerID;
     }
 }
