@@ -1,4 +1,4 @@
-package domin;
+package Domains;
 
 public class DTUPayAccount {
     String firstName;

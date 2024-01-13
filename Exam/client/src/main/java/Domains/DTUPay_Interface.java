@@ -1,4 +1,4 @@
-package domin;
+package Domains;
 
 import java.util.Collections;
 import java.util.List;

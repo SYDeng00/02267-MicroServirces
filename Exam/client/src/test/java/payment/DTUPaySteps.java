@@ -1,15 +1,18 @@
 package payment;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import domin.DTUPayAccount;
-import domin.DTUPay_Interface;
-import domin.Payment;
+
+import Domains.DTUPayAccount;
+import Domains.DTUPay_Interface;
+import Domains.Payment;
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;

@@ -1,12 +1,10 @@
 package org.acme.Resoures;
 
 import java.math.BigDecimal;
-import java.rmi.server.ObjID;
 import java.util.UUID;
 import org.acme.Domains.Message;
 import org.acme.Domains.Payment;
 import org.acme.Interfaces.IEventSubscriber;
-import org.acme.Models.Token;
 import com.google.gson.Gson;
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceService;
@@ -20,31 +18,33 @@ public class PaymentBroker implements IEventSubscriber{
         String event = message.getEventType();
         Object[] payload = message.getPayload();
         switch (event) {
-            case PaymentConfig.MERCHANT_ASK_PAYMENT:
+            case PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT:
                 UUID paymentID = UUID.randomUUID();
                 UUID merchanUuid = typeTransfer(payload[0],UUID.class);
-                Token token = typeTransfer(payload[1],Token.class);
+                String token = typeTransfer(payload[1],String.class);
                 double amount = typeTransfer(payload[2],Double.class);
+                System.out.println("Payment received message:"+PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT+"-->"+paymentID.toString()+merchanUuid.toString()+String.valueOf(amount));
                 paymentRepository.addPayment(new Payment(
                     paymentID,
                     merchanUuid,
                     token,
                     new BigDecimal(amount)));
-                eventPublisher.publishEvent(new Message(PaymentConfig.VALID_TOKENS,new Object[]{token}));
+                eventPublisher.publishEvent(new Message(PaymentConfig.SEND_VALID_TOKENS,"TokenBroker",new Object[]{paymentID,token}));
+                System.out.println("Payment send message:"+PaymentConfig.SEND_VALID_TOKENS);
                 break;
-            case PaymentConfig.VALID_RESULT:
+            case PaymentConfig.RECEIVE_VALID_RESULT:
                 boolean validResult = this.typeTransfer(payload[0], boolean.class);
                 if(validResult){
                     Payment payment = paymentRepository.getPayment(typeTransfer(payload[0], UUID.class));
                     UUID merchaneUuid3 = typeTransfer(payload[0],UUID.class);
-                    Token token1 = typeTransfer(payload[1],Token.class);
+                    String token1 = typeTransfer(payload[1],String.class);
                    
-                    eventPublisher.publishEvent(new Message(PaymentConfig.REQUEST_BANK_ACCOUNTS,new Object[]{merchaneUuid3,token1}));
+                    eventPublisher.publishEvent(new Message(PaymentConfig.SEND_REQUEST_BANK_ACCOUNTS,"AccountBroker",new Object[]{payment.getPaymentID(),merchaneUuid3,token1}));
                 }else{
                     //TODO
                 }
                 break;
-            case PaymentConfig.GET_ACCOUNTS:
+            case PaymentConfig.RECEIVE_GET_ACCOUNTS:
                 try {
                     BankService bank = new BankServiceService().getBankServicePort();
                     Payment payment = paymentRepository.getPayment(typeTransfer(payload[0],UUID.class));
@@ -58,10 +58,11 @@ public class PaymentBroker implements IEventSubscriber{
                     
                     eventPublisher.publishEvent(
                         new Message(
-                            PaymentConfig.UPDATE_PAYMENTS_REPORT,
+                            PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
+                            "ReportBroker",
                             new Object[]{
                                 payment.getPaymentID(),
-                                payment.getToken().getCustomerID(),
+                                payment.getCustomerID(),
                                 payment.getAmount()}));
                     paymentRepository.removePayment(payment.getPaymentID());
                 } catch (Exception e) {
@@ -83,7 +84,7 @@ public class PaymentBroker implements IEventSubscriber{
     public void received() throws Exception{
         try{
             EventSubscriber subscriber = new EventSubscriber(new PaymentBroker());
-            subscriber.subscribeEvent();
+            subscriber.subscribeEvent(this.getClass().getSimpleName());
         }catch (Exception e) {
             e.printStackTrace();
         }

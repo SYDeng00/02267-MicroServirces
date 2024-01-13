@@ -1,4 +1,4 @@
-package org.acme.payment_facade;
+package org.acme.payment_facade.Resources;
 
 
 import org.acme.Domains.Message;
@@ -21,7 +21,7 @@ public class PaymentResources {
         try {
 
             EventPublisher publisher = new EventPublisher();
-            publisher.publishEvent(new Message(PaymentConfig.MERCHANT_ASK_PAYMENT, new Object[]{payment.getMerchantDtuPayID(),payment.getToken(),payment.getAmount()}));
+            publisher.publishEvent(new Message(PaymentConfig.MERCHANT_ASK_PAYMENT, "PaymentBroker",new Object[]{payment.getMerchantDtuPayID(),payment.getToken(),payment.getAmount()}));
             return Response.status(201).entity("The payment was successful - ").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();

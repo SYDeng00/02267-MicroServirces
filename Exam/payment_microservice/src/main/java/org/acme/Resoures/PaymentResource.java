@@ -65,6 +65,9 @@ import io.quarkus.runtime.QuarkusApplication;
 // }
 
 
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.QuarkusApplication;
+import io.quarkus.runtime.annotations.QuarkusMain;
 
 @QuarkusMain
 public class PaymentResource implements QuarkusApplication {
@@ -95,15 +98,16 @@ public class PaymentResource implements QuarkusApplication {
         // Run a long-lived task or thread
         startLongRunningTask();
 
-        // Quarkus application will continue running
+        // Keep the application running
+        Quarkus.waitForExit();
 
-        return 0; // Exit code
+        return 0; // This line won't be reached until the application is stopped
     }
 
     private void startLongRunningTask() {
         // Example: Start a background thread
         Thread backgroundThread = new Thread(() -> {
-            while (true) {
+            while (!Thread.interrupted()) {
                 // Perform some long-running task
                 try {
                     Thread.sleep(5000); // Sleep for 5 seconds as an example
@@ -112,7 +116,7 @@ public class PaymentResource implements QuarkusApplication {
                 }
             }
         });
-        backgroundThread.setDaemon(true);
+        backgroundThread.setDaemon(true); // Set to true if you want it to be a daemon thread
         backgroundThread.start();
     }
 }

@@ -1,4 +1,4 @@
-package org.acme.payment_facade;
+package org.acme.payment_facade.Resources;
 
 public class PaymentConfig {
     public static final String MERCHANT_ASK_PAYMENT = "MerchantAskPayment";

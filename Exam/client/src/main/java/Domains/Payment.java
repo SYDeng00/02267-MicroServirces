@@ -1,4 +1,4 @@
-package domin;
+package Domains;
 
 import java.math.BigDecimal;
 

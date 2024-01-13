@@ -12,13 +12,14 @@ public class Message {
     
     private Callback callback = new Callback();
     
-    private String service="default_service";
+    private String service=null;
 
 
     
-    public Message(String eventType, Object[] payload) {
+    public Message(String eventType, String service, Object[] payload) {
         this.eventType = eventType;
         this.payload = payload;
+        this.service = service;
     }
     public Callback getCallback() {
         return callback;

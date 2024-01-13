@@ -1,30 +1,33 @@
 package org.acme.Domains;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
-import org.acme.Models.Token;
 
 
 public class Payment {
     private UUID PaymentID;
     private UUID MerchantID;
-    private Token Token;
+    private UUID CustomerID;
+    
+
+    private String Token;
     private BigDecimal Amount;
 
 
     public Payment(){}
     
-    public Payment(UUID merchantID, Token token, BigDecimal amount) {
-        MerchantID = merchantID;
-        Token = token;
-        Amount = amount;
+    public Payment(UUID merchantID, UUID customertID,String token, BigDecimal amount) {
+        this.MerchantID = merchantID;
+        this.CustomerID = customertID;
+        this.Token = token;
+        this.Amount = amount;
     }
 
-    public Payment(UUID paymentID, UUID merchantID, Token token, BigDecimal amount) {
+    public Payment(UUID paymentID, UUID merchantID, UUID customertID, String token, BigDecimal amount) {
             this.PaymentID = paymentID;
             this.MerchantID = merchantID;
+            this.CustomerID = customertID;
             this.Token = token;
             this.Amount = amount;
     }
@@ -37,10 +40,10 @@ public class Payment {
         MerchantID = merchantID;
     }
 
-    public Token getToken() {
+    public String getToken() {
         return Token;
     }
-    public void setToken(Token token) {
+    public void setToken(String token) {
         this.Token = token;
     }
     public BigDecimal getAmount() {
@@ -58,6 +61,11 @@ public class Payment {
         this.PaymentID = paymentID;
     }
 
-    
-    
+    public UUID getCustomerID() {
+        return CustomerID;
+    }
+
+    public void setCustomerID(UUID customerID) {
+        CustomerID = customerID;
+    }
 }
