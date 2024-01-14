@@ -3,6 +3,7 @@ package Resources;
 
 import Domains.Token;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -14,6 +15,7 @@ import org.acme.Interfaces.IEventSubscriber;
 import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -48,20 +50,25 @@ public class TokenResources implements IEventSubscriber{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getTokenSet(Token token)  {
-        try
-        {
-        publisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenBroker", new Object[] { token }));
+    public Response getTokenSet(Token token)  {
+        try {
+            // Publish the event
+            publisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenBroker", new Object[] { token }));
+            idFuture = new CompletableFuture<>();
 
-        idFuture = new CompletableFuture<>();
+            // Wait for the response
+            List<String> tokens = Collections.singletonList(idFuture.get(10, TimeUnit.SECONDS)); // Assuming this returns a List<String>
 
-        String id = idFuture.get(10, TimeUnit.SECONDS); //wait for 10 seconds
+            // Check if tokens are received
+            if (tokens != null && !tokens.isEmpty()) {
+                return Response.status(Response.Status.CREATED).entity(tokens).build();
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).entity("Token generation failed").build();
+            }
 
-        return (List<String>) Response.status(201).entity("The Token was successfully generated: " + id).build();
-
-    } catch (Exception err) {
-        return (List<String>) Response.status(400).entity(err.getMessage()).build();
-    }
+        } catch (Exception err) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(err.getMessage()).build();
+        }
     }
 
 
@@ -69,8 +76,9 @@ public class TokenResources implements IEventSubscriber{
     public void subscribeEvent(Message message)  {
         if (message.getEventType().equals(TokenConfig.RETURN_TOKEN) && message.getService().equals("TokenResources")) {
             Gson gson = new Gson();
-            receivedId = gson.fromJson(gson.toJson(message.getPayload()[0]), String.class);
-            idFuture.complete(receivedId);
+            // Assuming the payload is a list of tokens
+            List<String> tokens = gson.fromJson(gson.toJson(message.getPayload()[0]), new TypeToken<List<String>>(){}.getType());
+            idFuture.complete(tokens.toString());
         }
     }
 
