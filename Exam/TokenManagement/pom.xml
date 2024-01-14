@@ -59,6 +59,12 @@
       <artifactId>quarkus-resteasy-jaxb</artifactId>
       <version>2.15.2.Final</version>
     </dependency>
+      <dependency>
+          <groupId>org.acme</groupId>
+          <artifactId>message-utils</artifactId>
+          <version>1.0.0</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
   <build>
     <plugins>

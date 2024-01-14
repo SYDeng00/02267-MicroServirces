@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.Resource;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -8,7 +8,7 @@ import org.acme.service.TokenManagementServices;
 import java.util.List;
 
 @Path("/")
-public class TokenResource {
+public class TokenResourceRest {
 TokenManagementServices tokenManagementServices = new TokenManagementServices();
     @Path("/tokens")
     @GET
