@@ -1,4 +1,4 @@
-package org.acme.service;
+package org.acme.business_logic;
 
 import org.acme.Utils.HelperAttributes;
 import org.acme.Domain.Token;

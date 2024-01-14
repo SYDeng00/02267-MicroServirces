@@ -3,7 +3,7 @@ package org.acme.Resource;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.acme.Domain.Token;
-import org.acme.service.TokenManagementServices;
+import org.acme.business_logic.TokenManagementServices;
 
 import java.util.List;
 
