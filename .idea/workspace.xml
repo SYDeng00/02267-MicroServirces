@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="PAYMENT: COMMENT, CUCUMBER TEST">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/Exam.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/payment_microservice/src/test/java/all_payment_test_steps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/payment_microservice/src/test/resources/all_payment_test.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/payment_microservice/src/test/resources/features/all_payment_test.feature" beforeDir="false" />
+    <list default="true" id="ed79abdb-1774-4044-a690-c8aa39bd62d8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/02267-Web.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/payment_microservice/src/test/resources/features/payment.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/payment_microservice/src/test/resources/features/payment.feature" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,14 +16,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2axioMfOEFkziyWCpJzFxMaJthf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2axtq7hN75rkLFmCoxqo0Yi0ixR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,40 +38,22 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/Project/bob/02267-Web",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="" />
-      <created>1705266805340</created>
+      <changelist id="ed79abdb-1774-4044-a690-c8aa39bd62d8" name="Changes" comment="" />
+      <created>1705272247262</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1705266805340</updated>
-      <workItem from="1705266806391" duration="764000" />
-      <workItem from="1705268162896" duration="4000" />
+      <updated>1705272247262</updated>
+      <workItem from="1705272250104" duration="263000" />
     </task>
-    <task id="LOCAL-00001" summary="PAYMENT: COMMENT, CUCUMBER TEST">
-      <option name="closed" value="true" />
-      <created>1705267968904</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1705267968904</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="PAYMENT: COMMENT, CUCUMBER TEST" />
-    <option name="LAST_COMMIT_MESSAGE" value="PAYMENT: COMMENT, CUCUMBER TEST" />
   </component>
 </project>
