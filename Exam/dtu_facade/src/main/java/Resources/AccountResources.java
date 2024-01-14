@@ -86,10 +86,6 @@ public class AccountResources implements IEventSubscriber {
 
             String id = idFuture.get(10, TimeUnit.SECONDS); //wait for 10 seconds
 
-   
-            publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker",
-                    new Object[] { account }));
-
             return Response.status(201).entity("The Account was successful - ID: " + id).build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
