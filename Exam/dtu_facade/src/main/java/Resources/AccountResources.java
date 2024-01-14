@@ -31,12 +31,20 @@
 //
 //}
 
+
+
+
+
 package Resources;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
 import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
+
 import com.google.gson.Gson;
 
 import Domains.DTUPayAccount;
@@ -52,10 +60,14 @@ public class AccountResources implements IEventSubscriber {
     EventSubscriber subscriber = new EventSubscriber(this); 
     String receivedId; 
 
+    private CompletableFuture<String> idFuture;
+
     public AccountResources() {
 
         try {
 			subscriber.subscribeEvent("AccountResources");
+			idFuture = new CompletableFuture<>();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,11 +79,16 @@ public class AccountResources implements IEventSubscriber {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerAccount(DTUPayAccount account) {
         try {
+        	
+            publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
+
+            idFuture = new CompletableFuture<>();
+
+            String id = idFuture.get(10, TimeUnit.SECONDS); //wait for 10 seconds
+
+   
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker",
                     new Object[] { account }));
-
-
-            String id = waitForIdOrRetrieveIt();
 
             return Response.status(201).entity("The Account was successful - ID: " + id).build();
         } catch (Exception err) {
@@ -85,12 +102,22 @@ public class AccountResources implements IEventSubscriber {
         if (message.getEventType().equals(AccountConfig.RETURN_ID) && message.getService().equals("AccountResources")) {
             Gson gson = new Gson();
             receivedId = gson.fromJson(gson.toJson(message.getPayload()[0]), String.class);
+            idFuture.complete(receivedId); 
         }
     }
 
-    private String waitForIdOrRetrieveIt() {
-
+    private String waitForIdOrRetrieveIt() throws InterruptedException {
+        int attempts = 0;
+        while (receivedId == null && attempts < 5) {
+            Thread.sleep(1);
+            attempts++;
+        }
         return receivedId;
     }
+
 }
+
+
+
+
 
