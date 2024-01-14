@@ -20,33 +20,24 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+@Path("/")
 public class TokenResources implements IEventSubscriber{
 
     EventPublisher publisher = new EventPublisher();
     EventSubscriber subscriber = new EventSubscriber( this);
-
-
-
     String receivedId;
-
     private CompletableFuture<String> idFuture;
-
-
     public TokenResources() {
-
         try {
             subscriber.subscribeEvent("TokenResources");
             idFuture = new CompletableFuture<>();
-
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-
-
-    @Path("/tokens/")
+    @Path("tokens")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
