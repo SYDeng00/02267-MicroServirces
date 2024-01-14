@@ -1,8 +1,9 @@
-package org.acme.Resources;
+package org.acme.resources;
 
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
 import org.acme.Repositories.PaymentRepository;
+import org.acme.resources.PaymentConfig;
 import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
 import org.jboss.logging.Logger;
@@ -22,7 +23,13 @@ public class PaymentBroker implements IEventSubscriber {
 
     private static final Logger LOG = Logger.getLogger(PaymentBroker.class);
 
-    // Processes different types of payment-related messages.
+    /**
+     * Processes different types of payment-related messages.
+     *
+     * @param message:
+     * @return void
+     * @description TODO
+     */
     @Override
     public void subscribeEvent(Message message) throws Exception {
         // The message need to be import from message-utils
@@ -50,6 +57,11 @@ public class PaymentBroker implements IEventSubscriber {
         }
     }
 
+    /**
+     * @param :
+     * @return void
+     * @description TODO
+     */
     public void received() throws Exception {
         try {
             EventSubscriber subscriber = new EventSubscriber(new PaymentBroker());

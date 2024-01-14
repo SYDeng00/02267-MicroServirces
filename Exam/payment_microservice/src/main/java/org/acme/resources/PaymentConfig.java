@@ -1,4 +1,4 @@
-package org.acme.Resources;
+package org.acme.resources;
 /**
  * 
  * @author Yingli

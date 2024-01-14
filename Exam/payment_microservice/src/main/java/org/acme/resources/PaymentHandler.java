@@ -1,4 +1,4 @@
-package org.acme.Resources;
+package org.acme.resources;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -7,7 +7,9 @@ import org.acme.Domains.Message;
 import org.acme.Domains.Payment;
 import org.acme.Domains.Refund;
 import org.acme.Repositories.PaymentRepository;
+import org.acme.resources.PaymentConfig;
 import org.acme.Resoures.EventPublisher;
+
 
 import com.google.gson.Gson;
 
@@ -37,7 +39,9 @@ public class PaymentHandler {
     }
 
     /**
-     * 
+     * After receiving the transaction information, store the transaction information into the payment repository.
+     * and sends an authentication Token request to the TokenBroker service.
+     *
      * @param payload
      * @throws Exception
      */
@@ -60,8 +64,11 @@ public class PaymentHandler {
         LOG.info("Payment microservce send message to token microservce:" + PaymentConfig.SEND_VALID_TOKENS);
     }
 
-     /**
-     * 
+    /**
+     * When the token verification result is received,
+     * depending on whether the token is valid or not, a request for bank account information is sent to the AccountBroker service
+     * or the reason for invalid token is sent to the PaymentFacadeBroker service, respectively.
+     *
      * @param payload
      * @throws Exception
      */
@@ -86,8 +93,11 @@ public class PaymentHandler {
         }
     }
 
-     /**
-     * 
+    /**
+     * Refund or payment depending on the type of transaction after receiving a request to obtain a bank account.
+     * Use the banking service to perform the actual transfer.
+     * Depending on the success or failure of the transfer, messages are sent to the ReportBroker and PaymentFacadeBroker services, respectively.
+     *
      * @param payload
      * @throws Exception
      */
@@ -164,8 +174,10 @@ public class PaymentHandler {
         }
     }
 
-     /**
-     * 
+    /**
+     * Creates a refund record when a refund request is received
+     * and send a message to the AccountBroker service to get the bank account information.
+     *
      * @param payload
      * @throws Exception
      */

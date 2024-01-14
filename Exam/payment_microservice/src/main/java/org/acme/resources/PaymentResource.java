@@ -1,4 +1,4 @@
-package org.acme.Resources;
+package org.acme.resources;
 
 import org.jboss.logging.Logger;
 import io.quarkus.runtime.Quarkus;
