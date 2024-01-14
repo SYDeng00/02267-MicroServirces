@@ -1,8 +1,8 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
 
-    "cucumberautocomplete.steps": [
-        "test/java/org/acme/*.java"
-    ],
+    // "cucumberautocomplete.steps": [
+    //     "test/java/org/acme/*.java"
+    // ],
     "cucumberautocomplete.strictGherkinCompletion": true,
 }
