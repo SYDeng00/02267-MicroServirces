@@ -1,6 +1,6 @@
 package Resources;
 
-import Domains.DTUPayAccount;
+
 import Domains.Token;
 import com.google.gson.Gson;
 import jakarta.ws.rs.Consumes;
@@ -42,23 +42,7 @@ public class TokenResources implements IEventSubscriber{
         }
     }
 
-    @POST
-    @Path("accounts")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response registerAccount(DTUPayAccount account) {
-        try {
 
-            publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
-
-            idFuture = new CompletableFuture<>();
-
-            String id = idFuture.get(10, TimeUnit.SECONDS); //wait for 10 seconds
-
-            return Response.status(201).entity("The Account was successful - ID: " + id).build();
-        } catch (Exception err) {
-            return Response.status(400).entity(err.getMessage()).build();
-        }
-    }
 
     @Path("/tokens/")
     @POST
@@ -82,7 +66,7 @@ public class TokenResources implements IEventSubscriber{
 
 
     @Override
-    public void subscribeEvent(Message message) throws Exception {
+    public void subscribeEvent(Message message)  {
         if (message.getEventType().equals(TokenConfig.RETURN_TOKEN) && message.getService().equals("TokenResources")) {
             Gson gson = new Gson();
             receivedId = gson.fromJson(gson.toJson(message.getPayload()[0]), String.class);
