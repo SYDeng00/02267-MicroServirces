@@ -17,11 +17,8 @@ public class EventPublisher implements IEventPublisher {
     Channel channel;
     DeliverCallback deliverCallback;
     Gson gson = new Gson();
-    //String queue = "payment_service";
-    private String QUEUE_NAME="msg_queue";
     
     private static final String EXCHANGE_NAME = "exchange_events";
-    private static final String ROUTE_KEY = "PUBLISHER_KEY";
 
     @Override
     public void publishEvent(Message message) throws Exception {
@@ -32,8 +29,6 @@ public class EventPublisher implements IEventPublisher {
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
 
             String payload = new Gson().toJson(message);
-            //channel.queueDeclare(QUEUE_NAME, true, false, false, null);
-            //channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTE_KEY);
 
             System.out.println("Rabbit sending"+payload);
             channel.basicPublish(EXCHANGE_NAME,message.getService(),null,gson.toJson(message).getBytes(StandardCharsets.UTF_8));

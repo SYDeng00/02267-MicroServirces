@@ -1,8 +1,13 @@
-package org.acme.payment_facade.Domains;
+package main.java.org.acme.payment_facade.Domains;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class Payment {
     UUID merchantDtuPayID;
     BigDecimal amount;

@@ -4,13 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.acme.interfaces.IPaymentRepository;
-import org.acme.domains.Payment;
-import org.acme.domains.Refund;
-
+import org.acme.Domains.Payment;
+import org.acme.Domains.Refund;
+import org.acme.Interfaces.IPaymentRepository;
+/**
+ * Store all the pending payments and refund.
+ * Add new payments and refund, remove them after the coresponding request finished
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 public class PaymentRepository implements IPaymentRepository{
     HashMap<UUID,Payment> payments = new HashMap<>();
     HashMap<UUID,Refund> refunds = new HashMap<>();
+    
     @Override
     public void addPayment(Payment payment) {
         payments.put(payment.getPaymentID(), payment);

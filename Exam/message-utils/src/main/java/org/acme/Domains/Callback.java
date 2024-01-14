@@ -6,9 +6,7 @@ public class Callback {
     private String service;
     private Object[] payload;    
     
-    
     public Callback(){
-
     }
 
     public Callback(String service, Object[] payload){
@@ -24,7 +22,7 @@ public class Callback {
         return this.service;
     }
 
-    public void setPayload(String event){
+    public void setPayload(Object[] payload){
         this.payload = payload;
     }
 

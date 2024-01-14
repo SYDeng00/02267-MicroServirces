@@ -1,12 +1,11 @@
-package org.acme.resources;
+package org.acme.Resources;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 import org.jboss.logging.Logger;
-
-import org.acme.domains.Payment;
-import org.acme.domains.Refund;
 import org.acme.Domains.Message;
+import org.acme.Domains.Payment;
+import org.acme.Domains.Refund;
 import org.acme.Repositories.PaymentRepository;
 import org.acme.Resoures.EventPublisher;
 
@@ -16,27 +15,43 @@ import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceService;
 import io.quarkus.logging.Log;
 
+/**
+ * This class used for handle all message, 
+ * provide corresponding functions to PaymentBroker
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
+
 public class PaymentHandler {
     EventPublisher eventPublisher = new EventPublisher();
-
     PaymentRepository paymentRepository = new PaymentRepository();
     private static final Logger LOG = Logger.getLogger(PaymentHandler.class);
 
+    
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();
         String json = gson.toJson(payload);
         return gson.fromJson(json, objectClass);
     }
 
+    /**
+     * 
+     * @param payload
+     * @throws Exception
+     */
     public void getPayment(Object[] payload) throws Exception {
         UUID paymentID = UUID.randomUUID();
-        UUID merchanUuid = typeTransfer(payload[0], UUID.class);
-        String token = typeTransfer(payload[1], String.class);
-        double amount = typeTransfer(payload[2], Double.class);
+        UUID messageUuid = typeTransfer(payload[0], UUID.class);
+        UUID merchanUuid = typeTransfer(payload[1], UUID.class);
+        String token = typeTransfer(payload[2], String.class);
+        double amount = typeTransfer(payload[3], Double.class);
         LOG.info("Payment information resolve succeed:" + PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT + "-->"
                 + paymentID.toString() + merchanUuid.toString() + amount);
         paymentRepository.addPayment(new Payment(
                 paymentID,
+                messageUuid,
                 merchanUuid,
                 token,
                 BigDecimal.valueOf(amount)));
@@ -45,6 +60,11 @@ public class PaymentHandler {
         LOG.info("Payment microservce send message to token microservce:" + PaymentConfig.SEND_VALID_TOKENS);
     }
 
+     /**
+     * 
+     * @param payload
+     * @throws Exception
+     */
     public void getTokenValidResult(Object[] payload) throws Exception {
         boolean validResult = PaymentHandler.typeTransfer(payload[0], boolean.class);
         UUID paymentID = typeTransfer(payload[0], UUID.class);
@@ -55,16 +75,23 @@ public class PaymentHandler {
             paymentRepository.getPayment(paymentID).setCustomerID(customerUuid);
             eventPublisher.publishEvent(new Message(PaymentConfig.SEND_REQUEST_BANK_ACCOUNTS, "AccountBroker",
                     new Object[] { paymentID, merchaneUuid, customerUuid, "payment" }));
-                Log.info(customerUuid);
+            Log.info(customerUuid);
         } else {
             String reason = typeTransfer(payload[3], String.class);
-            eventPublisher.publishEvent(new Message(PaymentConfig.SEND_TO_MERCHANT_TOKEN_INVALID, "PaymentFacadeBroker",
-                    new Object[] { paymentID, merchaneUuid, reason }));
+            Message message = new Message(PaymentConfig.SEND_PAYMENT_RESULT, "PaymentFacadeBroker",
+                    new Object[] { paymentID, reason });
+            message.setStatus("401");
+            eventPublisher.publishEvent(message);
             LOG.error("Token validation failed:" + reason);
         }
     }
 
-    public void getBankAccount(Object[] payload) {
+     /**
+     * 
+     * @param payload
+     * @throws Exception
+     */
+    public void getBankAccount(Object[] payload) throws Exception {
         String payType = PaymentHandler.typeTransfer(payload[3], String.class);
         UUID payOrRefundUuid = PaymentHandler.typeTransfer(payload[0], UUID.class);
         UUID debetorBankAccount;
@@ -89,18 +116,43 @@ public class PaymentHandler {
                     creditorBankAccount.toString(),
                     amount,
                     "");
+            Message message = new Message(
+                    PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
+                    "ReportBroker",
+                    new Object[] {
+                            payType,
+                            payOrRefundUuid,
+                            creditorBankAccount,
+                            debetorBankAccount,
+                            amount });
+            message.setStatus("200");
+            eventPublisher.publishEvent(message);
 
-            eventPublisher.publishEvent(
-                    new Message(
-                            PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
-                            "ReportBroker",
-                            new Object[] {
-                                    payType,
-                                    payOrRefundUuid,
-                                    creditorBankAccount,
-                                    debetorBankAccount,
-                                    amount }));
+            message = new Message(
+                    PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
+                    "PaymentFacadeBroker",
+                    new Object[] {
+                            paymentRepository.getPayment(payOrRefundUuid).getMessageId(),
+                            payType,
+                            payOrRefundUuid,
+                            creditorBankAccount,
+                            debetorBankAccount,
+                            amount });
+            message.setStatus("200");
+            eventPublisher.publishEvent(message);
         } catch (Exception e) {
+            Message message = new Message(
+                    PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
+                    "ReportBroker",
+                    new Object[] {
+                            paymentRepository.getPayment(payOrRefundUuid).getMessageId(),
+                            payType,
+                            payOrRefundUuid,
+                            creditorBankAccount,
+                            debetorBankAccount,
+                            amount });
+            message.setStatus("404");
+            eventPublisher.publishEvent(message);
             Log.error("Transfer failed");
             e.printStackTrace();
         } finally {
@@ -112,6 +164,11 @@ public class PaymentHandler {
         }
     }
 
+     /**
+     * 
+     * @param payload
+     * @throws Exception
+     */
     public void getRefund(Object[] payload) throws Exception {
         // {UUID->paymentID, UUID->merchantID, BigDecimal->amount}
         UUID paymentID = typeTransfer(payload[0], UUID.class);

@@ -33,5 +33,4 @@ public class sender {
         receive2 r2 = new receive2();
         r2.received();
     }
-    
 }

@@ -1,12 +1,17 @@
-package org.acme.interfaces;
+package org.acme.Interfaces;
 
 
 import java.util.List;
 import java.util.UUID;
 
-import org.acme.domains.Payment;
-import org.acme.domains.Refund;
-
+import org.acme.Domains.Payment;
+import org.acme.Domains.Refund;
+/**
+ * 
+ * @author Yingli
+ * @version 1.0
+ * 
+ */
 
 public interface IPaymentRepository {
     void addPayment(Payment payment);
