@@ -27,7 +27,7 @@ public class PaymentConfig {
     // {UUID->paymentID, UUID->merchantID, UUID->customerID, String->payment
     // type(payment/refund)}
 
-    public static final String RECEIVE_GET_ACCOUNTS = "GET_ACCOUNTS";
+    public static final String RECEIVE_GET_ACCOUNTS = "RequestBankAccounts";
     // {UUID->paymentID, UUID->merchantBankAccount, UUI->customerBankAccount}
 
     public static final String SEND_UPDATE_PAYMENTS_REPORT = "UpdatePaymentsReport";
