@@ -19,7 +19,7 @@ public class TokenBroker implements IEventSubscriber {
             case TokenConfig.RETURN_TOKEN:
                 Token token = typeTransfer(payload[0],Token.class);;
 //
-                String tokenList = "test token" + token.getToken();
+                String tokenList = "token is created";
                 eventPublisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenResources",
                         new Object[] { token }));
                 break;

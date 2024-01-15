@@ -21,6 +21,7 @@
 			String event = message.getEventType();
 			Object[] payload = message.getPayload();
 
+
 		switch (event) {
 
 			case AccountConfig.REGISTER:
