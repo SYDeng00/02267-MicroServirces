@@ -4,6 +4,7 @@ import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
 import dtu.ws.fastmoney.User;
+import groovyjarjarantlr4.v4.parse.ANTLRParser.ruleEntry_return;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -17,13 +18,14 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class paymentSteps {
     UUID merchantID;
     UUID token;
     BigDecimal affordedAmount;
     BigDecimal unAffordedAmount;
-
 
     String merchantCpr = "001";
     String customerCpr = "002";
@@ -34,10 +36,12 @@ public class paymentSteps {
     String merchantBankAccount;
     String customerBankAccount;
     UUID paymentID;
+    UUID customerID;
 
-PaymentHandler paymentHandler = new PaymentHandler();
+    PaymentHandler paymentHandler = new PaymentHandler();
     BankService bank = new BankServiceService().getBankServicePort();
-    PaymentRepository paymentRepository =  PaymentRepository.getInstance();
+    PaymentRepository paymentRepository = PaymentRepository.getInstance();
+
     @Before
     public void createMerchantAndCustomer() throws BankServiceException_Exception {
 
@@ -45,14 +49,15 @@ PaymentHandler paymentHandler = new PaymentHandler();
         merchantUser.setCprNumber(merchantCpr);
         merchantUser.setFirstName(merchantFirstName);
         merchantUser.setLastName(merchantLastName);
-        merchantBankAccount = bank.createAccountWithBalance(merchantUser,new BigDecimal(1000));
+        merchantBankAccount = bank.createAccountWithBalance(merchantUser, new BigDecimal(1000));
 
         User customerUser = new User();
         customerUser.setCprNumber(customerCpr);
         customerUser.setFirstName(customerFirstName);
         customerUser.setLastName(customerLastName);
-        customerBankAccount = bank.createAccountWithBalance(customerUser,new BigDecimal(1000));
+        customerBankAccount = bank.createAccountWithBalance(customerUser, new BigDecimal(1000));
     }
+
     @Given("merchantID, token")
     public void merchant_id_token() {
         merchantID = UUID.randomUUID();
@@ -78,38 +83,31 @@ PaymentHandler paymentHandler = new PaymentHandler();
 
     @Then("Ask bank for transaction")
     public void Ask_bank_for_transaction() throws Exception {
-
-        paymentHandler.getBankAccount(new Object[]{paymentID,merchantBankAccount,customerBankAccount,"payment"});
+        paymentHandler.getBankAccount(new Object[] { paymentID, merchantBankAccount, customerBankAccount, "payment" });
     }
+
     @Then("the transaction succeed")
     public void the_transaction_succeed() throws BankServiceException_Exception {
         BigDecimal merchantBalance = bank.getAccount(merchantBankAccount).getBalance();
-        BigDecimal customerBalance =  bank.getAccount(customerBankAccount).getBalance();
+        BigDecimal customerBalance = bank.getAccount(customerBankAccount).getBalance();
         assertEquals(BigDecimal.valueOf(1100), merchantBalance);
-        assertEquals(BigDecimal.valueOf(900),customerBalance);
+        assertEquals(BigDecimal.valueOf(900), customerBalance);
     }
 
 
-@After
-public void retireMerchantAndCusomer() throws BankServiceException_Exception {
-        bank.retireAccount(merchantBankAccount);
-        bank.retireAccount(customerBankAccount);
-}
 
+    //
 
-//
-
-//    @When("the service ask for authentication")
-//    public void the_service_ask_for_authentication() {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-//    }
-//    @Then("The token is invalid")
-//    public void the_token_is_invalid() {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-//    }
-
+    // @When("the service ask for authentication")
+    // public void the_service_ask_for_authentication() {
+    // // Write code here that turns the phrase above into concrete actions
+    // throw new io.cucumber.java.PendingException();
+    // }
+    // @Then("The token is invalid")
+    // public void the_token_is_invalid() {
+    // // Write code here that turns the phrase above into concrete actions
+    // throw new io.cucumber.java.PendingException();
+    // }
 
     @When("the service create a payment customer cannot affort")
     public void theServiceCreateAPaymentCustomerCannotAffort() {
@@ -120,10 +118,11 @@ public void retireMerchantAndCusomer() throws BankServiceException_Exception {
 
     @Then("Ask bank for transaction a lot of money")
     public void askBankForTransactionALotOfMoney() throws Exception {
-        try{
-            paymentHandler.getBankAccount(new Object[]{paymentID,merchantBankAccount,customerBankAccount,"payment"});
-        }catch (BankServiceException_Exception e){
-            e.printStackTrace();
+        try {
+            paymentHandler
+                    .getBankAccount(new Object[] { paymentID, merchantBankAccount, customerBankAccount, "payment" });
+        } catch (BankServiceException_Exception e) {
+            //e.printStackTrace();
         }
 
     }
@@ -131,9 +130,42 @@ public void retireMerchantAndCusomer() throws BankServiceException_Exception {
     @Then("The transaction failed for customer cannot afford")
     public void theTransactionFailedForCustomerCannotAffort() throws BankServiceException_Exception {
         BigDecimal merchantBalance = bank.getAccount(merchantBankAccount).getBalance();
-        BigDecimal customerBalance =  bank.getAccount(customerBankAccount).getBalance();
+        BigDecimal customerBalance = bank.getAccount(customerBankAccount).getBalance();
         assertEquals(BigDecimal.valueOf(1000), merchantBalance);
-        assertEquals(BigDecimal.valueOf(1000),customerBalance);
+        assertEquals(BigDecimal.valueOf(1000), customerBalance);
     }
 
+    /***
+     * Create a refund with valid account
+     */
+    @Given("customerID")
+    public void customer_id() {
+        customerID = UUID.randomUUID();
+    }
+
+    Boolean tokenValidationResult;
+
+    @When("Received token validation result {string}")
+public void received_token_validation_result_result(String result) {
+    tokenValidationResult = Boolean.valueOf(result);
+}
+
+
+    @Then("Send message to corresponding services")
+    public void send_message_to_corresponding_services() {
+
+        try {
+            paymentHandler.getTokenValidResult(new Object[] { paymentID, tokenValidationResult, null });
+            assertTrue(true);
+        } catch (Exception e) {
+            assertFalse(false);
+        }
+
+
+    }
+    @After
+    public void retireMerchantAndCusomer() throws BankServiceException_Exception {
+        bank.retireAccount(merchantBankAccount);
+        bank.retireAccount(customerBankAccount);
+    }
 }
