@@ -1,14 +1,25 @@
 package org.acme.business_logic;
 
+import com.google.gson.Gson;
+import org.acme.Resoures.EventPublisher;
 import org.acme.Utils.HelperAttributes;
 import org.acme.Domain.Token;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class TokenManagementServices {
+    EventPublisher eventPublisher = new EventPublisher();
+    TokenRepository paymentRepository =  TokenRepository.getInstance();
+    private static final Logger LOG = Logger.getLogger(TokenManagementServices.class);
+    public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
+        Gson gson = new Gson();
+        String json = gson.toJson(payload);
+        return gson.fromJson(json, objectClass);
+    }
     private List<Token> tokenList = new ArrayList<>();
-    public List<String> generateTokens(Token objT) {
+    public void  generateTokens(Token objT,Object[] payload) {
         // Check here how many token customer want to generate
         List<String> tokenListString = new ArrayList<>();
         if (objT.getTokenCount() <= HelperAttributes.MAX_TOKEN_REQ){
@@ -22,10 +33,13 @@ public class TokenManagementServices {
                     tokenList.add(token);
                     tokenListString.add(genToken);
                 }
-                return tokenListString;
+                //return tokenListString;
             }
+            LOG.info("Payment information resolve succeed:" + PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT + "-->"
+                    + paymentID.toString() + merchanUuid.toString() + amount);
         }
-        return null;
+
+       // return null;
     }
 
     public int validateToken(String cid) {

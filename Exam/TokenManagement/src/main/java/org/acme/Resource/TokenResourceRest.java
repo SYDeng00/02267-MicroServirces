@@ -16,11 +16,11 @@ TokenManagementServices tokenManagementServices = new TokenManagementServices();
     public List<Token> getAllToken() {
         return tokenManagementServices.getAllTokenList();
     }
-    @Path("/tokens/")
+   /* @Path("/tokens/")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getTokenSet(Token token) {
         return tokenManagementServices.generateTokens(token);
-    }
+    }*/
 }

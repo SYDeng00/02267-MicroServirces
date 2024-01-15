@@ -1,27 +1,32 @@
 package org.acme.Resource;
 
 import com.google.gson.Gson;
+import io.quarkus.logging.Log;
 import org.acme.Domain.Token;
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
 import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
+import org.acme.business_logic.TokenManagementServices;
+
+import java.util.logging.Logger;
 
 public class TokenBroker implements IEventSubscriber {
-    EventPublisher eventPublisher = new EventPublisher();
-
+    Token token = new Token();
+    TokenManagementServices services = new TokenManagementServices();
+    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenBroker.class));
     public void subscribeEvent(Message message) throws Exception {
         String event = message.getEventType();
         Object[] payload = message.getPayload();
-
+        LOG.info("Event type:" + event);
+        Log.info(TokenConfig.RETURN_TOKEN.equals(event));
         switch (event) {
 
             case TokenConfig.RETURN_TOKEN:
-                Token token = typeTransfer(payload[0],Token.class);;
-//
-                String tokenList = "token is created";
-                eventPublisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenResources",
-                        new Object[] { token }));
+                LOG.info("-------------------------------Payment request received");
+                services.generateTokens(token,payload);
+                /*eventPublisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenResources",
+                        new Object[] { token }));*/
                 break;
             default:
                 break;
