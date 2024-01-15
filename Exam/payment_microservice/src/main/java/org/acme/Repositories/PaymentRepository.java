@@ -18,7 +18,7 @@ import org.acme.Interfaces.IPaymentRepository;
  */
 public class PaymentRepository implements IPaymentRepository{
     public static HashMap<UUID,Payment> payments = new HashMap<>();
-    HashMap<UUID,Refund> refunds = new HashMap<>();
+    public static HashMap<UUID,Refund> refunds = new HashMap<>();
     private PaymentRepository() {
         // Private constructor to enforce singleton pattern
     }

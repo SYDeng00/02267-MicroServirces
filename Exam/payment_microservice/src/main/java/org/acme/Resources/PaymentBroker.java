@@ -1,5 +1,6 @@
 package org.acme.Resources;
 
+import io.quarkus.logging.Log;
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
 import org.acme.Resoures.EventSubscriber;
@@ -8,10 +9,9 @@ import org.jboss.logging.Logger;
 /**
  * This is message broker. By implements IEventSubscriber,
  * subscribeEvent() can act as the callback function in EventSubscriber method
- * 
+ *
  * @author Yingli
  * @version 1.0
- * 
  */
 public class PaymentBroker implements IEventSubscriber {
     PaymentHandler paymentHandler = new PaymentHandler();
@@ -24,21 +24,23 @@ public class PaymentBroker implements IEventSubscriber {
         // The message need to be import from message-utils
         String event = message.getEventType();
         Object[] payload = message.getPayload();
+        LOG.info("Event type:" + event);
+        Log.info(PaymentConfig.RECEIVE_GET_ACCOUNTS+ PaymentConfig.RECEIVE_GET_ACCOUNTS.equals(event));
         switch (event) {
             case PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT:
-            LOG.trace("-------------------------------\nPayment request received");
+                LOG.info("-------------------------------\nPayment request received");
                 paymentHandler.getPayment(payload);
                 break;
             case PaymentConfig.RECEIVE_VALID_RESULT:
-            LOG.trace("-------------------------------\nToken validaion response received");
+                LOG.info("-------------------------------\nToken validaion response received");
                 paymentHandler.getTokenValidResult(payload);
                 break;
             case PaymentConfig.RECEIVE_GET_ACCOUNTS:
-            LOG.trace("-------------------------------\nBank accounts response received");
+                LOG.info("-------------------------------\nBank accounts response received");
                 paymentHandler.getBankAccount(payload);
                 break;
             case PaymentConfig.RECEIVE_REFUND_REQUEST:
-            LOG.trace("-------------------------------\nRefund request received");
+                LOG.info("-------------------------------\nRefund request received");
                 paymentHandler.getRefund(payload);
             default:
                 // Default case for unhandled events.

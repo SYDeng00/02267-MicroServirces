@@ -95,6 +95,7 @@ public class PaymentHandler {
      */
     public void getBankAccount(Object[] payload) throws Exception {
         String payType = PaymentHandler.typeTransfer(payload[3], String.class);
+        LOG.info("The request is:" + payType);
         UUID payOrRefundUuid = PaymentHandler.typeTransfer(payload[0], UUID.class);
         UUID debetorBankAccount;
         UUID creditorBankAccount;
@@ -112,7 +113,6 @@ public class PaymentHandler {
         }
         try {
             BankService bank = new BankServiceService().getBankServicePort();
-
             bank.transferMoneyFromTo(
                     debetorBankAccount.toString(),
                     creditorBankAccount.toString(),
