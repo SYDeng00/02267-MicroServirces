@@ -2,6 +2,8 @@ package org.acme.Resources;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+
+import dtu.ws.fastmoney.BankServiceException_Exception;
 import org.jboss.logging.Logger;
 import org.acme.Domains.Message;
 import org.acme.Domains.Payment;
@@ -141,7 +143,7 @@ public class PaymentHandler {
                             amount });
             message.setStatus("200");
             eventPublisher.publishEvent(message);
-        } catch (Exception e) {
+        } catch (BankServiceException_Exception e) {
             Message message = new Message(
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
