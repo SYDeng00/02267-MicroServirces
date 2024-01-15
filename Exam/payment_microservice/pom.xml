@@ -31,7 +31,12 @@ it. The document tree is shown below. -->
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.8.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -43,7 +48,7 @@ it. The document tree is shown below. -->
 			<groupId>org.acme</groupId>
 			<artifactId>message-utils</artifactId>
 			<version>1.0.0</version>
-		</dependency>   
+		</dependency>
 
 		<!-- General REST framework -->
 		<dependency>
@@ -246,7 +251,7 @@ it. The document tree is shown below. -->
 					<systemPropertyVariables>
 						<native.image.path>
 							${project.build.directory}/${project.build.finalName}-runner
-                        </native.image.path>
+						</native.image.path>
 						<java.util.logging.manager>
 							org.jboss.logmanager.LogManager</java.util.logging.manager>
 						<maven.home>${maven.home}</maven.home>

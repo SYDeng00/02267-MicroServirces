@@ -11,7 +11,7 @@ import Domains.DTUPayAccount;
 
 public class AccountBroker implements IEventSubscriber {
 	EventPublisher eventPublisher = new EventPublisher();
-
+    
 	public void subscribeEvent(Message message) throws Exception {
 		String event = message.getEventType();
 		Object[] payload = message.getPayload();
