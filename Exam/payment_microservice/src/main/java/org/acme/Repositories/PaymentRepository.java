@@ -1,5 +1,6 @@
 package org.acme.Repositories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -16,8 +17,15 @@ import org.acme.Interfaces.IPaymentRepository;
  * 
  */
 public class PaymentRepository implements IPaymentRepository{
-    HashMap<UUID,Payment> payments = new HashMap<>();
+    public static HashMap<UUID,Payment> payments = new HashMap<>();
     HashMap<UUID,Refund> refunds = new HashMap<>();
+    private PaymentRepository() {
+        // Private constructor to enforce singleton pattern
+    }
+
+    public static PaymentRepository getInstance() {
+        return new PaymentRepository();
+    }
     
     @Override
     public void addPayment(Payment payment) {
@@ -31,8 +39,7 @@ public class PaymentRepository implements IPaymentRepository{
 
     @Override
     public List<Payment> getPayments() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPayments'");
+        return new ArrayList<>(payments.values());
     }
 
     @Override

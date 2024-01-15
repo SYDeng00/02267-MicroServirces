@@ -1,163 +1,105 @@
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-//<dependency>
-//        <groupId>org.mockito</groupId>
-//        <artifactId>mockito-core</artifactId>
-//        <version>5.8.0</version>
-//        <scope>test</scope>
-//        </dependency>
+package org.acme;
 
-
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-
-import org.acme.Domains.Message;
-import org.acme.Domains.Payment;
-import org.acme.Resources.PaymentBroker;
-import org.acme.Resources.PaymentConfig;
-import org.acme.Resoures.EventPublisher;
-import org.acme.Resoures.EventSubscriber;
-
-import dtu.ws.fastmoney.AccountInfo;
+import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
 import dtu.ws.fastmoney.User;
-import io.cucumber.java.AfterAll;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.acme.Domains.Payment;
+import org.acme.Repositories.PaymentRepository;
+import org.acme.Resources.PaymentHandler;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
 
 public class paymentSteps {
-	EventPublisher eventPublisher = mock(EventPublisher.class);
-	EventSubscriber eventSubscriber = mock(EventSubscriber.class);
-	PaymentBroker paymentBroker = new PaymentBroker();
-	private Payment payment = new Payment();
+    UUID merchantID;
+    UUID token;
+    BigDecimal amount;
 
-	private Message message;
-	private String MerchantBankID;
-	private String customerBankID;
-	private BigDecimal customerInitialBalance;
-	private BigDecimal merchantInitialBalance;
+    String merchantCpr = "001";
+    String customerCpr = "002";
+    String merchantFirstName = "mfn1";
+    String customerFirstName = "cfn1";
+    String merchantLastName = "mln1";
+    String customerLastName = "cln1";
+    String merchantBankAccount;
+    String customerBankAccount;
+    UUID paymentID;
+PaymentHandler paymentHandler = new PaymentHandler();
+    BankService bank = new BankServiceService().getBankServicePort();
+    PaymentRepository paymentRepository =  PaymentRepository.getInstance();
+    @Before
+    public void createMerchantAndCustomer() throws BankServiceException_Exception {
 
-	static String CustomerBankAccount;
-	static String MerchantBankAccount;
+        User merchantUser = new User();
+        merchantUser.setCprNumber(merchantCpr);
+        merchantUser.setFirstName(merchantFirstName);
+        merchantUser.setLastName(merchantLastName);
+        merchantBankAccount = bank.createAccountWithBalance(merchantUser,new BigDecimal(1000));
 
-	@Before
-	public void before() {
-		var user = new User();
-		user.setCprNumber("TestCPRCustomer1-1");
-		user.setFirstName("Test");
-		user.setLastName("Test");
+        User customerUser = new User();
+        customerUser.setCprNumber(customerCpr);
+        customerUser.setFirstName(customerFirstName);
+        customerUser.setLastName(customerLastName);
+        customerBankAccount = bank.createAccountWithBalance(customerUser,new BigDecimal(1000));
+    }
+    @Given("merchantID, token, amount")
+    public void merchant_id_token_amount() {
+        merchantID = UUID.randomUUID();
+        token = UUID.randomUUID();
+        amount = BigDecimal.valueOf(100);
+    }
 
-		var user2 = new User();
-		user2.setCprNumber("TestCPRMerchant1-1");
-		user2.setFirstName("Test");
-		user2.setLastName("Test");
+    @When("the service create a payment")
+    public void the_service_create_a_payment() throws Exception {
+        paymentID = UUID.randomUUID();
+        Payment payment = new Payment(paymentID, merchantID, token, amount);
+        paymentRepository.addPayment(payment);
 
-		var bank = new BankServiceService().getBankServicePort();
+        //UUID->paymentID, UUID->merchantBankAccount, UUI->customerBankAccount
+    }
 
-		List<AccountInfo> accounts = bank.getAccounts();
-		for (int i = 0; i < accounts.size(); i++) {
-			AccountInfo info = accounts.get(i);
-			if (info.getUser().getCprNumber().equals(user.getCprNumber())
-					|| info.getUser().getCprNumber().equals(user2.getCprNumber())) {
-				try {
-					bank.retireAccount(info.getAccountId());
-				} catch (BankServiceException_Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+    @Then("Ask bank for transaction")
+    public void Ask_bank_for_transaction() throws Exception {
+        paymentHandler.getBankAccount(new Object[]{paymentID,merchantBankAccount,customerBankAccount,"payment"});
+    }
+    @Then("the transaction succeed")
+    public void the_transaction_succeed() throws BankServiceException_Exception {
+        BigDecimal merchantBalance = bank.getAccount(merchantBankAccount).getBalance();
+        BigDecimal customerBalance =  bank.getAccount(customerBankAccount).getBalance();
+        assertEquals(BigDecimal.valueOf(1100), merchantBalance);
+        assertEquals(BigDecimal.valueOf(900),customerBalance);
+    }
 
-		try {
-			CustomerBankAccount = bank.createAccountWithBalance(user, new BigDecimal(1000));
-			MerchantBankAccount = bank.createAccountWithBalance(user2, new BigDecimal(1000));
-		} catch (BankServiceException_Exception e) {
-			System.out.println("HERE: \n\n\n");
-			e.printStackTrace();
-			System.out.println("\n\n\n Done ");
-		}
-	}
 
-	@AfterAll
-	public static void afterAll() {
-		var bank = new BankServiceService().getBankServicePort();
+@After
+public void retireMerchantAndCusomer() throws BankServiceException_Exception {
+        bank.retireAccount(merchantBankAccount);
+        bank.retireAccount(customerBankAccount);
+}
+//
+//    @Given("merchantID, token, amount")
+//    public void invalid_merchant_id_token_amount() {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new io.cucumber.java.PendingException();
+//    }
+//    @When("the service ask for authentication")
+//    public void the_service_ask_for_authentication() {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new io.cucumber.java.PendingException();
+//    }
+//    @Then("The token is invalid")
+//    public void the_token_is_invalid() {
+//        // Write code here that turns the phrase above into concrete actions
+//        throw new io.cucumber.java.PendingException();
+//    }
 
-		try {
-			bank.retireAccount(CustomerBankAccount);
-			bank.retireAccount(MerchantBankAccount);
-		} catch (BankServiceException_Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	// Scenario: Successful Payment Transaction
-	@Given("After getting the transaction information from the merchant with message ID {UUID}, merchant ID {UUID}, token {string}, and amount {BigDecimal}, publish the message event that validates the customer's token")
-	public void afterGettingTransactionInfo(String messageID, String merchantID, String token, double amount)
-			throws Exception {
-//        UUID messageID = UUID.fromString(messageID);
-//        UUID merchantID = UUID.fromString(merchantID);
-//        BigDecimal amount = new BigDecimal(amount);
-		message = new Message(PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT, "PaymentBroker",
-				new Object[] { messageID, merchantID, token, amount });
-		paymentBroker.subscribeEvent(message);
-	}
-
-	@Then("Validate customer's token message event is published")
-	public void validateTokenMessagePublished2() throws Exception {
-		verify(eventPublisher).publishEvent(message);
-	}
-
-	@When("After getting the validation result of the customer's token, post a message event to get the bank account numbers of both parties")
-	public void afterGettingTokenValidationResult(UUID paymentID, boolean result) throws Exception {
-		message = new Message(PaymentConfig.RECEIVE_VALID_RESULT, "PaymentBroker", new Object[] { paymentID, result });
-		paymentBroker.subscribeEvent(message);
-	}
-
-	@Then("The message event to get the bank account numbers of both parties has been published")
-	public void bankAccountNumbersMessagePublished() throws Exception {
-		verify(eventPublisher).publishEvent(message);
-	}
-
-	@When("After obtaining the bank account numbers of both parties, the payment operation is performed and the message event updating the payment report is published")
-	public void afterObtainingBankAccountNumbers(UUID paymentID, UUID merchantBankAccount, UUID customerBankAccount)
-			throws Exception {
-		message = new Message(PaymentConfig.RECEIVE_GET_ACCOUNTS, "PaymentBroker",
-				new Object[] { paymentID, merchantBankAccount, customerBankAccount });
-		paymentBroker.subscribeEvent(message);
-	}
-
-	@Then("The message event of updating the payment report is released, and the payment is successful")
-	public void paymentReportUpdatedAndPaymentSuccessful() throws Exception {
-		verify(eventPublisher).publishEvent(message);
-	}
-
-	// Scenario: Failed Payment Transaction Due to Invalid Token
-	@Given("After getting the transaction information from the merchant, publish a message event validating the customer's token")
-	public void afterGettingTransactionInfo2(UUID messageID, UUID merchantID, String token, BigDecimal amount)
-			throws Exception {
-		message = new Message(PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT, "PaymentBroker",
-				new Object[] { messageID, merchantID, token, amount });
-		paymentBroker.subscribeEvent(message);
-	}
-
-	@Then("A message event validating the customer's token is posted")
-	public void validateTokenMessagePublished() throws Exception {
-		verify(eventPublisher).publishEvent(message);
-	}
-
-	@When("After getting the validation result of the customer's token is invalid, publish the payment result message event")
-	public void afterGettingInvalidTokenResult(UUID paymentID, boolean result, String reason) throws Exception {
-		message = new Message(PaymentConfig.RECEIVE_VALID_RESULT, "PaymentBroker",
-				new Object[] { paymentID, result, reason });
-		paymentBroker.subscribeEvent(message);
-	}
-
-	@Then("The payment result message event has been posted, and the payment failed")
-	public void paymentResultMessagePostedAndFailed() throws Exception {
-		verify(eventPublisher).publishEvent(message);
-	}
 }

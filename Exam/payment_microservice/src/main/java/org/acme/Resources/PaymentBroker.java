@@ -16,8 +16,6 @@ import org.jboss.logging.Logger;
  * 
  */
 public class PaymentBroker implements IEventSubscriber {
-    EventPublisher eventPublisher = new EventPublisher();
-    PaymentRepository paymentRepository = new PaymentRepository();
     PaymentHandler paymentHandler = new PaymentHandler();
 
     private static final Logger LOG = Logger.getLogger(PaymentBroker.class);
