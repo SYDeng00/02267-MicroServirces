@@ -2,8 +2,6 @@ package org.acme.Resources;
 
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
-import org.acme.Repositories.PaymentRepository;
-import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
 import org.jboss.logging.Logger;
 

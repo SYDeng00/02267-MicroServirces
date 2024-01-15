@@ -25,15 +25,15 @@ public class PaymentConfig {
 
     public static final String SEND_REQUEST_BANK_ACCOUNTS = "RequestBankAccounts";
     // {UUID->paymentID, UUID->merchantID, UUID->customerID, String->payment
-
+    // type(payment/refund)}
 
     public static final String RECEIVE_GET_ACCOUNTS = "GET_ACCOUNTS";
-    // {UUID->paymentID, UUID->merchantBankAccount, UUI->customerBankAccount, String payType}
+    // {UUID->paymentID, UUID->merchantBankAccount, UUI->customerBankAccount}
 
     public static final String SEND_UPDATE_PAYMENTS_REPORT = "UpdatePaymentsReport";
 
-    // {String->paymentType(payment/refund), UUID->paymentID, UUID->merchantID,
-    // UUID->customerID, BigDecimal->amount}
+    // {String->paymentType(payment/refund), UUID->paymentID, UUID->merchantID, 
+    // UUID->customerID, BigDecimal->amount,UUID token}
 
     public static final String RECEIVE_REFUND_REQUEST = "MerchantAskRefund";
     // {UUID->paymentID, UUID-> messageID, UUID->merchantID, BigDecimal->amount}

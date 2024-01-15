@@ -1,5 +1,5 @@
 Feature: Payment
-
+###################################Test call bank function###################################
   Scenario: Create a payment with valid account
     Given merchantID, token
     Given affordedAmount
@@ -18,3 +18,10 @@ Feature: Payment
      When the service create a payment customer cannot affort
      Then Ask bank for transaction a lot of money
      Then The transaction failed for customer cannot afford
+
+
+###################################Test refund function###################################
+
+
+
+###################################Test ask back account function###################################
