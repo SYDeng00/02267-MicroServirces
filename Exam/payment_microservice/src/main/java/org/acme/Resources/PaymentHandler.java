@@ -115,7 +115,7 @@ public class PaymentHandler {
                     debetorBankAccount.toString(),
                     creditorBankAccount.toString(),
                     amount,
-                    "");
+                    "dtu pay");
             Message message = new Message(
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
