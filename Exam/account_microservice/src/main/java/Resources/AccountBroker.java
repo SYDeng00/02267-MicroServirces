@@ -8,7 +8,6 @@
 	import com.google.gson.Gson;
 
 	import Domains.DTUPayAccount;
-
 	import java.util.HashMap;
 	import java.util.UUID;
 
