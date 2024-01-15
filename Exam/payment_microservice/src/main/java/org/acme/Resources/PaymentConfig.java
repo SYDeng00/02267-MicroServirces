@@ -37,4 +37,5 @@ public class PaymentConfig {
 
     public static final String RECEIVE_REFUND_REQUEST = "MerchantAskRefund";
     // {UUID->paymentID, UUID-> messageID, UUID->merchantID, BigDecimal->amount}
+
 }

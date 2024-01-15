@@ -28,22 +28,21 @@ public class PaymentBroker implements IEventSubscriber {
         Log.info(PaymentConfig.RECEIVE_GET_ACCOUNTS+ PaymentConfig.RECEIVE_GET_ACCOUNTS.equals(event));
         switch (event) {
             case PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT:
-                LOG.info("-------------------------------\nPayment request received");
+                LOG.info("-------------------------------Payment request received");
                 paymentHandler.getPayment(payload);
                 break;
             case PaymentConfig.RECEIVE_VALID_RESULT:
-                LOG.info("-------------------------------\nToken validaion response received");
+                LOG.info("-------------------------------Token validaion response received");
                 paymentHandler.getTokenValidResult(payload);
                 break;
             case PaymentConfig.RECEIVE_GET_ACCOUNTS:
-                LOG.info("-------------------------------\nBank accounts response received");
+                LOG.info("-------------------------------Bank accounts response received");
                 paymentHandler.getBankAccount(payload);
                 break;
             case PaymentConfig.RECEIVE_REFUND_REQUEST:
-                LOG.info("-------------------------------\nRefund request received");
+                LOG.info("-------------------------------Refund request received");
                 paymentHandler.getRefund(payload);
             default:
-                // Default case for unhandled events.
                 break;
         }
     }

@@ -68,9 +68,9 @@ public class PaymentHandler {
      * @throws Exception
      */
     public void getTokenValidResult(Object[] payload) throws Exception {
-        boolean validResult = PaymentHandler.typeTransfer(payload[0], boolean.class);
+        boolean validResult = PaymentHandler.typeTransfer(payload[1], boolean.class);
         UUID paymentID = typeTransfer(payload[0], UUID.class);
-        UUID merchaneUuid = typeTransfer(payload[1], UUID.class);
+        UUID merchaneUuid = typeTransfer(payload[2], UUID.class);
         Log.info("Toekn validaton information resolved:" + String.valueOf(validResult));
         if (validResult) {
             UUID customerUuid = typeTransfer(payload[2], UUID.class);
