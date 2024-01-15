@@ -21,7 +21,23 @@ Feature: Payment
 
 
 ###################################Test refund function###################################
-
+#  Scenario: Create a refund with valid account
+#     Given merchantID, token
+#     Given affordedAmount
+#     When the service create a refund
+#     Then Ask bank for transaction
+#     Then the transaction succeed
 
 
 ###################################Test ask back account function###################################
+  Scenario Outline: Received token validation result with true
+    Given merchantID, token
+    Given customerID
+    When Received token validation result "<result>"
+    When the service create a payment
+    Then Send message to corresponding services
+    Examples:
+      | result |
+      | true   |
+      | false  |
+
