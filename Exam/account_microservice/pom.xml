@@ -61,6 +61,12 @@
 			<artifactId>message-utils</artifactId>
 			<version>1.0.0</version>
 		</dependency>   
+				<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.8.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
