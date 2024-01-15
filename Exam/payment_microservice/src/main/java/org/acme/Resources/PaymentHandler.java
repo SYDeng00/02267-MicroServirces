@@ -28,7 +28,7 @@ import io.quarkus.logging.Log;
 
 public class PaymentHandler {
     EventPublisher eventPublisher = new EventPublisher();
-    PaymentRepository paymentRepository =  PaymentRepository.getInstance();
+    PaymentRepository paymentRepository = new PaymentRepository();
     private static final Logger LOG = Logger.getLogger(PaymentHandler.class);
 
     
@@ -47,7 +47,7 @@ public class PaymentHandler {
         UUID paymentID = UUID.randomUUID();
         UUID messageUuid = typeTransfer(payload[0], UUID.class);
         UUID merchanUuid = typeTransfer(payload[1], UUID.class);
-        UUID token = typeTransfer(payload[2], UUID.class);
+        String token = typeTransfer(payload[2], String.class);
         double amount = typeTransfer(payload[3], Double.class);
         LOG.info("Payment information resolve succeed:" + PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT + "-->"
                 + paymentID.toString() + merchanUuid.toString() + amount);
@@ -117,7 +117,7 @@ public class PaymentHandler {
                     debetorBankAccount.toString(),
                     creditorBankAccount.toString(),
                     amount,
-                    "dtu pay");
+                    "");
             Message message = new Message(
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
@@ -126,8 +126,7 @@ public class PaymentHandler {
                             payOrRefundUuid,
                             creditorBankAccount,
                             debetorBankAccount,
-                            amount,
-                        paymentRepository.getPayment(payOrRefundUuid).getToken() });
+                            amount });
             message.setStatus("200");
             eventPublisher.publishEvent(message);
 

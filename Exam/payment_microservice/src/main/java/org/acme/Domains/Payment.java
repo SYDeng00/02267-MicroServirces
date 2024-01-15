@@ -14,18 +14,18 @@ public class Payment {
     private UUID merchantId;
     private UUID customerId=null;
     private UUID messageId;
-    private UUID token;
+    private String token;
     private BigDecimal amount;
 
     public Payment(){}
     
-    public Payment(UUID paymentId, UUID merchantId, UUID token, BigDecimal amount) {
+    public Payment(UUID paymentId, UUID merchantId, String token, BigDecimal amount) {
         this.merchantId = merchantId;
         this.paymentId = paymentId;
         this.token = token;
         this.amount = amount;
     }
-    public Payment(UUID paymentId, UUID messageId, UUID merchantId, UUID token, BigDecimal amount) {
+    public Payment(UUID paymentId, UUID messageId, UUID merchantId, String token, BigDecimal amount) {
         this.merchantId = merchantId;
         this.paymentId = paymentId;
         this.token = token;
@@ -40,10 +40,10 @@ public class Payment {
         merchantId = merchantID;
     }
 
-    public UUID getToken() {
+    public String getToken() {
         return token;
     }
-    public void setToken(UUID token) {
+    public void setToken(String token) {
         this.token = token;
     }
     public BigDecimal getAmount() {

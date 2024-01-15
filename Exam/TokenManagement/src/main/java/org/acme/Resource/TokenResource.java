@@ -22,7 +22,7 @@ public class TokenResource implements QuarkusApplication {
             e.printStackTrace();
         }
 
-        System.out.println("Account service launched, start Broker");
+        System.out.println("Token service launched, start Broker");
 
         try {
             tokenBroker.received();
