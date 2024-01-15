@@ -10,12 +10,21 @@ public class Token {
     private String customerID;
     private int tokenCount;
 
+    private boolean valid;
+
     public Token(String tokenID, String token, String tokenStatus, LocalDate tokenCreateDate, String customerID) {
         this.tokenID = tokenID;
         this.token = token;
         this.tokenStatus = tokenStatus;
         this.tokenCreateDate = tokenCreateDate;
         this.customerID = customerID;
+    }
+
+    public Token(String token, String tokenStatus, LocalDate now, String customerID) {
+        this.token= token;
+        this.tokenStatus= tokenStatus;
+        this.customerID = customerID;
+
     }
 
     public String getTokenID() {
@@ -76,5 +85,10 @@ public class Token {
     public void setTokenCount(int tokenCount) {
         this.tokenCount = tokenCount;
     }
+
+    public void setValid(boolean tokenStatus) {
+        this.valid = tokenStatus;
+    }
 }
+
 
