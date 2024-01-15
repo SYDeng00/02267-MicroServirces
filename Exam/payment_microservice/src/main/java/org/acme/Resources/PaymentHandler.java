@@ -97,25 +97,25 @@ public class PaymentHandler {
         String payType = PaymentHandler.typeTransfer(payload[3], String.class);
         LOG.info("The request is:" + payType);
         UUID payOrRefundUuid = PaymentHandler.typeTransfer(payload[0], UUID.class);
-        UUID debetorBankAccount;
-        UUID creditorBankAccount;
+        String debetorBankAccount;
+        String creditorBankAccount;
         BigDecimal amount;
         if (payType.equals("refund")) {
             Refund refund = paymentRepository.getRefund(payOrRefundUuid);
-            debetorBankAccount = PaymentHandler.typeTransfer(payload[1], UUID.class);
-            creditorBankAccount = PaymentHandler.typeTransfer(payload[2], UUID.class);
+            debetorBankAccount = PaymentHandler.typeTransfer(payload[1], String.class);
+            creditorBankAccount = PaymentHandler.typeTransfer(payload[2], String.class);
             amount = refund.getAmount();
         } else {
             Payment payment = paymentRepository.getPayment(payOrRefundUuid);
-            debetorBankAccount = PaymentHandler.typeTransfer(payload[2], UUID.class);
-            creditorBankAccount = PaymentHandler.typeTransfer(payload[1], UUID.class);
+            debetorBankAccount = PaymentHandler.typeTransfer(payload[2], String.class);
+            creditorBankAccount = PaymentHandler.typeTransfer(payload[1], String.class);
             amount = payment.getAmount();
         }
         try {
             BankService bank = new BankServiceService().getBankServicePort();
             bank.transferMoneyFromTo(
-                    debetorBankAccount.toString(),
-                    creditorBankAccount.toString(),
+                    debetorBankAccount,
+                    creditorBankAccount,
                     amount,
                     "dtu pay");
             Message message = new Message(
