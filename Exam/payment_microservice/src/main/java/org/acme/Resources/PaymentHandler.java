@@ -137,7 +137,7 @@ public class PaymentHandler {
             eventPublisher.publishEvent(message);
 
             message = new Message(
-                    PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
+                    PaymentConfig.SEND_PAYMENT_RESULT,
                     "PaymentFacadeBroker",
                     new Object[] {
                             payment.getMessageId(),

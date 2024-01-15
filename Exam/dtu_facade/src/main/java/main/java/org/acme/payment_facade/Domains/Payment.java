@@ -16,10 +16,10 @@ public class Payment {
     public Payment(){}
 
 
-    public Payment(UUID merchantDtuPayID, String token, BigDecimal amount) {
+    public Payment(UUID merchantDtuPayID, String token, int amount) {
         this.merchantDtuPayID = merchantDtuPayID;
         this.token = token;
-        this.amount = amount;
+        this.amount = BigDecimal.valueOf(amount);
     }
 
     public UUID getMerchantDtuPayID() {

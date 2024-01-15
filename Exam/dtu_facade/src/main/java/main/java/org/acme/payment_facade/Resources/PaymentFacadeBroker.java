@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import main.java.org.acme.payment_facade.Domains.Payment;
 import main.java.org.acme.payment_facade.Repositories.PaymentFacadeRepositories;
+
 /**
  * 
  * @author Yingli
@@ -19,8 +20,8 @@ import main.java.org.acme.payment_facade.Repositories.PaymentFacadeRepositories;
  * 
  */
 public class PaymentFacadeBroker implements IEventSubscriber {
-    CompletableFuture<String> waitFormessageReply = new CompletableFuture<>();
-    PaymentFacadeRepositories paymentFacadeRepositories = new PaymentFacadeRepositories();
+    CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
+    PaymentFacadeRepositories paymentFacadeRepositories = PaymentFacadeRepositories.getInstance();
     Message message;
 
     public void sendPaymentRequestToPaymentService(Payment payment) {
@@ -31,10 +32,12 @@ public class PaymentFacadeBroker implements IEventSubscriber {
                     new Object[] { payment.getMerchantDtuPayID(),
                             payment.getToken(),
                             payment.getAmount() });
+            System.out.println(this.message.getMessageID());
             publisher.publishEvent(message);
-            waitFormessageReply.join();
+            paymentFacadeRepositories.addMessage(message);
+            waitFromessageReply.join();
         } catch (Exception e) {
-            waitFormessageReply.complete("404");
+            waitFromessageReply.complete("404");
             e.printStackTrace();
         }
     }
@@ -44,10 +47,12 @@ public class PaymentFacadeBroker implements IEventSubscriber {
         Object[] payload = message.getPayload();
         String status = message.getStatus();
         UUID messageUuid = typeTransfer(payload[1], UUID.class);
-        if (messageUuid.equals(this.message.getMessageID())) {
-            waitFormessageReply.complete(status);
+        paymentFacadeRepositories.getMessages();
+        System.out.println(paymentFacadeRepositories.getMessage(messageUuid));
+        if (paymentFacadeRepositories.getMessage(messageUuid)!=null) {
+            waitFromessageReply.complete(status);
+            paymentFacadeRepositories.removeMessage(message.getMessageID());
         }
-        paymentFacadeRepositories.removeMessage(message.getMessageID());
     }
 
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
@@ -58,7 +63,8 @@ public class PaymentFacadeBroker implements IEventSubscriber {
 
     public void received() throws Exception {
         try {
-            EventSubscriber subscriber = new EventSubscriber(new PaymentFacadeBroker());
+            EventSubscriber subscriber = new EventSubscriber(this);
+            System.out.println(this.getClass().getSimpleName());
             subscriber.subscribeEvent(this.getClass().getSimpleName());
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,12 +14,13 @@ import main.java.org.acme.payment_facade.Domains.Payment;
  */
 @Path("/")
 public class PaymentFacadeResources {
+    PaymentFacadeBroker paymentBroker;
     @POST
     @Path("payments")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerPayment(Payment payment) {
         try {
-            PaymentFacadeBroker paymentBroker = new PaymentFacadeBroker();
+            paymentBroker = new PaymentFacadeBroker();
             paymentBroker.received();
             paymentBroker.sendPaymentRequestToPaymentService(payment);
             return Response.status(201).entity("The payment was successful - ").build();
