@@ -28,6 +28,13 @@ Feature: Payment
     Then Ask bank for refund transaction
     Then the refund transaction succeed
 
+  Scenario: Refund failed due to unAffordedAmount
+    Given merchantID, token
+    Given unAffordedAmount
+    When The service creates a refund that the merchant cannot afford
+    Then Ask bank for refund a lot of money
+    Then the refund transaction failed
+
 
 ###################################Test ask back account function###################################
   Scenario Outline: Received token validation result with true

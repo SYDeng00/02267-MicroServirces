@@ -26,7 +26,6 @@ public class paymentSteps {
     UUID token;
     BigDecimal affordedAmount;
     BigDecimal unAffordedAmount;
-
     String merchantCpr = "001";
     String customerCpr = "002";
     String merchantFirstName = "mfn1";
@@ -37,6 +36,8 @@ public class paymentSteps {
     String customerBankAccount;
     UUID paymentID;
     UUID customerID;
+    Boolean tokenValidationResult;
+
 
     PaymentHandler paymentHandler = new PaymentHandler();
     BankService bank = new BankServiceService().getBankServicePort();
@@ -44,7 +45,6 @@ public class paymentSteps {
 
     @Before
     public void createMerchantAndCustomer() throws BankServiceException_Exception {
-
         User merchantUser = new User();
         merchantUser.setCprNumber(merchantCpr);
         merchantUser.setFirstName(merchantFirstName);
@@ -141,9 +141,42 @@ public class paymentSteps {
         paymentRepository.addRefund(new Refund(refundId, paymentID, merchantID, affordedAmount));
     }
 
+    @When("The service creates a refund that the merchant cannot afford")
+    public void the_service_creates_a_refund_that_the_merchant_cannot_afford() throws Exception {
+        //payment
+        paymentID = UUID.randomUUID();
+        Payment payment = new Payment(paymentID, merchantID, token, unAffordedAmount);
+        payment.setCustomerID(customerID);
+        paymentRepository.addPayment(payment);
+        paymentRepository.getPayment(paymentID).getPaymentID();
+        //refund
+        Refund refund = new Refund(refundId, paymentID, merchantID, unAffordedAmount);
+        refundId = UUID.randomUUID();
+        paymentRepository.addRefund(refund);
+        System.out.println("refund's unAffordedAmount:"+refund.getAmount());
+    }
+
     @Then("Ask bank for refund transaction")
-    public void Ask_bank_for_refund_transaction() throws Exception {
+    public void ask_bank_for_refund_transaction() throws Exception {
         paymentHandler.getBankAccount(new Object[]{refundId,merchantBankAccount,customerBankAccount,"refund"});
+    }
+
+    @Then("Ask bank for refund a lot of money")
+    public void ask_bank_for_refund_a_lot_of_money() throws Exception {
+        try {
+            paymentHandler
+                    .getBankAccount(new Object[] { refundId, merchantBankAccount, customerBankAccount, "refund" });
+        } catch (BankServiceException_Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Then("the refund transaction failed")
+    public void the_refund_transaction_failed() throws Exception {
+            BigDecimal merchantBalance = bank.getAccount(merchantBankAccount).getBalance();
+            BigDecimal customerBalance = bank.getAccount(customerBankAccount).getBalance();
+            assertEquals(BigDecimal.valueOf(1000), merchantBalance);
+            assertEquals(BigDecimal.valueOf(1000), customerBalance);
     }
 
     @Then("the refund transaction succeed")
@@ -153,17 +186,15 @@ public class paymentSteps {
         assertEquals(BigDecimal.valueOf(900), merchantBalance);
         assertEquals(BigDecimal.valueOf(1100), customerBalance);
     }
-    Boolean tokenValidationResult;
 
     @When("Received token validation result {string}")
-public void received_token_validation_result_result(String result) {
+    public void received_token_validation_result_result(String result) {
     tokenValidationResult = Boolean.valueOf(result);
 }
 
 
     @Then("Send message to corresponding services")
     public void send_message_to_corresponding_services() {
-
         try {
             paymentHandler.getTokenValidResult(new Object[] { paymentID, tokenValidationResult, null });
             assertTrue(true);
