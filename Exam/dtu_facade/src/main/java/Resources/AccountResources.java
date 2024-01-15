@@ -37,6 +37,7 @@
 
 package Resources;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -79,14 +80,14 @@ public class AccountResources implements IEventSubscriber {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerAccount(DTUPayAccount account) {
         try {
-        	
+            
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
 
             idFuture = new CompletableFuture<>();
 
-            String id = idFuture.get(10, TimeUnit.SECONDS); //wait for 10 seconds
+            UUID uuid = UUID.fromString(idFuture.get(10, TimeUnit.SECONDS)); //wait for 10 seconds
 
-            return Response.status(201).entity("The Account was successful - ID: " + id).build();
+            return Response.status(201).entity(uuid).build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
         }
