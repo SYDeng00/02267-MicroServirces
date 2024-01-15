@@ -97,19 +97,24 @@ public class PaymentHandler {
         String payType = PaymentHandler.typeTransfer(payload[3], String.class);
         LOG.info("The request is:" + payType);
         UUID payOrRefundUuid = PaymentHandler.typeTransfer(payload[0], UUID.class);
+        UUID token;
         String debetorBankAccount;
         String creditorBankAccount;
         BigDecimal amount;
+        Payment payment;
         if (payType.equals("refund")) {
             Refund refund = paymentRepository.getRefund(payOrRefundUuid);
             debetorBankAccount = PaymentHandler.typeTransfer(payload[1], String.class);
             creditorBankAccount = PaymentHandler.typeTransfer(payload[2], String.class);
             amount = refund.getAmount();
+            payment = paymentRepository.getPayment(paymentRepository.getRefund(payOrRefundUuid).getPaymentId());
+            token = payment.getToken();
         } else {
-            Payment payment = paymentRepository.getPayment(payOrRefundUuid);
+            payment = paymentRepository.getPayment(payOrRefundUuid);
             debetorBankAccount = PaymentHandler.typeTransfer(payload[2], String.class);
             creditorBankAccount = PaymentHandler.typeTransfer(payload[1], String.class);
             amount = payment.getAmount();
+            token = paymentRepository.getPayment(payOrRefundUuid).getToken();
         }
         try {
             BankService bank = new BankServiceService().getBankServicePort();
@@ -127,7 +132,7 @@ public class PaymentHandler {
                             creditorBankAccount,
                             debetorBankAccount,
                             amount,
-                        paymentRepository.getPayment(payOrRefundUuid).getToken() });
+                            token});
             message.setStatus("200");
             eventPublisher.publishEvent(message);
 
@@ -135,7 +140,7 @@ public class PaymentHandler {
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "PaymentFacadeBroker",
                     new Object[] {
-                            paymentRepository.getPayment(payOrRefundUuid).getMessageId(),
+                            payment.getMessageId(),
                             payType,
                             payOrRefundUuid,
                             creditorBankAccount,
@@ -148,7 +153,7 @@ public class PaymentHandler {
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
                     new Object[] {
-                            paymentRepository.getPayment(payOrRefundUuid).getMessageId(),
+                            payment.getMessageId(),
                             payType,
                             payOrRefundUuid,
                             creditorBankAccount,

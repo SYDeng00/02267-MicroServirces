@@ -4,13 +4,13 @@ import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
 import dtu.ws.fastmoney.User;
-import groovyjarjarantlr4.v4.parse.ANTLRParser.ruleEntry_return;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.acme.Domains.Payment;
+import org.acme.Domains.Refund;
 import org.acme.Repositories.PaymentRepository;
 import org.acme.Resources.PaymentHandler;
 
@@ -94,21 +94,6 @@ public class paymentSteps {
         assertEquals(BigDecimal.valueOf(900), customerBalance);
     }
 
-
-
-    //
-
-    // @When("the service ask for authentication")
-    // public void the_service_ask_for_authentication() {
-    // // Write code here that turns the phrase above into concrete actions
-    // throw new io.cucumber.java.PendingException();
-    // }
-    // @Then("The token is invalid")
-    // public void the_token_is_invalid() {
-    // // Write code here that turns the phrase above into concrete actions
-    // throw new io.cucumber.java.PendingException();
-    // }
-
     @When("the service create a payment customer cannot affort")
     public void theServiceCreateAPaymentCustomerCannotAffort() {
         paymentID = UUID.randomUUID();
@@ -142,7 +127,32 @@ public class paymentSteps {
     public void customer_id() {
         customerID = UUID.randomUUID();
     }
+    UUID refundId;
+    @When("the service create a refund")
+    public void the_service_create_a_refund() throws Exception {
+        //payment
+        paymentID = UUID.randomUUID();
+        Payment payment = new Payment(paymentID, merchantID, token, affordedAmount);
+        payment.setCustomerID(customerID);
+        paymentRepository.addPayment(payment);
+        paymentRepository.getPayment(paymentID).getPaymentID();
+        //refund
+        refundId = UUID.randomUUID();
+        paymentRepository.addRefund(new Refund(refundId, paymentID, merchantID, affordedAmount));
+    }
 
+    @Then("Ask bank for refund transaction")
+    public void Ask_bank_for_refund_transaction() throws Exception {
+        paymentHandler.getBankAccount(new Object[]{refundId,merchantBankAccount,customerBankAccount,"refund"});
+    }
+
+    @Then("the refund transaction succeed")
+    public void theRefundTransactionSucceed() throws BankServiceException_Exception {
+        BigDecimal merchantBalance = bank.getAccount(merchantBankAccount).getBalance();
+        BigDecimal customerBalance = bank.getAccount(customerBankAccount).getBalance();
+        assertEquals(BigDecimal.valueOf(900), merchantBalance);
+        assertEquals(BigDecimal.valueOf(1100), customerBalance);
+    }
     Boolean tokenValidationResult;
 
     @When("Received token validation result {string}")
@@ -168,4 +178,6 @@ public void received_token_validation_result_result(String result) {
         bank.retireAccount(merchantBankAccount);
         bank.retireAccount(customerBankAccount);
     }
+
+
 }

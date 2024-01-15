@@ -59,8 +59,7 @@ public class PaymentRepository implements IPaymentRepository{
 
     @Override
     public List<Refund> getRefunds() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRefunds'");
+        return new ArrayList<>(refunds.values());
     }
 
     @Override
