@@ -2,8 +2,8 @@ package Domains;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
-import io.cucumber.messages.IdGenerator.UUID;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -17,10 +17,10 @@ public class DTUPay_Interface {
 	WebTarget dtuPayURL = clientPayment.target("http://localhost:8080/");
 
 	//
-	public UUID createDTUPayAccount(DTUPayAccount customer) {
-		Response response = dtuPayURL.path("customers").request()
+	public String createDTUPayAccount(DTUPayAccount customer) {
+		Response response = dtuPayURL.path("accounts").request()
 				.post(Entity.entity(customer, MediaType.APPLICATION_JSON));
-		return response.readEntity(UUID.class);
+		return response.readEntity(String.class);
 
 	}
 

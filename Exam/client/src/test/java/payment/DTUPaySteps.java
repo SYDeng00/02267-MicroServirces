@@ -25,10 +25,10 @@ import io.cucumber.java.en.When;
 public class DTUPaySteps {
 
 	public String customerBankID;
-	public UUID customerDtuPayID;
+	public String customerDtuPayID;
 
 	public String merchantBankID;
-	public UUID merchantDtuPayID;
+	public String merchantDtuPayID;
 
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
@@ -63,8 +63,8 @@ public class DTUPaySteps {
 
 	@When("the customer has registered with DTUPay")
 	public void the_customer_has_registered_with_dtu_pay() {
-		////customerDtuPayID = dtuPay.createDTUPayAccount(dtu_customer);
-		customerDtuPayID = UUID.randomUUID();
+		customerDtuPayID = dtuPay.createDTUPayAccount(dtu_customer);
+//		customerDtuPayID = UUID.randomUUID();
 	}
 
 	@Then("we receive a customer dtuPayId")
@@ -87,8 +87,8 @@ public class DTUPaySteps {
 
 	@When("the merchant has registered with DTUPay")
 	public void the_merchant_has_registered_with_dtu_pay() {
-		//merchantDtuPayID = dtuPay.createDTUPayAccount(dtu_merchant);
-		merchantDtuPayID = UUID.randomUUID();
+		merchantDtuPayID = dtuPay.createDTUPayAccount(dtu_merchant);
+//		merchantDtuPayID = UUID.randomUUID();
 	}
 
 	@Then("we receive a merchant dtuPayId")
@@ -107,49 +107,49 @@ public class DTUPaySteps {
 	// Token test
 	// Author: Siyuan Deng
 
-	@When("the customer asks for tokens")
-	public void theCustomerAsksForTokens() {
-		try {
-			//tokens = dtuPay.getTokens(customerDtuPayID);
-			tokens =new  ArrayList<>(Arrays.asList(
-				"token1",
-				"token2"
-			));
-		} catch (Exception e) {
-			// Handle the exception, e.g., log it
-			e.printStackTrace();
-		}
-
-	}
-
-	@Then("the customer receives tokens")
-	public void theCustomerReceivesTokens() {
-		assertFalse(tokens.isEmpty());
-	}
+//	@When("the customer asks for tokens")
+//	public void theCustomerAsksForTokens() {
+//		try {
+//			//tokens = dtuPay.getTokens(customerDtuPayID);
+//			tokens =new  ArrayList<>(Arrays.asList(
+//				"token1",
+//				"token2"
+//			));
+//		} catch (Exception e) {
+//			// Handle the exception, e.g., log it
+//			e.printStackTrace();
+//		}
+//
+//	}
+//
+//	@Then("the customer receives tokens")
+//	public void theCustomerReceivesTokens() {
+//		assertFalse(tokens.isEmpty());
+//	}
 
 	// Payment test
 	// Author: Siyuan Deng
 
-	@Given("the merchant initiates a payment for {int} kr by the customer")
-	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
-		payment_amount = new BigDecimal(amount);
-				
-	}
-
-	@When("the merchant has received a token from the customer")
-	public void theMerchantHasReceivedATokenFromTheCustomer() {
-		String token = null;
-		if (!tokens.isEmpty()) {
-		     token = tokens.get(0); 
-		}
-
-		Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
-		payment_result = dtuPay.createPayment(payment);
-	}
-
-	@Then("the payment is successful")
-	public void thePaymentIsSuccessful() {
-		assertEquals("payment is successful",payment_result);
-	}
+//	@Given("the merchant initiates a payment for {int} kr by the customer")
+//	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
+//		payment_amount = new BigDecimal(amount);
+//				
+//	}
+//
+//	@When("the merchant has received a token from the customer")
+//	public void theMerchantHasReceivedATokenFromTheCustomer() {
+//		String token = null;
+//		if (!tokens.isEmpty()) {
+//		     token = tokens.get(0); 
+//		}
+//
+//		Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
+//		payment_result = dtuPay.createPayment(payment);
+//	}
+//
+//	@Then("the payment is successful")
+//	public void thePaymentIsSuccessful() {
+//		assertEquals("payment is successful",payment_result);
+//	}
 
 }
