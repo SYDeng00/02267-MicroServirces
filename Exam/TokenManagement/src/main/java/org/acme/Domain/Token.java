@@ -91,5 +91,3 @@ public class Token {
         this.valid = tokenStatus;
     }
 }
-
-
