@@ -23,7 +23,6 @@ public class TokenFacadeResources {
         try {
             // Publish the event
            TokenFacadeBroker tokenBroker= new TokenFacadeBroker();
-//           tokenBroker.received();
            tokenBroker.createTokenForUser(token);
             return Response.status(201).entity("The token was created successfully - ").build();
         } catch (Exception err) {
