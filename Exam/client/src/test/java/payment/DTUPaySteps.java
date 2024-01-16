@@ -1,18 +1,15 @@
 package payment;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import Domains.DTUPayAccount;
 import Domains.DTUPay_Interface;
-import Domains.Payment;
+import Domains.Token_client;
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
@@ -32,6 +29,8 @@ public class DTUPaySteps {
 
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
+	
+	public Token_client token_client;
 
 	public List<String> tokens = new ArrayList<>();;
 
@@ -106,26 +105,17 @@ public class DTUPaySteps {
 
 	// Token test
 	// Author: Siyuan Deng
+	@When("the customer asks for {int} tokens")
+	public void theCustomerAsksForTokens(Integer int1) {
+		token_client.setCustomerID(customerDtuPayID);
+		token_client.setTokenNumber(int1);
+	}
 
-//	@When("the customer asks for tokens")
-//	public void theCustomerAsksForTokens() {
-//		try {
-//			//tokens = dtuPay.getTokens(customerDtuPayID);
-//			tokens =new  ArrayList<>(Arrays.asList(
-//				"token1",
-//				"token2"
-//			));
-//		} catch (Exception e) {
-//			// Handle the exception, e.g., log it
-//			e.printStackTrace();
-//		}
-//
-//	}
-//
-//	@Then("the customer receives tokens")
-//	public void theCustomerReceivesTokens() {
-//		assertFalse(tokens.isEmpty());
-//	}
+
+	@Then("the customer receives tokens")
+	public void theCustomerReceivesTokens() {
+		assertFalse(tokens.isEmpty());
+	}
 
 	// Payment test
 	// Author: Siyuan Deng

@@ -1,5 +1,4 @@
 package org.acme.Repositories;
-
 import org.acme.Domain.Token;
 import org.acme.Utils.HelperAttributes;
 

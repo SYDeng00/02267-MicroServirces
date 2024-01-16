@@ -1,7 +1,9 @@
 package main.java.org.acme.payment_facade.Repositories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.acme.Domains.Message;
@@ -13,12 +15,19 @@ import main.java.org.acme.payment_facade.Interfaces.IPaymentFacadeRepositories;
  * @version 1.0
  * 
  */
-public class PaymentFacadeRepositories  implements IPaymentFacadeRepositories{
-    static HashMap<UUID,Message> messages = new HashMap<>();
+public class PaymentFacadeRepositories implements IPaymentFacadeRepositories {
+    private static final PaymentFacadeRepositories instance = new PaymentFacadeRepositories();
+    private static HashMap<UUID, Message> messages = new HashMap<>();
+
+    private PaymentFacadeRepositories() {}
+
+    public static PaymentFacadeRepositories getInstance() {
+        return instance;
+    }
 
     @Override
     public void addMessage(Message message) {
-        messages.put(message.getMessageID(),message);
+        messages.put(message.getMessageID(), message);
     }
 
     @Override
@@ -28,12 +37,15 @@ public class PaymentFacadeRepositories  implements IPaymentFacadeRepositories{
 
     @Override
     public List<Message> getMessages() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMessage'");
+        System.out.println("HashMap:");
+        for (Map.Entry<UUID, Message> entry : messages.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
+        return new ArrayList<>(messages.values());
     }
 
     @Override
-    public void  removeMessage(UUID MessageID) {
+    public void removeMessage(UUID MessageID) {
         messages.remove(MessageID);
     }
 }

@@ -24,13 +24,14 @@ Feature: Payment
   Scenario: Create a refund with valid account
     Given merchantID, token
     Given affordedAmount
+    Given refundId
     When the service create a refund
     Then Ask bank for refund transaction
     Then the refund transaction succeed
 
   Scenario: Refund failed due to unAffordedAmount
     Given merchantID, token
-    Given unAffordedAmount
+    Given refundId
     When The service creates a refund that the merchant cannot afford
     Then Ask bank for refund a lot of money
     Then the refund transaction failed
