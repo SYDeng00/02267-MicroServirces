@@ -23,12 +23,13 @@ public class TokenBroker implements IEventSubscriber {
         LOG.info("Event type:" + event);
         Log.info(TokenConfig.RETURN_TOKEN.equals(event));
         switch (event) {
-
             case TokenConfig.RETURN_TOKEN:
                 LOG.info("-------------------------------Payment request received");
                 token_client = typeTransfer(payload[0],Token_client.class);
                 services.generateTokens(token_client);
+                // TODO: how to give it to client?
                 break;
+                case TokenConfig.RECEIVE_TOKEN_VALID:
             default:
                 break;
         }

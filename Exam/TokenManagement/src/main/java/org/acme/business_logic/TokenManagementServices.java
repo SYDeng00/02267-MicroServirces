@@ -14,6 +14,9 @@ import org.acme.Resource.TokenConfig;
 import org.acme.Resoures.EventPublisher;
 
 import com.google.gson.Gson;
+
+import io.cucumber.core.internal.com.fasterxml.jackson.databind.ser.std.ToEmptyObjectSerializer;
+
 import org.acme.Utils.HelperAttributes;
 
 import static io.quarkus.arc.ComponentsProvider.LOG;
@@ -44,7 +47,7 @@ public class TokenManagementServices {
         int count = objT.getTokenNumber();
         List<String> tokenListString = new ArrayList<>();
         if (count <= HelperAttributes.MAX_TOKEN_REQ){
-            int tokenUnused = repository.validateToken(objT.getCustomerID());
+            int tokenUnused = repository.validateTokenNumebr(objT.getCustomerID());
             String genToken;
             if (tokenUnused <= HelperAttributes.MAX_UNUSED_TOKEN){
                 for (int i = 0; i < count; i++) {
@@ -69,4 +72,8 @@ public class TokenManagementServices {
 
        // return null;
     }
+	public Object[] validateToken(UUID tokenUuid){
+		to
+
+	}
 }
