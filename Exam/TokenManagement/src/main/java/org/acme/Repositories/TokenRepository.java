@@ -8,7 +8,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class TokenRepository {
-    private List<Token> tokenList = new ArrayList<>();
+
+    static TokenRepository tokenRepository = new TokenRepository();
+    private TokenRepository(){}
+    public static TokenRepository getInstance(){
+        return tokenRepository;
+    }
+    private static List<Token> tokenList = new ArrayList<>();
     public void addIntoTokenList(Token token){
         tokenList.add(token);
     }

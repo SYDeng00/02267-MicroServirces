@@ -14,6 +14,9 @@ import org.acme.Resource.TokenConfig;
 import org.acme.Resoures.EventPublisher;
 
 import com.google.gson.Gson;
+
+import io.cucumber.core.internal.com.fasterxml.jackson.databind.ser.std.ToEmptyObjectSerializer;
+
 import org.acme.Utils.HelperAttributes;
 
 import static io.quarkus.arc.ComponentsProvider.LOG;
@@ -21,14 +24,14 @@ import static io.quarkus.arc.ComponentsProvider.LOG;
 
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
-    TokenRepository paymentRepository = new TokenRepository();
+    TokenRepository repository = TokenRepository.getInstance();
 //    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenManagementServices.class));
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();
         String json = gson.toJson(payload);
         return gson.fromJson(json, objectClass);
     }
- TokenRepository repository = new TokenRepository();
+
     public void  generateTokens(Token_client objT) {
     	List<String> tokenList = new ArrayList<>();
     	tokenList.add(UUID.randomUUID().toString());
@@ -45,7 +48,7 @@ public class TokenManagementServices {
         int count = objT.getTokenNumber();
         List<String> tokenListString = new ArrayList<>();
         if (count <= HelperAttributes.MAX_TOKEN_REQ){
-            int tokenUnused = repository.validateToken(objT.getCustomerID());
+            int tokenUnused = repository.validateTokenNumebr(objT.getCustomerID());
             String genToken;
             if (tokenUnused <= HelperAttributes.MAX_UNUSED_TOKEN){
                 for (int i = 0; i < count; i++) {
@@ -70,4 +73,8 @@ public class TokenManagementServices {
 
        // return null;
     }
+	public Object[] validateToken(UUID tokenUuid){
+		to
+
+	}
 }
