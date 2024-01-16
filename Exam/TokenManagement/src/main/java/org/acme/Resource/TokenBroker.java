@@ -2,17 +2,16 @@ package org.acme.Resource;
 
 import com.google.gson.Gson;
 import io.quarkus.logging.Log;
-import org.acme.Domain.Token;
+import org.acme.Domain.Token_client;
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
-import org.acme.Resoures.EventPublisher;
 import org.acme.Resoures.EventSubscriber;
 import org.acme.business_logic.TokenManagementServices;
 
 import java.util.logging.Logger;
 
 public class TokenBroker implements IEventSubscriber {
-    Token token = new Token();
+    Token_client token = new Token_client();
     TokenManagementServices services = new TokenManagementServices();
     private static final Logger LOG = Logger.getLogger(String.valueOf(TokenBroker.class));
     public void subscribeEvent(Message message) throws Exception {
@@ -25,8 +24,6 @@ public class TokenBroker implements IEventSubscriber {
             case TokenConfig.RETURN_TOKEN:
                 LOG.info("-------------------------------Payment request received");
                 services.generateTokens(token,payload);
-                /*eventPublisher.publishEvent(new Message(TokenConfig.RETURN_TOKEN, "TokenResources",
-                        new Object[] { token }));*/
                 break;
             default:
                 break;

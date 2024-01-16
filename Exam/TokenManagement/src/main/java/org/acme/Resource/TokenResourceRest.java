@@ -1,3 +1,4 @@
+/*
 package org.acme.Resource;
 
 import jakarta.ws.rs.*;
@@ -10,17 +11,22 @@ import java.util.List;
 @Path("/")
 public class TokenResourceRest {
 TokenManagementServices tokenManagementServices = new TokenManagementServices();
-    @Path("/tokens")
+    */
+/*@Path("/tokens")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Token> getAllToken() {
         return tokenManagementServices.getAllTokenList();
-    }
-   /* @Path("/tokens/")
+    }*//*
+
+   */
+/* @Path("/tokens/")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getTokenSet(Token token) {
         return tokenManagementServices.generateTokens(token);
-    }*/
+    }*//*
+
 }
+*/

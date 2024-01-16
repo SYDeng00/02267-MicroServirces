@@ -27,9 +27,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
         try {
             message = new Message(TokenFacadeConfig.RETURN_TOKEN,
                     "TokenBroker",
-                    new Object[] { token.getToken(),
-                            token.getTokenID(),
-                            token.getCustomerID() });
+                    new Object[] { token.getToken() });
             publisher.publishEvent(message);
             waitFormessageReply.join();
         } catch (Exception e) {
