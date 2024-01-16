@@ -69,8 +69,8 @@ public class EventSubscriber {
                 Channel channel = connection.createChannel()) {
 
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
-            channel.queueDeclare(QUEUE_NAME, true, false, false, null);
-            channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, routingKey);
+            channel.queueDeclare(routingKey, true, false, false, null);
+            channel.queueBind(routingKey, EXCHANGE_NAME, routingKey);
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 System.out.println("[x] Receiving:\n");
@@ -84,7 +84,7 @@ public class EventSubscriber {
                     e.printStackTrace();
                 }
             };
-            channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
+            channel.basicConsume(routingKey, true, deliverCallback, consumerTag -> {
             });
         }
     }
