@@ -26,7 +26,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 
 	public Token_client createTokenForUser(Token_client token_client) {
 		UUID costomerUuid = UUID.fromString(token_client.getCustomerID());
-		int request_token_num = token_client.getTokenNumber();
+		int request_token_num = token_client.getToken_number();
 		EventPublisher publisher = new EventPublisher();
 		try {
 			message = new Message(TokenFacadeConfig.RETURN_TOKEN, "TokenBroker", new Object[] {costomerUuid, request_token_num });

@@ -9,6 +9,22 @@ public class Token_client {
     private Integer token_number;
     private List<String> tokens = new ArrayList<>();
 
+    public Integer getToken_number() {
+        return token_number;
+    }
+
+    public void setToken_number(Integer token_number) {
+        this.token_number = token_number;
+    }
+
+    public List<String> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<String> tokens) {
+        this.tokens = tokens;
+    }
+
     // Constructor
     public Token_client() {}
 
@@ -30,15 +46,5 @@ public class Token_client {
     // Setter for customerID
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
-    }
-
-    // Getter for token_number
-    public Integer getTokenNumber() {
-        return token_number;
-    }
-
-    // Setter for token_number
-    public void setTokenNumber(Integer token_number) {
-        this.token_number = token_number;
     }
 }

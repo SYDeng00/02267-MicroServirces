@@ -31,12 +31,10 @@ public class TokenFacadeResources implements IEventSubscriber {
     
 	List<String> result = new ArrayList<>();
 
-    private CompletableFuture<String> idFuture;
     CompletableFuture<List<String>> future = new CompletableFuture<>();
 	public TokenFacadeResources(){
         try {
 			subscriber.subscribeEvent("AccountResources");
-		    CompletableFuture<List<String>> future = new CompletableFuture<>();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

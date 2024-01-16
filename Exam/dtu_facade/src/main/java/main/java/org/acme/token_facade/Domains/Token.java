@@ -1,45 +1,33 @@
 package main.java.org.acme.token_facade.Domains;
 
+
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Token {
-    private String tokenID;
-    private String token;
+    private UUID token;
     private String tokenStatus;
     private LocalDate tokenCreateDate;
-    private String customerID;
+    private UUID customerID;
     private int tokenCount;
 
     private boolean valid;
 
-    public Token(String tokenID, String token, String tokenStatus, LocalDate tokenCreateDate, String customerID) {
-        this.tokenID = tokenID;
+    public Token( UUID token, String tokenStatus, LocalDate tokenCreateDate, UUID customerID) {
+   
         this.token = token;
         this.tokenStatus = tokenStatus;
         this.tokenCreateDate = tokenCreateDate;
         this.customerID = customerID;
     }
 
-    public Token(String token, String tokenStatus, LocalDate now, String customerID) {
-        this.token= token;
-        this.tokenStatus= tokenStatus;
-        this.customerID = customerID;
 
-    }
 
-    public String getTokenID() {
-        return tokenID;
-    }
-
-    public void setTokenID(String tokenID) {
-        this.tokenID = tokenID;
-    }
-
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
 
@@ -59,21 +47,21 @@ public class Token {
         this.tokenCreateDate = tokenCreateDate;
     }
 
-    public String getCustomerID() {
+    public UUID getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(UUID customerID) {
         this.customerID = customerID;
     }
 
     public Token(){}
-    public Token(String customerID,int tokenCount) {
+    public Token(UUID customerID,int tokenCount) {
         this.customerID = customerID;
         this.tokenCount = tokenCount;
     }
-    public Token(String tokenID, String token, String tokenStatus) {
-        this.tokenID = tokenID;
+    public Token( UUID token, String tokenStatus) {
+
         this.token = token;
         this.tokenStatus = tokenStatus;
     }
@@ -89,6 +77,10 @@ public class Token {
     public void setValid(boolean tokenStatus) {
         this.valid = tokenStatus;
     }
+    public Boolean getValid(){
+        return valid;
+    }
+    public void setValid(Boolean valid){
+        this.valid = valid;
+    }
 }
-
-
