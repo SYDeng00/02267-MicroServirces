@@ -7,17 +7,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="code-with-quarkus (2) (org.client)" />
+        <module name="code-with-quarkus" />
         <module name="code-with-quarkus (3)" />
         <module name="code-with-quarkus (4)" />
+        <module name="code-with-quarkus (1)" />
         <module name="message-utils" />
         <module name="TokenManagement" />
-        <module name="code-with-quarkus (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="code-with-quarkus" target="17" />
       <module name="code-with-quarkus (1) (org.client)" target="17" />
       <module name="code-with-quarkus (2) (org.acme)" target="17" />
+      <module name="report_microservice" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -31,6 +32,7 @@
       <module name="code-with-quarkus (3)" options="-parameters" />
       <module name="code-with-quarkus (4)" options="-parameters" />
       <module name="message-utils" options="-parameters" />
+      <module name="report_microservice" options="-parameters" />
     </option>
   </component>
 </project>
