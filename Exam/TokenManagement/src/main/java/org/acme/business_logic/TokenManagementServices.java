@@ -35,8 +35,7 @@ public class TokenManagementServices {
     public void  generateTokens(Token_client objT) {
     	List<String> tokenList = new ArrayList<>();
     	tokenList.add(UUID.randomUUID().toString());
-    	tokenList.add(UUID.randomUUID().toString());
-    	tokenList.add(UUID.randomUUID().toString());
+
     	try {
 			eventPublisher.publishEvent(
 			        new Message(TokenConfig.RETURN_TOKEN1, "TokenBroker", new Object[] {tokenList}));
