@@ -3,10 +3,8 @@ package main.java.org.acme.token_facade.Resources;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.acme.Domains.Message;
 import org.acme.Interfaces.IEventSubscriber;
@@ -15,7 +13,7 @@ import org.acme.Resoures.EventSubscriber;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import Domains.Token_client;
+
 import Resources.AccountConfig;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -23,12 +21,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import main.java.org.acme.token_facade.Domains.Token_client;
 
 
 @Path("/")
 public class TokenFacadeResources implements IEventSubscriber {
 	
-	
+	CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
+    
 	List<String> result = new ArrayList<>();
 
     private CompletableFuture<String> idFuture;
@@ -37,7 +37,6 @@ public class TokenFacadeResources implements IEventSubscriber {
         try {
 			subscriber.subscribeEvent("AccountResources");
 		    CompletableFuture<List<String>> future = new CompletableFuture<>();
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,12 +51,9 @@ public class TokenFacadeResources implements IEventSubscriber {
     public Response getTokenSet(Token_client token)  {
         try {
             // Publish the event
-           TokenFacadeBroker tokenBroker= new TokenFacadeBroker();
-           tokenBroker.createTokenForUser(token);
-           
-           future = new CompletableFuture<>();
-           List<String> tokens = future.get(10, TimeUnit.SECONDS);
-            return Response.status(201).entity(tokens).build();
+        TokenFacadeBroker tokenFacadeBroker= new TokenFacadeBroker();
+        Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
+            return Response.status(201).entity(token_client).build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
         }

@@ -10,7 +10,11 @@ import java.util.UUID;
 public class TokenFacadeRepositories implements ITokenFacadeRepositories {
 
     static HashMap<UUID, Message> messages = new HashMap<>();
-
+    static TokenFacadeRepositories tokenFacadeRepositories = new TokenFacadeRepositories();
+    private TokenFacadeRepositories(){}
+    public static TokenFacadeRepositories getInstance(){
+        return tokenFacadeRepositories;
+    }
     @Override
     public void addMessage(Message message) {
         messages.put(message.getMessageID(),message);
