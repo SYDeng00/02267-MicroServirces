@@ -32,9 +32,6 @@ public class TokenBroker implements IEventSubscriber {
             default:
                 break;
         }
-
-
-
     }
 
     public void received() throws Exception {

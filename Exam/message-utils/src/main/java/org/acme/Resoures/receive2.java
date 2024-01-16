@@ -15,13 +15,11 @@ public class receive2  implements IEventSubscriber{
 
     public void received() throws Exception{
         try{
-            EventSubscriber subscriber = new EventSubscriber(new receiverrepo());
+            EventSubscriber subscriber = new EventSubscriber(new receive2());
             System.out.println(this.getClass().getSimpleName());
             subscriber.subscribeEvent(this.getClass().getSimpleName());
         }catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 }
