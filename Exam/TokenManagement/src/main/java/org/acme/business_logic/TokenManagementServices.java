@@ -70,7 +70,7 @@ public class TokenManagementServices {
 		}
 		try {
 			eventPublisher.publishEvent(
-					new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker", new Object[] { tokensList }));
+					new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker", new Object[] {customerID, tokensList }));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
