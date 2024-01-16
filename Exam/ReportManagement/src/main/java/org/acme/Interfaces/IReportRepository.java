@@ -1,4 +1,4 @@
-package org.acme.Repositories;
+package org.acme.Interfaces;
 
 
 import java.util.List;
