@@ -7,11 +7,6 @@ Feature: Payment
     Then Ask bank for transaction
     Then the transaction succeed
 
-#  Scenario: Create a payment without valid customer account
-#    Given merchantID, token, amount
-#    When the service ask for authentication
-#    Then The token is invalid
-
    Scenario: Create a payment customer cannot affort
      Given merchantID, token
     Given unAffordedAmount

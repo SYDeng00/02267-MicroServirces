@@ -9,10 +9,15 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import org.acme.Domains.Message;
 import org.acme.Domains.Payment;
 import org.acme.Domains.Refund;
 import org.acme.Repositories.PaymentRepository;
+import org.acme.Resources.PaymentBroker;
+import org.acme.Resources.PaymentConfig;
 import org.acme.Resources.PaymentHandler;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -20,6 +25,7 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 public class paymentSteps {
     UUID merchantID;
@@ -43,6 +49,12 @@ public class paymentSteps {
     BankService bank = new BankServiceService().getBankServicePort();
     PaymentRepository paymentRepository = PaymentRepository.getInstance();
 
+    PaymentBroker mock_paymentBroker = mock(PaymentBroker.class);
+    public Message mock_message = mock(Message.class);
+    
+    public UUID messageID;
+    public UUID merchanID;
+    String reason;
     @Before
     public void createMerchantAndCustomer() throws BankServiceException_Exception {
         User merchantUser = new User();
@@ -59,7 +71,11 @@ public class paymentSteps {
     }
 
     @Given("merchantID, token")
-    public void merchant_id_token() {
+    public void merchant_id_token() throws Exception {
+        
+        mock_message = new Message(PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT, "PaymentBroker",new Object[]{messageID, merchanID,token,affordedAmount});
+        mock_paymentBroker.subscribeEvent(mock_message);
+        Mockito.verify(mock_paymentBroker).subscribeEvent(mock_message);
         merchantID = UUID.randomUUID();
         token = UUID.randomUUID();
     }
@@ -194,8 +210,12 @@ public class paymentSteps {
     }
 
     @When("Received token validation result {string}")
-    public void received_token_validation_result_result(String result) {
-    tokenValidationResult = Boolean.valueOf(result);
+    public void received_token_validation_result_result(String result) throws Exception {
+        
+        mock_message = new Message(PaymentConfig.RECEIVE_VALID_RESULT, "PaymentBroker",new Object[]{paymentID, result,reason});
+        mock_paymentBroker.subscribeEvent(mock_message);
+        Mockito.verify(mock_paymentBroker).subscribeEvent(mock_message);
+        tokenValidationResult = Boolean.valueOf(result);
 }
 
 
@@ -207,8 +227,6 @@ public class paymentSteps {
         } catch (Exception e) {
             assertFalse(false);
         }
-
-
     }
     @After
     public void retireMerchantAndCusomer() throws BankServiceException_Exception {
