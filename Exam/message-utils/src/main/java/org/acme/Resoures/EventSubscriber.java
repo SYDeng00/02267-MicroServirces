@@ -13,7 +13,7 @@ import com.rabbitmq.client.DeliverCallback;
 
 public class EventSubscriber {
 
-    private static final String QUEUE_NAME = "publisher_queue";
+    private static final String QUEUE_NAME = "msg_queue";
     private static final String EXCHANGE_NAME = "exchange_events";
     private final IEventSubscriber callback;
     private final Gson gson = new Gson();

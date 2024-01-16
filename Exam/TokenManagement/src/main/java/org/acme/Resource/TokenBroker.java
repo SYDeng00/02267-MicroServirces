@@ -14,7 +14,10 @@ public class TokenBroker implements IEventSubscriber {
     Token_client token = new Token_client();
     TokenManagementServices services = new TokenManagementServices();
     private static final Logger LOG = Logger.getLogger(String.valueOf(TokenBroker.class));
+    
+    @Override
     public void subscribeEvent(Message message) throws Exception {
+        LOG.info("sub");
         String event = message.getEventType();
         Object[] payload = message.getPayload();
         LOG.info("Event type:" + event);
@@ -36,6 +39,7 @@ public class TokenBroker implements IEventSubscriber {
     public void received() throws Exception {
         try {
             EventSubscriber subscriber = new EventSubscriber(new TokenBroker());
+            System.out.println("In received");
             subscriber.subscribeEvent(this.getClass().getSimpleName());
         } catch (Exception e) {
             e.printStackTrace();
