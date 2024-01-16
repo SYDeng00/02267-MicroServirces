@@ -40,7 +40,7 @@ public class TokenBroker implements IEventSubscriber {
     public void received() throws Exception {
         try {
             EventSubscriber subscriber = new EventSubscriber(new TokenBroker());
-//            System.out.println("In received");
+            System.out.println("In received");
             subscriber.subscribeEvent(this.getClass().getSimpleName());
         } catch (Exception e) {
             e.printStackTrace();

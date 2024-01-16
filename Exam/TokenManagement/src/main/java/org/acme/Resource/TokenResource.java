@@ -25,7 +25,9 @@ public class TokenResource implements QuarkusApplication {
         System.out.println("Token service launched, start Broker");
 
         try {
+            System.out.println("in main");
             tokenBroker.received();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

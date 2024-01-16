@@ -31,7 +31,7 @@ public class TokenManagementServices {
     	tokenList.add(UUID.randomUUID().toString());
     	try {
 			eventPublisher.publishEvent(
-			        new Message(TokenConfig.RETURN_TOKEN1, "TokenBroker", new Object[] {tokenList}));
+			        new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker", new Object[] {tokenList}));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
