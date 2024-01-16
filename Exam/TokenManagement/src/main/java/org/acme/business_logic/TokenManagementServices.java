@@ -80,8 +80,6 @@ public class TokenManagementServices {
 	}
 
 	
-
-
 	public void tokenValidate(Object[] payload) throws Exception {
 		UUID tokenUuid = typeTransfer(payload[1], UUID.class);
 		Token token = repository.getToken(tokenUuid);

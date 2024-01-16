@@ -9,7 +9,7 @@ public class Token_client {
     private Integer token_number;
     private List<String> tokens = new ArrayList<>();
 
-    public Integer getToken_number() {
+    public int getToken_number() {
         return token_number;
     }
 
