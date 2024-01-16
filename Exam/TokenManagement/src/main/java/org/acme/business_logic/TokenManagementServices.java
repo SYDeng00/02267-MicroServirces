@@ -17,14 +17,14 @@ import com.google.gson.Gson;
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
     TokenRepository paymentRepository = new TokenRepository();
-    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenManagementServices.class));
+//    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenManagementServices.class));
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();
         String json = gson.toJson(payload);
         return gson.fromJson(json, objectClass);
     }
  TokenRepository repository = new TokenRepository();
-    public void  generateTokens(Token_client objT, Object[] payload) {
+    public void  generateTokens(Token_client objT) {
     	List<String> tokenList = new ArrayList<>();
     	tokenList.add(UUID.randomUUID().toString());
     	tokenList.add(UUID.randomUUID().toString());

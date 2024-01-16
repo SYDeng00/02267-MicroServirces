@@ -11,7 +11,7 @@ import org.acme.business_logic.TokenManagementServices;
 import java.util.logging.Logger;
 
 public class TokenBroker implements IEventSubscriber {
-    Token_client token = new Token_client();
+    Token_client token_client = new Token_client();
     TokenManagementServices services = new TokenManagementServices();
     private static final Logger LOG = Logger.getLogger(String.valueOf(TokenBroker.class));
     
@@ -26,7 +26,8 @@ public class TokenBroker implements IEventSubscriber {
 
             case TokenConfig.RETURN_TOKEN:
                 LOG.info("-------------------------------Payment request received");
-                services.generateTokens(token,payload);
+                token_client = typeTransfer(payload[0],Token_client.class);
+                services.generateTokens(token_client);
                 break;
             default:
                 break;
@@ -39,7 +40,7 @@ public class TokenBroker implements IEventSubscriber {
     public void received() throws Exception {
         try {
             EventSubscriber subscriber = new EventSubscriber(new TokenBroker());
-            System.out.println("In received");
+//            System.out.println("In received");
             subscriber.subscribeEvent(this.getClass().getSimpleName());
         } catch (Exception e) {
             e.printStackTrace();
