@@ -21,19 +21,18 @@ import static io.quarkus.arc.ComponentsProvider.LOG;
 
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
-    TokenRepository paymentRepository = new TokenRepository();
+    TokenRepository repository = TokenRepository.getInstance();
 //    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenManagementServices.class));
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();
         String json = gson.toJson(payload);
         return gson.fromJson(json, objectClass);
     }
- TokenRepository repository = new TokenRepository();
+
     public void  generateTokens(Token_client objT) {
     	List<String> tokenList = new ArrayList<>();
     	tokenList.add(UUID.randomUUID().toString());
-    	tokenList.add(UUID.randomUUID().toString());
-    	tokenList.add(UUID.randomUUID().toString());
+
     	try {
 			eventPublisher.publishEvent(
 			        new Message(TokenConfig.RETURN_TOKEN1, "TokenBroker", new Object[] {tokenList}));
