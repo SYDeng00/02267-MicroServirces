@@ -1,79 +1,106 @@
 package org.acme.business_logic;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.acme.Domain.Token;
-import org.acme.Domain.Token_client;
 import org.acme.Domains.Message;
 import org.acme.Repositories.TokenRepository;
 import org.acme.Resource.TokenConfig;
 import org.acme.Resoures.EventPublisher;
 
 import com.google.gson.Gson;
-
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ser.std.ToEmptyObjectSerializer;
-
 import org.acme.Utils.HelperAttributes;
 
 import static io.quarkus.arc.ComponentsProvider.LOG;
 
-
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
-    TokenRepository repository = TokenRepository.getInstance();
-//    private static final Logger LOG = Logger.getLogger(String.valueOf(TokenManagementServices.class));
-    public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
-        Gson gson = new Gson();
-        String json = gson.toJson(payload);
-        return gson.fromJson(json, objectClass);
-    }
+	TokenRepository repository = TokenRepository.getInstance();
 
-    public void  generateTokens(Token_client objT) {
-    	List<String> tokenList = new ArrayList<>();
-    	tokenList.add(UUID.randomUUID().toString());
+	// gger.getLogger(String.valueOf(TokenManagementServices.class));
+	public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
+		Gson gson = new Gson();
+		String json = gson.toJson(payload);
+		return gson.fromJson(json, objectClass);
+	}
 
-    	try {
+	public void generateTokens(Object[] payload) {
+		UUID customerID = typeTransfer(payload[0], UUID.class);
+		int request_token_num = typeTransfer(payload[1], null);
+		Message message;
+
+		// Check here how many token customer want to generate
+
+		if (request_token_num < 1 || request_token_num > 5) {
+			message = new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker",
+					new Object[] { "Request number invalid" });
+			message.setStatus("404");
+			try {
+				eventPublisher.publishEvent(message);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		if (repository.getCustomerTokenNumer(customerID) > 1) {
+			message = new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker",
+					new Object[] { "Stored token numebr is more than 1" });
+			message.setStatus("404");
+			try {
+				eventPublisher.publishEvent(message);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		List<UUID> tokensList = new ArrayList<>();
+		for (int i = 0; i < request_token_num; i++) {
+			UUID tokenID = repository.generateToken();
+			Token token = new Token(tokenID, HelperAttributes.STATUS_UNUSED,
+					LocalDate.now(), customerID);
+			repository.addToken(token);
+			tokensList.add(tokenID);
+		}
+		try {
 			eventPublisher.publishEvent(
-			        new Message(TokenConfig.RETURN_TOKEN1, "TokenBroker", new Object[] {tokenList}));
+					new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker", new Object[] { tokensList }));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-         //Check here how many token customer want to generate
-        int count = objT.getTokenNumber();
-        List<String> tokenListString = new ArrayList<>();
-        if (count <= HelperAttributes.MAX_TOKEN_REQ){
-            int tokenUnused = repository.validateTokenNumebr(objT.getCustomerID());
-            String genToken;
-            if (tokenUnused <= HelperAttributes.MAX_UNUSED_TOKEN){
-                for (int i = 0; i < count; i++) {
-                    int tokenId = repository.getNextTokenId();
-                    genToken = repository.generateUniqueTokenId();
-                    Token token= new Token(String.valueOf(tokenId),genToken, HelperAttributes.STATUS_UNUSED, LocalDate.now(), objT.getCustomerID());
-                    repository.addIntoTokenList(token);
-                    tokenListString.add(genToken);
-                }
-                try {
-					eventPublisher.publishEvent(
-					        new Message(TokenConfig.RETURN_TOKEN1, "TokenBroker", new Object[] {tokenListString}));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-                LOG.info("Payment microservce send message to token microservce:" + TokenConfig.RETURN_TOKEN);
-                //return tokenListString;
-            }
-            LOG.info("Generating token succeed."+ tokenListString);
-        }
-
-       // return null;
-    }
-	public Object[] validateToken(UUID tokenUuid){
-		to
-
+		LOG.info("Payment microservce send message to token microservce:" + TokenConfig.RETURN_TOKEN);
+		// return tokenListString;
 	}
+
+	
+
+
+	public void tokenValidate(Object[] payload) throws Exception {
+		UUID tokenUuid = typeTransfer(payload[1], UUID.class);
+		Token token = repository.getToken(tokenUuid);
+		LocalDate expirationDate = token.getTokenCreateDate().plus(TokenConfig.EXPIRY_DAYS_FOR_TOKEN, ChronoUnit.DAYS);
+		String reason = "";
+
+		if (LocalDate.now().isAfter(expirationDate) && token.getValid()) {
+			reason = "Token expired";
+			token.setValid(false);
+		}
+		if (!LocalDate.now().isAfter(expirationDate) && !token.getValid()) {
+			reason = "Token has been used";
+			token.setValid(false);
+		}
+		eventPublisher.publishEvent(
+				new Message(
+						TokenConfig.SEND_TOKEN_VALID_RESULT,
+						"PaymentBroker",
+						new Object[] { payload[0], token.getValid(), reason, token.getCustomerID() }));
+	}
+
 }

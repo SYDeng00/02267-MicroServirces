@@ -73,7 +73,7 @@ public class PaymentHandler {
         UUID merchaneUuid = typeTransfer(payload[2], UUID.class);
         Log.info("Toekn validaton information resolved:" + String.valueOf(validResult));
         if (validResult) {
-            UUID customerUuid = typeTransfer(payload[2], UUID.class);
+            UUID customerUuid = typeTransfer(payload[3], UUID.class);
             paymentRepository.getPayment(paymentID).setCustomerID(customerUuid);
             eventPublisher.publishEvent(new Message(PaymentConfig.SEND_REQUEST_BANK_ACCOUNTS, "AccountBroker",
                     new Object[] { paymentID, merchaneUuid, customerUuid, "payment" }));

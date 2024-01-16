@@ -14,10 +14,10 @@ public class PaymentConfig {
     // {UUID-> messageID, UUID->merchantID, String->token, BigDecimal->amount}
 
     public static final String SEND_VALID_TOKENS = "ValidTokens";
-    // {UUID->paymentID, String-> token}
+    // {UUID->paymentID, UUID-> token}
 
     public static final String RECEIVE_VALID_RESULT = "ValidResult";
-    // {UUID->paymentID, boolean->result, String->reason} if token is valid, reason
+    // {UUID->paymentID, boolean->result, String->reason, UUID customerID} if token is valid, reason
     // is null
 
     public static final String SEND_PAYMENT_RESULT = "PaymentResult";

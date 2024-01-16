@@ -1,33 +1,48 @@
 package org.acme.Repositories;
+
 import org.acme.Domain.Token;
-import org.acme.Utils.HelperAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class TokenRepository {
 
     static TokenRepository tokenRepository = new TokenRepository();
-    private TokenRepository(){}
-    public static TokenRepository getInstance(){
+    private static HashMap<UUID, Token> tokens = new HashMap<>();
+
+    private TokenRepository() {
+    }
+
+    public static TokenRepository getInstance() {
         return tokenRepository;
     }
-    private static List<Token> tokenList = new ArrayList<>();
-    public void addIntoTokenList(Token token){
-        tokenList.add(token);
+
+    public void addToken(Token token) {
+        tokens.put(token.getToken(), token);
     }
 
-    public int getNextTokenId() {
-        return tokenList.size() + 1;
-    }
-    public int validateToken(String cid) {
-        return Math.toIntExact(tokenList.stream().filter(t -> t.getCustomerID() == cid && Objects.equals(t.getTokenStatus(), HelperAttributes.STATUS_UNUSED)).count());
-    }
-    public String generateUniqueTokenId() {
-        return UUID.randomUUID().toString();
+    public UUID generateToken() {
+        return UUID.randomUUID();
     }
 
-    public List<Token> getAllTokenList() { return tokenList; }
+    public List<Token> getAllTokenList() {
+        return new ArrayList<>(tokens.values());
+    }
+
+    public Token getToken(UUID tokenUuid) {
+        return tokens.get(tokenUuid);
+    }
+
+    public int getCustomerTokenNumer(UUID customerID) {
+        int count = 0;
+        for (Token token : tokens.values()) {
+            if (token.getCustomerID().equals(customerID)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
