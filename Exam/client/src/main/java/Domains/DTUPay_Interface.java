@@ -2,7 +2,6 @@ package Domains;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -24,10 +23,10 @@ public class DTUPay_Interface {
 
 	}
 
-	public List<String> getTokens(UUID customerDtuPayID) throws Exception {
+	public List<String> getTokens(Token_client customerDtuPay) throws Exception {
 		try {
-			Response response = dtuPayURL.path("/tokens/" + customerDtuPayID).request()
-					.post(Entity.entity(customerDtuPayID, MediaType.APPLICATION_JSON));
+			Response response = dtuPayURL.path("/tokens/").request()
+					.post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
 
 			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				return response.readEntity(new GenericType<List<String>>() {
