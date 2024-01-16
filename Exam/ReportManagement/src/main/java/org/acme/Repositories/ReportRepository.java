@@ -2,6 +2,7 @@ package org.acme.Repositories;
 
 
 import org.acme.Domains.Report;
+import org.acme.Interfaces.IReportRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
