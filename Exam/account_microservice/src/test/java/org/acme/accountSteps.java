@@ -7,20 +7,18 @@ import java.util.UUID;
 import org.acme.Domains.Message;
 import org.mockito.Mockito;
 
-import Domains.DTUPayAccount;
-import Resources.AccountBroker;
-import Resources.AccountConfig;
+import org.acme.Domains.DTUPayAccount;
+import org.acme.Resources.AccountBroker;
+import org.acme.Resources.AccountConfig;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class accountSteps {
 
-//	AccountBroker accountBroker = new AccountBroker();
 	AccountBroker accountBroker = Mockito.mock(AccountBroker.class);
 	public Message Message_register = mock(Message.class);
 	public Message Message_payment = mock(Message.class);
-//    private AccountBroker accountBroker;
 	private DTUPayAccount testAccount;
 
 	@Given("the customer {string} {string} with CPR {string} has a bank account with balance {int}")
@@ -57,12 +55,6 @@ public class accountSteps {
 
 	@Then("return the BankID")
 	public void returnTheBankID() {
-//		try {
-//			accountBroker.subscribeEvent(Message_payment);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		try {
 			accountBroker.subscribeEvent(Message_payment);
 			Mockito.verify(accountBroker).subscribeEvent(Message_payment);
@@ -72,3 +64,4 @@ public class accountSteps {
 	}
 
 }
+

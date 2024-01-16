@@ -12,10 +12,7 @@ public class Payment {
     UUID merchantDtuPayID;
     BigDecimal amount;
     String token;
-
     public Payment(){}
-
-
     public Payment(UUID merchantDtuPayID, String token, int amount) {
         this.merchantDtuPayID = merchantDtuPayID;
         this.token = token;

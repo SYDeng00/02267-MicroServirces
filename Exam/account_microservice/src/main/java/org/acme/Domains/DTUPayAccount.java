@@ -1,4 +1,4 @@
-package Domains;
+package org.acme.Domains;
 
 public class DTUPayAccount {
     String firstName;

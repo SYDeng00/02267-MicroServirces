@@ -1,4 +1,4 @@
-package Resources;
+package org.acme.Resources;
 
 public class AccountConfig {
     public static final String REGISTER = "Register";
