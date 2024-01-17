@@ -35,6 +35,7 @@ public class TokenFacadeResources {
                  List<UUID> tokens = new ArrayList<>();
 
                 for (Object element : tokens) {
+                    System.out.println(element);
                     if (element instanceof UUID) {
                         tokens.add((UUID) element);
                     } 
@@ -43,7 +44,7 @@ public class TokenFacadeResources {
             }
                 
                 else{
-                    return Response.status(200).entity(typeTransfer(token_client[1],String.class)).build();
+                    return Response.status(400).entity(typeTransfer(token_client[1],String.class)).build();
                 }
         } catch (Exception err) {
             err.printStackTrace();

@@ -48,6 +48,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 	public void subscribeEvent(Message message) throws Exception {
 		Object[] payload = message.getPayload();
 		String status = message.getStatus();
+		System.out.println(status);
 		UUID customerUuid = typeTransfer(payload[0], UUID.class);
 		System.out.println("customerUuid:" + customerUuid);
 		List<UUID> tokens;
