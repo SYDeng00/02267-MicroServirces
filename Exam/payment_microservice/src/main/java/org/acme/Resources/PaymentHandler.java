@@ -66,18 +66,18 @@ public class PaymentHandler {
      * @throws Exception
      */
     public void getTokenValidResult(Object[] payload) throws Exception {
-        boolean validResult = PaymentHandler.typeTransfer(payload[1], boolean.class);
+        Boolean validResult = PaymentHandler.typeTransfer(payload[1], Boolean.class);
         UUID paymentID = typeTransfer(payload[0], UUID.class);
-        UUID merchaneUuid = typeTransfer(payload[2], UUID.class);
+        UUID customerUuid = typeTransfer(payload[3], UUID.class);
         Log.info("Toekn validaton information resolved:" + String.valueOf(validResult));
         if (validResult) {
-            UUID customerUuid = typeTransfer(payload[3], UUID.class);
+        	UUID merchantUuid = paymentRepository.getPayment(paymentID).getMerchantId();
             paymentRepository.getPayment(paymentID).setCustomerId(customerUuid);
             eventPublisher.publishEvent(new Message(PaymentConfig.SEND_REQUEST_BANK_ACCOUNTS, "AccountBroker",
-                    new Object[] { paymentID, merchaneUuid, customerUuid, "payment" }));
+                    new Object[] { paymentID, merchantUuid, customerUuid, "payment" }));
             Log.info(customerUuid);
         } else {
-            String reason = typeTransfer(payload[3], String.class);
+            String reason = typeTransfer(payload[2], String.class);
             Message message = new Message(PaymentConfig.SEND_PAYMENT_RESULT, "PaymentFacadeBroker",
                     new Object[] { paymentID, reason });
             message.setStatus("401");

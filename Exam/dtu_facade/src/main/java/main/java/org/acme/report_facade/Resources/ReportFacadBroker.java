@@ -13,6 +13,10 @@ import org.w3c.dom.events.Event;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Configuration class for report-facade broker.
+ * @author Tama Sarker
+ */
 public class ReportFacadBroker implements IEventSubscriber {
     CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
     ReportFacadeRepositories reportFacadeRepositories = ReportFacadeRepositories.getInstance();
@@ -52,12 +56,29 @@ public class ReportFacadBroker implements IEventSubscriber {
                 message = new Message(ReportFacadeConfig.GENERATE_REPORT_FOR_CUSTOMER,
                         "ReportBroker",
                         new Object[] { id });
-            } else if (event == ReportFacadeConfig.GENERATE_REPORT_FOR_MERCHANT) {
+            }
+            if (event == ReportFacadeConfig.GENERATE_LATEST_REPORT_FOR_CUSTOMER){
+                message = new Message(ReportFacadeConfig.GENERATE_LATEST_REPORT_FOR_CUSTOMER,
+                        "ReportBroker",
+                        new Object[] { id });
+            }
+            else if (event == ReportFacadeConfig.GENERATE_REPORT_FOR_MERCHANT) {
                 message = new Message(ReportFacadeConfig.GENERATE_REPORT_FOR_MERCHANT,
                         "ReportBroker",
                         new Object[] { id });
-            } else if (event == ReportFacadeConfig.GENERATE_REPORT_DTU) {
+            }
+            else if (event == ReportFacadeConfig.GENERATE_LATEST_REPORT_FOR_MERCHANT) {
+                message = new Message(ReportFacadeConfig.GENERATE_LATEST_REPORT_FOR_MERCHANT,
+                        "ReportBroker",
+                        new Object[] { id });
+            }
+            else if (event == ReportFacadeConfig.GENERATE_REPORT_DTU) {
                 message = new Message(ReportFacadeConfig.GENERATE_REPORT_DTU,
+                        "ReportBroker",
+                        new Object[] {});
+            }
+            else if (event == ReportFacadeConfig.GENERATE_LATEST_REPORT_DTU) {
+                message = new Message(ReportFacadeConfig.GENERATE_LATEST_REPORT_DTU,
                         "ReportBroker",
                         new Object[] {});
             }

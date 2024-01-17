@@ -4,31 +4,22 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Report {
-    public enum Status {
-        SUCCESS,
-        FAILED,
-        CANCELLED,
-        REFUNDED
-    }
 
+public class Report {
     private UUID reportId;
     private UUID transactionId;
     private BigDecimal amount;
     private LocalDateTime dateTime;
     private UUID customerId; // Optional based on privacy requirements
     private UUID merchantId;
-    private Status status;
-
     // Constructor
-    public Report(UUID reportId, UUID transactionId, BigDecimal amount, LocalDateTime dateTime, UUID customerId, UUID merchantId, Status status) {
+    public Report(UUID reportId, UUID transactionId, BigDecimal amount, LocalDateTime dateTime, UUID customerId, UUID merchantId) {
         this.reportId = reportId;
         this.transactionId = transactionId;
         this.amount = amount;
         this.dateTime = dateTime;
         this.customerId = customerId;
         this.merchantId = merchantId;
-        this.status = status;
     }
 
     // Getters and Setters
@@ -78,13 +69,5 @@ public class Report {
 
     public void setMerchantId(UUID merchantId) {
         this.merchantId = merchantId;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }

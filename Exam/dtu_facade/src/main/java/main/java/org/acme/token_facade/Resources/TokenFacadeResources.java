@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+
 import com.google.gson.Gson;
 
 import jakarta.ws.rs.Consumes;
@@ -29,39 +30,47 @@ public class TokenFacadeResources {
             tokenFacadeBroker.received();
             Object[] result = tokenFacadeBroker.createTokenForUser(token);
            
-            Integer status = typeTransfer(result[0],Integer.class);
+            int status = typeTransfer(result[0],Integer.class);
             if(status == 200){
                  List<UUID> tokens = new ArrayList<>();
+                 if (status == 200) {
+                	  
 
-                 if (result[1] instanceof List) {
-                    List<UUID> retrievedUUIDList = (List<UUID>) result[1];
-        
+                	    // Check if result[1] is an instance of List
+                	    if (result[1] instanceof List<?>) {
+                	        List<?> resultList = (List<?>) result[1];
 
-                for (Object element : retrievedUUIDList) {
-                    System.out.println(element);
-                    if (element instanceof UUID) {
-                        tokens.add((UUID) element);
-                    } 
-                }
-                return Response.status(200).entity(tokens).build();        
+                	        // Process the elements of the list
+                	        for (Object element : resultList) {
+                	            System.out.println(element);
+
+                	            // Check if the element is an instance of UUID
+                	            if (element instanceof UUID) {
+                	                tokens.add((UUID) element);
+                	            }
+                	        }
+                	    }
+
+                	    return Response.status(200).entity(tokens).build();
+                	} else {
+                	    // Handle non-200 status
+                	    return Response.status(400).entity(typeTransfer(result[1], String.class)).build();
+                	}        
             }
-        }
                 
                 else{
                     return Response.status(400).entity(typeTransfer(result[1],String.class)).build();
                 }
-         
-        }catch (Exception err) {
+        } catch (Exception err) {
             err.printStackTrace();
             return Response.status(400).entity(err.getMessage()).build();
         }
-        return null;
     }
 
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
-        Gson gson = new Gson();
-        String json = gson.toJson(payload);
-        return gson.fromJson(json, objectClass);
-    }
+		Gson gson = new Gson();
+		String json = gson.toJson(payload);
+		return gson.fromJson(json, objectClass);
+	}
 
 }

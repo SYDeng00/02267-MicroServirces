@@ -4,7 +4,10 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import org.jboss.logging.Logger;
-
+/**
+ * Configuration class for report Resource.
+ * @author Divya
+ */
 @QuarkusMain
 public class ReportResource implements QuarkusApplication {
 
