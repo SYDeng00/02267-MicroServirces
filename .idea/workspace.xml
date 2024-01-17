@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="All Report Updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Domains/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Domains/Report.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Interfaces/IReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Interfaces/IReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,7 +327,7 @@
       <workItem from="1705359799550" duration="223000" />
       <workItem from="1705396092870" duration="2707000" />
       <workItem from="1705450033967" duration="6187000" />
-      <workItem from="1705480040157" duration="2723000" />
+      <workItem from="1705480040157" duration="8781000" />
     </task>
     <task id="LOCAL-00001" summary="PAYMENT: COMMENT, CUCUMBER TEST">
       <option name="closed" value="true" />
@@ -347,6 +350,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
