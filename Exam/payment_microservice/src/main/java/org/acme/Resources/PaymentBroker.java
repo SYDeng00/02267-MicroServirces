@@ -29,7 +29,7 @@ public class PaymentBroker implements IEventSubscriber {
         switch (event) {
             case PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT:
                 LOG.info("-------------------------------Payment request received");
-                paymentHandler.getPayment(payload);
+                paymentHandler.getPaymentRequest(payload);
                 break;
             case PaymentConfig.RECEIVE_VALID_RESULT:
                 LOG.info("-------------------------------Token validaion response received");

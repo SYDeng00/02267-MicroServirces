@@ -43,17 +43,15 @@ public class PaymentHandler {
      * @param payload
      * @throws Exception
      */
-    public void getPayment(Object[] payload) throws Exception {
+    public void getPaymentRequest(Object[] payload) throws Exception {
         UUID paymentID = UUID.randomUUID();
-        UUID messageUuid = typeTransfer(payload[0], UUID.class);
-        UUID merchanUuid = typeTransfer(payload[1], UUID.class);
-        UUID token = typeTransfer(payload[2], UUID.class);
-        double amount = typeTransfer(payload[3], Double.class);
+        UUID merchanUuid = typeTransfer(payload[0], UUID.class);
+        UUID token = typeTransfer(payload[1], UUID.class);
+        double amount = typeTransfer(payload[2], Double.class);
         LOG.info("Payment information resolve succeed:" + PaymentConfig.RECEIVE_MERCHANT_ASK_PAYMENT + "-->"
                 + paymentID.toString() + merchanUuid.toString() + amount);
         paymentRepository.addPayment(new Payment(
                 paymentID,
-                messageUuid,
                 merchanUuid,
                 token,
                 BigDecimal.valueOf(amount)));
@@ -146,7 +144,6 @@ public class PaymentHandler {
                     PaymentConfig.SEND_PAYMENT_RESULT,
                     "PaymentFacadeBroker",
                     new Object[] {
-                            payment.getMessageId(),
                             payType,
                             payOrRefundUuid,
                             creditorBankAccount,
@@ -159,7 +156,6 @@ public class PaymentHandler {
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
                     new Object[] {
-                            payment.getMessageId(),
                             payType,
                             payOrRefundUuid,
                             creditorID,
