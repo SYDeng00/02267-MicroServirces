@@ -30,9 +30,6 @@ public class DTUPay_Interface {
 	                .post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
 	        
 	        System.out.println("Response Status Code: " + response.getStatus());
-	        String rawResponse = response.readEntity(String.class);
-	        System.out.println("Raw response: " + rawResponse);
-
 	        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 	        	Token_client token_client = response.readEntity(Token_client.class);
 	            return token_client.getTokens();

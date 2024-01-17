@@ -5,9 +5,9 @@ import java.util.List;
 
 
 public class Token_client {
-    private String customerID;
+    private UUID customerID;
     private Integer token_number;
-    private List<String> tokens = new ArrayList<>();
+    private List<UUID> tokens = new ArrayList<>();
 
     
 
@@ -16,7 +16,7 @@ public class Token_client {
 
     
 
-    public Token_client(String customerID, Integer token_number, List<String> tokens) {
+    public Token_client(UUID customerID, Integer token_number, List<UUID> tokens) {
         this.customerID = customerID;
         this.token_number = token_number;
         this.tokens = tokens;
@@ -24,18 +24,18 @@ public class Token_client {
 
 
 
-    public Token_client(String customerID, List<String> tokens) {
+    public Token_client(UUID customerID, List<UUID> tokens) {
         this.customerID = customerID;
         this.tokens = tokens;
     }
 
-    public Token_client(String customerID, Integer token_number) {
+    public Token_client(UUID customerID, Integer token_number) {
         this.customerID = customerID;
         this.token_number = token_number;
     }
 
     // Setter for customerID
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(UUID customerID) {
         this.customerID = customerID;
     }
 
@@ -46,16 +46,16 @@ public class Token_client {
         this.token_number = token_number;
     }
 
-    public List<String> getTokens() {
+    public List<UUID> getTokens() {
         return tokens;
     }
 
-    public void setTokens(List<String> tokens) {
+    public void setTokens(List<UUID> tokens) {
         this.tokens = tokens;
     }
 
     // Getter for customerID
-    public String getCustomerID() {
+    public UUID getCustomerID() {
         return customerID;
     }
 }

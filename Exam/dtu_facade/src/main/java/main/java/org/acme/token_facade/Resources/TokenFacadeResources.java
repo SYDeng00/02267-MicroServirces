@@ -10,7 +10,7 @@ import main.java.org.acme.token_facade.Domains.Token_client;
 
 @Path("/")
 public class TokenFacadeResources {
-    TokenFacadeBroker tokenFacadeBroker= new TokenFacadeBroker();
+    TokenFacadeBroker tokenFacadeBroker = new TokenFacadeBroker();
 
     @Path("tokens")
     @POST
@@ -18,12 +18,15 @@ public class TokenFacadeResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTokenSet(Token_client token) {
         try {
-            
-        tokenFacadeBroker.received();
+
+            tokenFacadeBroker.received();
             Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
+            if (!isUUID(token_client.getTokens()[0]))
+                return Response.status(400).entity(token_client).build();
+
             return Response.status(200).entity(token_client).build();
         } catch (Exception err) {
-        	err.printStackTrace();
+            err.printStackTrace();
             return Response.status(400).entity(err.getMessage()).build();
         }
     }
