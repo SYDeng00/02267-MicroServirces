@@ -61,13 +61,13 @@ public class AccountResources implements IEventSubscriber {
     EventSubscriber subscriber = new EventSubscriber(this); 
     String receivedId; 
 
-    private CompletableFuture<String> idFuture = new CompletableFuture<>();
+    private CompletableFuture<String> idFuture ;
 
     public AccountResources() {
 
         try {
 			subscriber.subscribeEvent("AccountResources");
-			idFuture = new CompletableFuture<>();
+//			idFuture = new CompletableFuture<>();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +79,7 @@ public class AccountResources implements IEventSubscriber {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerAccount(DTUPayAccount account) {
         try {
+			idFuture = new CompletableFuture<>();
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
             idFuture.join();
             UUID uuid = UUID.fromString(receivedId); 
