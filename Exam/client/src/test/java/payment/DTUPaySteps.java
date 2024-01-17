@@ -1,5 +1,6 @@
 package payment;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import Domains.DTUPayAccount;
 import Domains.DTUPay_Interface;
+import Domains.Payment;
 import Domains.Token_client;
 import dtu.ws.fastmoney.BankService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
@@ -30,7 +32,7 @@ public class DTUPaySteps {
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
 	
-	public Token_client token_client;
+	public Token_client token_client = new Token_client();
 
 	public List<String> tokens = new ArrayList<>();;
 
@@ -63,7 +65,6 @@ public class DTUPaySteps {
 	@When("the customer has registered with DTUPay")
 	public void the_customer_has_registered_with_dtu_pay() {
 		customerDtuPayID = dtuPay.createDTUPayAccount(dtu_customer);
-//		customerDtuPayID = UUID.randomUUID();
 	}
 
 	@Then("we receive a customer dtuPayId")
@@ -87,7 +88,6 @@ public class DTUPaySteps {
 	@When("the merchant has registered with DTUPay")
 	public void the_merchant_has_registered_with_dtu_pay() {
 		merchantDtuPayID = dtuPay.createDTUPayAccount(dtu_merchant);
-//		merchantDtuPayID = UUID.randomUUID();
 	}
 
 	@Then("we receive a merchant dtuPayId")
@@ -108,7 +108,18 @@ public class DTUPaySteps {
 	@When("the customer asks for {int} tokens")
 	public void theCustomerAsksForTokens(Integer int1) {
 		token_client.setCustomerID(customerDtuPayID);
-		token_client.setTokenNumber(int1);
+		token_client.setToken_number(int1);
+		
+		try {
+			System.out.println(token_client.getCustomerID());
+			System.out.println(token_client.getToken_number());
+			tokens = dtuPay.getTokens(token_client);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 
 
@@ -120,26 +131,26 @@ public class DTUPaySteps {
 	// Payment test
 	// Author: Siyuan Deng
 
-//	@Given("the merchant initiates a payment for {int} kr by the customer")
-//	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
-//		payment_amount = new BigDecimal(amount);
-//				
-//	}
-//
-//	@When("the merchant has received a token from the customer")
-//	public void theMerchantHasReceivedATokenFromTheCustomer() {
-//		String token = null;
-//		if (!tokens.isEmpty()) {
-//		     token = tokens.get(0); 
-//		}
-//
-//		Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
-//		payment_result = dtuPay.createPayment(payment);
-//	}
-//
-//	@Then("the payment is successful")
-//	public void thePaymentIsSuccessful() {
-//		assertEquals("payment is successful",payment_result);
-//	}
+	@Given("the merchant initiates a payment for {int} kr by the customer")
+	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
+		payment_amount = new BigDecimal(amount);
+				
+	}
+
+	@When("the merchant has received a token from the customer")
+	public void theMerchantHasReceivedATokenFromTheCustomer() {
+		String token = null;
+		if (!tokens.isEmpty()) {
+		     token = tokens.get(0); 
+		}
+
+		Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
+		payment_result = dtuPay.createPayment(payment);
+	}
+
+	@Then("the payment is successful")
+	public void thePaymentIsSuccessful() {
+		assertEquals("payment is successful",payment_result);
+	}
 
 }

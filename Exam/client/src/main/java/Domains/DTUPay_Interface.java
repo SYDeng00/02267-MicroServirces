@@ -27,7 +27,8 @@ public class DTUPay_Interface {
 		try {
 			Response response = dtuPayURL.path("/tokens/").request()
 					.post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
-
+			System.out.println(Response.Status.OK.getStatusCode());
+			System.out.println(response.getStatus());
 			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				return response.readEntity(new GenericType<List<String>>() {
 				});
