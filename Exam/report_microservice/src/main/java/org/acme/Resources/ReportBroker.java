@@ -21,12 +21,12 @@ public class ReportBroker implements IEventSubscriber {
         LOG.info("Event type for report: " + eventType);
 
         switch (eventType) {
-            case ReportConfig.GENERATE_REPORT_EVENT:
-                LOG.info("-------------------------------Report generation request received");
-//                reportHandler.handleGenerateReportEvent(payload);
+            case ReportConfig.GENERATE_REPORT_FOR_CUSTOMER:
+                LOG.info("-------------------------------Customer Report generation request received");
+                reportHandler.generateCustomerReport(payload);
                 break;
             case ReportConfig.RETRIEVE_REPORT_EVENT:
-                LOG.info("-------------------------------Report retrieval request received");
+                LOG.info("-------------------------------Merchant Report retrieval request received");
 //                reportHandler.handleRetrieveReportEvent(payload);
                 break;
             // Add additional cases for other report-related events

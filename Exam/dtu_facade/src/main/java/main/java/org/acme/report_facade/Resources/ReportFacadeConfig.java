@@ -1,24 +1,24 @@
-package org.acme.Resources;
+package main.java.org.acme.report_facade.Resources;
 
 
 
 /**
  * Configuration class for report-related constants.
  */
-public class ReportConfig {
-    private ReportConfig() {
+public class ReportFacadeConfig {
+    private ReportFacadeConfig() {
         throw new UnsupportedOperationException("This class should not be instantiated.");
     }
 
     // Event triggered to generate a new report
     public static final String GENERATE_REPORT_EVENT = "GenerateReportEvent";
+    public static final String ERROR_REPORT_EVENT = "ErrorReportEvent";
     // Payload structure: {UUID->customerId/merchantId, String->reportType, LocalDateTime->startDate, LocalDateTime->endDate}
     // reportType can be "customer", "merchant", or "summary"
 
     // Event triggered to retrieve an existing report
     public static final String RETRIEVE_REPORT_EVENT = "RetrieveReportEvent";
     // Payload structure: {UUID->reportId}
-    public static final String ERROR_REPORT_EVENT = "ErrorReportEvent";
 
     // Constant for customer-specific report request
     public static final String GENERATE_REPORT_FOR_CUSTOMER = "GenerateReportForCustomer";

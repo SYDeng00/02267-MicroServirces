@@ -2,8 +2,11 @@ package org.acme.Resources;
 
 
 
+import com.google.gson.Gson;
+import org.acme.Domains.Message;
 import org.acme.Domains.Report;
 import org.acme.Repositories.ReportRepository;
+import org.acme.Resoures.EventPublisher;
 import org.jboss.logging.Logger;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
  * This class is used for handling all report-related operations in DTU Pay.
  */
 public class ReportHandler {
+    EventPublisher eventPublisher = new EventPublisher();
     private ReportRepository reportRepository = new ReportRepository();
     private static final Logger LOG = Logger.getLogger(ReportHandler.class);
 
@@ -22,10 +26,13 @@ public class ReportHandler {
      * @param customerId The ID of the customer.
      * @return A list of reports for the given customer.
      */
-    public List<Report> generateCustomerReport(UUID customerId) {
+    public void generateCustomerReport(Object[] payload) throws Exception {
+        UUID customerId = typeTransfer(payload[0], UUID.class);
         List<Report> customerReports = reportRepository.getReportsForCustomer(customerId);
-        LOG.info("Generated report for customer with ID: " + customerId);
-        return customerReports;
+        LOG.info("Generated report for customer with ID: " + customerId+ " " +  ReportConfig.RETRIEVE_REPORT_FOR_CUSTOMER + "-->");
+        eventPublisher.publishEvent(
+                new Message(ReportConfig.RETRIEVE_REPORT_FOR_CUSTOMER, "ReportFacadBroker", new Object[] { customerReports.toString() }));
+        LOG.info("Report microservce send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_FOR_CUSTOMER);
     }
 
     /**
@@ -53,6 +60,12 @@ public class ReportHandler {
         LOG.info("Generated summary report for the manager");
         return summaryReports;
     }
+    public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
+        Gson gson = new Gson();
+        String json = gson.toJson(payload);
+        return gson.fromJson(json, objectClass);
+    }
+
 }
 
 
