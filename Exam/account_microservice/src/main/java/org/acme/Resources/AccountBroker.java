@@ -21,6 +21,7 @@ public class AccountBroker implements IEventSubscriber {
 
 		switch (event) {
 			case AccountConfig.REGISTER:
+				System.out.println("in REGISTER");
 				DTUPayAccount account = typeTransfer(payload[0], DTUPayAccount.class);
 				String cpr = account.getCpr();
 
@@ -40,13 +41,16 @@ public class AccountBroker implements IEventSubscriber {
 				break;
 
 			case AccountConfig.SEND_REQUEST_BANK_ACCOUNTS:
-				UUID paymentID = (UUID) payload[0];
-				UUID merchantUuid = (UUID) payload[1];
-				UUID customerUuid = (UUID) payload[2];
+
+//				UUID paymentID = (UUID) payload[0];
+				UUID paymentID = typeTransfer(payload[0],UUID.class);
+				UUID merchantUuid = typeTransfer(payload[1],UUID.class);
+				UUID customerUuid = typeTransfer(payload[2],UUID.class);
 				String additionalInfo = (String) payload[3];
+				System.out.println("in SEND_REQUEST_BANK_ACCOUNTS");
 				DTUPayAccount merchantAccount = accounts.get(merchantUuid);
 				DTUPayAccount customerAccount = accounts.get(customerUuid);
-				System.out.println("in SEND_REQUEST_BANK_ACCOUNTS");
+
 				if (merchantAccount != null && customerAccount != null) {
 					eventPublisher.publishEvent(new Message(AccountConfig.RECEIVE_GET_ACCOUNTS, "PaymentBroker",
 							new Object[]{paymentID, merchantAccount.getBankID(), customerAccount.getBankID(), additionalInfo}));

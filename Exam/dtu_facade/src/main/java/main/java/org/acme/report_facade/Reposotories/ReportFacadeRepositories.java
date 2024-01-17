@@ -30,10 +30,10 @@ public class ReportFacadeRepositories implements IPaymentFacadeRepositories {
 
     @Override
     public List<Message> getMessages() {
-        System.out.println("HashMap:");
-        for (Map.Entry<UUID, Message> entry : messages.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-        }
+        // System.out.println("HashMap:");
+        // for (Map.Entry<UUID, Message> entry : messages.entrySet()) {
+        //     System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        // }
         return new ArrayList<>(messages.values());
     }
 
