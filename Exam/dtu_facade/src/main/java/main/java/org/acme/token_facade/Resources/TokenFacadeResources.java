@@ -28,23 +28,38 @@ public class TokenFacadeResources {
         try {
 
             tokenFacadeBroker.received();
-            Object[] token_client = tokenFacadeBroker.createTokenForUser(token);
+            Object[] result = tokenFacadeBroker.createTokenForUser(token);
            
-            int status = typeTransfer(token_client[0],Integer.class);
+            int status = typeTransfer(result[0],Integer.class);
             if(status == 200){
                  List<UUID> tokens = new ArrayList<>();
+                 if (status == 200) {
+                	  
 
-                for (Object element : tokens) {
-                    System.out.println(element);
-                    if (element instanceof UUID) {
-                        tokens.add((UUID) element);
-                    } 
-                }
-                return Response.status(200).entity(tokens).build();        
+                	    // Check if result[1] is an instance of List
+                	    if (result[1] instanceof List<?>) {
+                	        List<?> resultList = (List<?>) result[1];
+
+                	        // Process the elements of the list
+                	        for (Object element : resultList) {
+                	            System.out.println(element);
+
+                	            // Check if the element is an instance of UUID
+                	            if (element instanceof UUID) {
+                	                tokens.add((UUID) element);
+                	            }
+                	        }
+                	    }
+
+                	    return Response.status(200).entity(tokens).build();
+                	} else {
+                	    // Handle non-200 status
+                	    return Response.status(400).entity(typeTransfer(result[1], String.class)).build();
+                	}        
             }
                 
                 else{
-                    return Response.status(400).entity(typeTransfer(token_client[1],String.class)).build();
+                    return Response.status(400).entity(typeTransfer(result[1],String.class)).build();
                 }
         } catch (Exception err) {
             err.printStackTrace();
