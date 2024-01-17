@@ -30,15 +30,17 @@ public class TokenManagementServices {
 	}
 
 	public void generateTokens(Object[] payload) {
+		LOG.info("generateTokens");
 		UUID customerID = typeTransfer(payload[0], UUID.class);
-		int request_token_num = typeTransfer(payload[1], null);
+		int request_token_num = typeTransfer(payload[1], Integer.class);
 		Message message;
-
+		LOG.info("Get cUUID:"+ customerID + "RTN:" + String.valueOf(request_token_num));
+		
 		// Check here how many token customer want to generate
 
-		if (request_token_num < 1 || request_token_num > 5) {
-			message = new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker",
-					new Object[] { "Request number invalid" });
+		if (/*request_token_num < 1 ||*/ request_token_num > 5) {
+			message = new Message(TokenConfig.SEND_TOKENS, "TokenFacadeBroker",
+					new Object[] { customerID,"Request number invalid" });
 			message.setStatus("404");
 			try {
 				eventPublisher.publishEvent(message);
@@ -48,9 +50,10 @@ public class TokenManagementServices {
 			}
 			return;
 		}
-		if (repository.getCustomerTokenNumer(customerID) > 1) {
-			message = new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker",
-					new Object[] { "Stored token numebr is more than 1" });
+		LOG.info("RTN ok:");
+		if(repository.findCustomer(customerID) && repository.getCustomerTokenNumer(customerID) > 1){
+			message = new Message(TokenConfig.SEND_TOKENS, "TokenFacadeBroker",
+					new Object[] { customerID,"Stored token numebr is more than 1" });
 			message.setStatus("404");
 			try {
 				eventPublisher.publishEvent(message);
@@ -60,6 +63,20 @@ public class TokenManagementServices {
 			}
 			return;
 		}
+
+		LOG.info("User not exist");
+		// if (repository.getCustomerTokenNumer(customerID) > 1) {
+		// 	message = new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker",
+		// 			new Object[] { "Stored token numebr is more than 1" });
+		// 	message.setStatus("404");
+		// 	try {
+		// 		eventPublisher.publishEvent(message);
+		// 	} catch (Exception e) {
+		// 		// TODO Auto-generated catch block
+		// 		e.printStackTrace();
+		// 	}
+		// 	return;
+		// }
 		List<UUID> tokensList = new ArrayList<>();
 		for (int i = 0; i < request_token_num; i++) {
 			UUID tokenID = repository.generateToken();
@@ -70,12 +87,12 @@ public class TokenManagementServices {
 		}
 		try {
 			eventPublisher.publishEvent(
-					new Message(TokenConfig.RETURN_TOKEN1, "TokenFacadeBroker", new Object[] {customerID, tokensList }));
+					new Message(TokenConfig.SEND_TOKENS, "TokenFacadeBroker", new Object[] {customerID, tokensList }));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LOG.info("Payment microservce send message to token microservce:" + TokenConfig.RETURN_TOKEN);
+		LOG.info("Payment microservce send message to token microservce:" + TokenConfig.RECEIVE_RETURN_TOKEN);
 		// return tokenListString;
 	}
 

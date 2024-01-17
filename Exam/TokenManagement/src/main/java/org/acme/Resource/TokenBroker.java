@@ -18,17 +18,13 @@ public class TokenBroker implements IEventSubscriber {
     
     @Override
     public void subscribeEvent(Message message) throws Exception {
-        LOG.info("sub");
         String event = message.getEventType();
         Object[] payload = message.getPayload();
-        LOG.info("Event type:" + event);
-        Log.info(TokenConfig.RETURN_TOKEN.equals(event));
+        Log.info(TokenConfig.RECEIVE_RETURN_TOKEN.equals(event));
         switch (event) {
-            case TokenConfig.RETURN_TOKEN:
+            case TokenConfig.RECEIVE_RETURN_TOKEN:
                 LOG.info("-------------------------------Payment request received");
-                
                 services.generateTokens(payload);
-                // TODO: how to give it to client?
                 break;
             case TokenConfig.RECEIVE_TOKEN_VALID:
                 LOG.info("-------------------------------Token Validation request received");

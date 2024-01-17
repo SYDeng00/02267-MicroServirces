@@ -45,4 +45,14 @@ public class TokenRepository {
         return count;
     }
 
+
+    public Boolean findCustomer(UUID costomerUuid){
+        for(Token token:tokens.values()){
+            if(token.getCustomerID().equals(costomerUuid)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -11,33 +11,32 @@ import org.acme.Resoures.EventSubscriber;
 
 import com.google.gson.Gson;
 
-import main.java.org.acme.payment_facade.Resources.PaymentFacadeBroker;
 import main.java.org.acme.token_facade.Domains.Token_client;
 import main.java.org.acme.token_facade.Repositories.TokenFacadeRepositories;
 
 public class TokenFacadeBroker implements IEventSubscriber {
-
 	CompletableFuture<String> waitFormessageReply = new CompletableFuture<>();
-
-	static TokenFacadeRepositories tokenFacadeRepositories =  TokenFacadeRepositories.getInstance();
-
+	TokenFacadeRepositories tokenFacadeRepositories = TokenFacadeRepositories.getInstance();
 	Message message;
-	Token_client token_client;
+	Token_client token_client; //= new Token_client();
 
 	public Token_client createTokenForUser(Token_client token_client) {
 		UUID costomerUuid = UUID.fromString(token_client.getCustomerID());
 		int request_token_num = token_client.getToken_number();
 		EventPublisher publisher = new EventPublisher();
 		try {
-			message = new Message(TokenFacadeConfig.RETURN_TOKEN, "TokenBroker", new Object[] {costomerUuid, request_token_num });
-			publisher.publishEvent( message);
+			message = new Message(TokenFacadeConfig.SEND_RETURN_TOKEN,
+					"TokenBroker",
+					new Object[] { costomerUuid, request_token_num });
+			publisher.publishEvent(message);
+			tokenFacadeRepositories.addMessage(message);
 			waitFormessageReply.join();
-
+			return token_client;
 		} catch (Exception e) {
 			waitFormessageReply.complete("404");
 			e.printStackTrace();
 		}
-	return token_client;
+		return this.token_client;
 	}
 
 	@Override
@@ -45,12 +44,10 @@ public class TokenFacadeBroker implements IEventSubscriber {
 		Object[] payload = message.getPayload();
 		String status = message.getStatus();
 		String customerUuid = typeTransfer(payload[0], String.class);
+		System.out.println("customerUuid:" + customerUuid);
+		token_client = new Token_client(customerUuid,(List<String>) payload[1]);
 
-		if (customerUuid.equals(this.message.getMessageID())) {
-			waitFormessageReply.complete(status);
-			token_client = new Token_client(customerUuid, (List<String>) payload[1]);
-			tokenFacadeRepositories.removeMessage(message.getMessageID());
-		}
+		waitFormessageReply.complete(status);
 		
 	}
 
@@ -62,7 +59,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 
 	public void received() throws Exception {
 		try {
-			EventSubscriber subscriber = new EventSubscriber(new PaymentFacadeBroker());
+			EventSubscriber subscriber = new EventSubscriber(this);
 			subscriber.subscribeEvent(this.getClass().getSimpleName());
 		} catch (Exception e) {
 			e.printStackTrace();
