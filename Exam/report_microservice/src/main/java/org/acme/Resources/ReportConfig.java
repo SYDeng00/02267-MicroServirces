@@ -33,6 +33,7 @@ public class ReportConfig {
     // Constant for summary report request
     public static final String GENERATE_REPORT_DTU = "GenerateReportForDTU";
     public static final String RETRIEVE_REPORT_DTU = "RetrieveReportForDTU";
+    public static final String SEND_UPDATE_PAYMENTS_REPORT = "ReceiveReportForReportService";
     // Used for generating a summary report that includes overall transaction data
 
     // Add more constants as needed based on your system's requirements
