@@ -2,13 +2,12 @@ package main.java.org.acme.token_facade.Domains;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 public class Token_client {
-    private UUID customerID;
+    private String customerID;
     private Integer token_number;
-    private List<UUID> tokens = new ArrayList<>();
+    private List<String> tokens = new ArrayList<>();
 
     
 
@@ -17,7 +16,7 @@ public class Token_client {
 
     
 
-    public Token_client(UUID customerID, Integer token_number, List<UUID> tokens) {
+    public Token_client(String customerID, Integer token_number, List<String> tokens) {
         this.customerID = customerID;
         this.token_number = token_number;
         this.tokens = tokens;
@@ -25,18 +24,18 @@ public class Token_client {
 
 
 
-    public Token_client(UUID customerID, List<UUID> tokens) {
+    public Token_client(String customerID, List<String> tokens) {
         this.customerID = customerID;
         this.tokens = tokens;
     }
 
-    public Token_client(UUID customerID, Integer token_number) {
+    public Token_client(String customerID, Integer token_number) {
         this.customerID = customerID;
         this.token_number = token_number;
     }
 
     // Setter for customerID
-    public void setCustomerID(UUID customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 
@@ -47,16 +46,16 @@ public class Token_client {
         this.token_number = token_number;
     }
 
-    public List<UUID> getTokens() {
+    public List<String> getTokens() {
         return tokens;
     }
 
-    public void setTokens(List<UUID> tokens) {
+    public void setTokens(List<String> tokens) {
         this.tokens = tokens;
     }
 
     // Getter for customerID
-    public UUID getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 }

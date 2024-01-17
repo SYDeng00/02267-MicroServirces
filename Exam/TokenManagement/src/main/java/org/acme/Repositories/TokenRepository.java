@@ -51,6 +51,8 @@ public class TokenRepository {
 
     public Boolean findCustomer(UUID costomerUuid){
         for(Token token:tokens.values()){
+        	System.out.println(costomerUuid);
+        	System.out.println(token.getCustomerID());
             if(token.getCustomerID().equals(costomerUuid)){
                 return true;
             }

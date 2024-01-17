@@ -17,14 +17,15 @@ import main.java.org.acme.token_facade.Domains.Token_client;
 import main.java.org.acme.token_facade.Repositories.TokenFacadeRepositories;
 
 public class TokenFacadeBroker implements IEventSubscriber {
-	CompletableFuture<String> waitFormessageReply = new CompletableFuture<>();
+	CompletableFuture<String> waitFormessageReply;
 	TokenFacadeRepositories tokenFacadeRepositories = TokenFacadeRepositories.getInstance();
 	Message message;
 	Token_client token_client; //= new Token_client();
 	int  request_token_number=0;
-	Object[] rt;
-	public Object[] createTokenForUser(Token_client token_client) {
-		UUID costomerUuid = token_client.getCustomerID();
+
+	public Token_client createTokenForUser(Token_client token_client) {
+		waitFormessageReply = new CompletableFuture<>();
+		UUID costomerUuid = UUID.fromString(token_client.getCustomerID());
 		int request_token_num = token_client.getToken_number();
 		request_token_number = request_token_num;
 		EventPublisher publisher = new EventPublisher();
@@ -40,31 +41,23 @@ public class TokenFacadeBroker implements IEventSubscriber {
 			waitFormessageReply.complete("404");
 			e.printStackTrace();
 		}
-		
-		return this.rt;
+		return this.token_client;
 	}
 
 	@Override
 	public void subscribeEvent(Message message) throws Exception {
 		Object[] payload = message.getPayload();
 		String status = message.getStatus();
-		System.out.println(status);
-		UUID customerUuid = typeTransfer(payload[0], UUID.class);
+		String customerUuid = typeTransfer(payload[0], String.class);
 		System.out.println("customerUuid:" + customerUuid);
-		List<UUID> tokens;
+		List<String> tokens;
 		if(!status.equals("200")){
-			rt = new Object[]{400,payload[1]};
+			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], String.class)));
 		}else{
-			List<?> rawTokens = (List<?>) payload[1];
+			tokens = (List<String>) payload[1];
+		}
+		this.token_client = new Token_client(customerUuid,request_token_number,tokens);
 
-            boolean allUUIDs = rawTokens.stream().allMatch(element -> element instanceof UUID);
-
-            if (allUUIDs) {
-                // It's safe to cast to List<UUID> now
-                tokens = (List<UUID>) rawTokens;
-                rt = new Object[]{200, tokens};
-            }
-		} 
 		waitFormessageReply.complete(status);
 		
 	}

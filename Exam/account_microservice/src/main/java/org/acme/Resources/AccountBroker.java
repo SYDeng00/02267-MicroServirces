@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class AccountBroker implements IEventSubscriber {
 	EventPublisher eventPublisher = new EventPublisher();
-	private HashMap<UUID, DTUPayAccount> accounts = new HashMap<>();
-	private HashMap<String, UUID> cprToIdMap = new HashMap<>();
+	private static HashMap<UUID, DTUPayAccount> accounts = new HashMap<>();
+	private static HashMap<String, UUID> cprToIdMap = new HashMap<>();
 
 	public void subscribeEvent(Message message) throws Exception {
 		String event = message.getEventType();

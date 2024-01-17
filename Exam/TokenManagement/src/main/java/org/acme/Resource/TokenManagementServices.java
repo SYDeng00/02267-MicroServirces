@@ -45,9 +45,11 @@ public class TokenManagementServices {
 			}
 			return;
 		}
+		System.out.println(repository.getCustomerTokenNumer(customerID));
 		if (repository.findCustomer(customerID) && repository.getCustomerTokenNumer(customerID) > 1) {
+			System.out.println( repository.getCustomerTokenNumer(customerID));
 			message = new Message(TokenConfig.SEND_TOKENS, "TokenFacadeBroker",
-					new Object[] { customerID, "Stored token numebr is more than 1" });
+					new Object[] { customerID, "Stored token numebr is more than 2" });
 			message.setStatus("404");
 			try {
 				eventPublisher.publishEvent(message);
