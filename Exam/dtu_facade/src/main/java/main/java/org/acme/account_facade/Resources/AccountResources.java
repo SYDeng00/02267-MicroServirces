@@ -35,7 +35,7 @@
 
 
 
-package Resources;
+package main.java.org.acme.account_facade.Resources;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -48,12 +48,12 @@ import org.acme.Resoures.EventSubscriber;
 
 import com.google.gson.Gson;
 
-import Domains.DTUPayAccount;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import main.java.org.acme.account_facade.Domains.DTUPayAccount;
 
 @Path("/")
 public class AccountResources implements IEventSubscriber {

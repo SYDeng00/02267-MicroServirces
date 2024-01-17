@@ -1,4 +1,4 @@
-package Domains;
+package main.java.org.acme.account_facade.Domains;
  
 public class Token_client {
     private String customerID;
