@@ -1,5 +1,7 @@
 package org.acme.Resource;
-
+/*
+* @author Tama Sarker
+* */
 public class TokenConfig {
 
     public static final String RECEIVE_RETURN_TOKEN = "requestTokens";
