@@ -1,20 +1,17 @@
-package org.acme.business_logic;
+package org.acme.Resource;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import org.acme.Domain.Token;
 import org.acme.Domains.Message;
 import org.acme.Repositories.TokenRepository;
-import org.acme.Resource.TokenConfig;
 import org.acme.Resoures.EventPublisher;
 
 import com.google.gson.Gson;
-import org.acme.Utils.HelperAttributes;
 
 import static io.quarkus.arc.ComponentsProvider.LOG;
 
@@ -64,7 +61,7 @@ public class TokenManagementServices {
 		List<UUID> tokensList = new ArrayList<>();
 		for (int i = 0; i < request_token_num; i++) {
 			UUID tokenID = repository.generateToken();
-			Token token = new Token(tokenID, HelperAttributes.STATUS_UNUSED,
+			Token token = new Token(tokenID, TokenConfig.STATUS_UNUSED,
 					LocalDate.now(), customerID);
 			repository.addToken(token);
 			tokensList.add(tokenID);
@@ -101,5 +98,4 @@ public class TokenManagementServices {
 						"PaymentBroker",
 						new Object[] { payload[0], token.getValid(), reason, token.getCustomerID() }));
 	}
-
 }
