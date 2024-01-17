@@ -41,13 +41,16 @@ public class ReportHandler {
      * @param merchantId The ID of the merchant.
      * @return A list of reports for the given merchant.
      */
-    public List<Report> generateMerchantReport(UUID merchantId) {
+    public void generateMerchantReport(Object[] payload) throws Exception {
+        UUID merchantId = typeTransfer(payload[0], UUID.class);
         List<Report> merchantReports = reportRepository.getReportsForMerchant(merchantId).stream()
                 .map(report -> new Report(report.getReportId(), report.getTransactionId(), report.getAmount(),
                         report.getDateTime(), null, report.getMerchantId(), report.getStatus()))
                 .collect(Collectors.toList());
-        LOG.info("Generated report for merchant with ID: " + merchantId);
-        return merchantReports;
+        LOG.info("Generated report for customer with ID: " + merchantId+ " " +  ReportConfig.RETRIEVE_REPORT_FOR_MERCHANT + "-->");
+        eventPublisher.publishEvent(
+                new Message(ReportConfig.RETRIEVE_REPORT_FOR_MERCHANT, "ReportFacadBroker", new Object[] { merchantReports.toString() }));
+        LOG.info("Report microservce send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_FOR_MERCHANT);
     }
 
     /**
@@ -55,10 +58,12 @@ public class ReportHandler {
      *
      * @return A list of all reports.
      */
-    public List<Report> generateSummaryReport() {
+    public void generateSummaryReport() throws Exception {
         List<Report> summaryReports = reportRepository.getAllReports();
-        LOG.info("Generated summary report for the manager");
-        return summaryReports;
+        LOG.info("Generated report for DTUPay: " +  ReportConfig.RETRIEVE_REPORT_DTU + "-->");
+        eventPublisher.publishEvent(
+                new Message(ReportConfig.RETRIEVE_REPORT_DTU, "ReportFacadBroker", new Object[] { summaryReports.toString() }));
+        LOG.info("Report microservce send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_DTU);
     }
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class ReportRepository implements IReportRepository {
     private final HashMap<UUID, Report> reports = new HashMap<>();
 
+
     @Override
     public void addReport(Report report) {
         reports.put(report.getReportId(), report);

@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="PAYMENT: COMMENT, CUCUMBER TEST">
-      <change afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Domain/Token_client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Repositories/TokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenBroker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenResourceRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenResourceRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/business_logic/TokenManagementServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/business_logic/TokenManagementServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/token_facade/Resources/TokenFacadeBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/token_facade/Resources/TokenFacadeBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/payment_microservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/payment_microservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,41 +39,57 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2axioMfOEFkziyWCpJzFxMaJthf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.All in TokenManagement.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;G:/My Drive/Study Materials/All Semesters/Autumn 2023/3 Week January-02267/02267-Web/Exam/TokenManagement&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "JUnit.All in TokenManagement.executor": "Run",
+    "Maven.report_microservice [clean].executor": "Run",
+    "Maven.report_microservice [install].executor": "Run",
+    "Maven.report_microservice [package].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "G:/My Drive/Study Materials/All Semesters/Autumn 2023/3 Week January-02267/02267-Web/report_microservice/src/main/java/org/acme",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="main.java.org.acme.report_facade.Resources" />
       <recent name="org.acme.Repositories" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\My Drive\Study Materials\All Semesters\Autumn 2023\3 Week January-02267\02267-Web\report_microservice\src\main\java\org\acme" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\My Drive\Study Materials\All Semesters\Autumn 2023\3 Week January-02267\02267-Web\Exam" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="main.java.org.acme.report_facade.Resources" />
+      <recent name="main.java.org.acme.report_facade.Reposotories" />
+      <recent name="main.java.org.acme.report_facade.Interfaces" />
+      <recent name="main.java.org.acme.report_facade.Domains" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -121,6 +137,80 @@
               </option>
               <option name="resolveToWorkspace" value="false" />
               <option name="workingDirPath" value="$PROJECT_DIR$/Exam/TokenManagement" />
+            </MavenRunnerParameters>
+          </option>
+        </MavenSettings>
+        <targetMavenLocalRepo />
+        <emulateTerminal>false</emulateTerminal>
+      </QsMavenRunConfiguration>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="code-with-quarkus (1)" type="QuarkusRunConfigurationType" factoryName="Quarkus" nameIsGenerated="true">
+      <module name="code-with-quarkus (1)" />
+      <QsMavenRunConfiguration>
+        <MavenSettings>
+          <option name="myGeneralSettings" />
+          <option name="myRunnerSettings" />
+          <option name="myRunnerParameters">
+            <MavenRunnerParameters>
+              <option name="cmdOptions" />
+              <option name="profiles">
+                <set />
+              </option>
+              <option name="goals">
+                <list>
+                  <option value="quarkus:dev" />
+                </list>
+              </option>
+              <option name="multimoduleDir" />
+              <option name="pomFileName" value="pom.xml" />
+              <option name="profilesMap">
+                <map />
+              </option>
+              <option name="projectsCmdOptionValues">
+                <list />
+              </option>
+              <option name="resolveToWorkspace" value="false" />
+              <option name="workingDirPath" value="$PROJECT_DIR$/Exam/account_microservice" />
+            </MavenRunnerParameters>
+          </option>
+        </MavenSettings>
+        <targetMavenLocalRepo />
+        <emulateTerminal>false</emulateTerminal>
+      </QsMavenRunConfiguration>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="code-with-quarkus (2)" type="QuarkusRunConfigurationType" factoryName="Quarkus" nameIsGenerated="true">
+      <module name="code-with-quarkus (2)" />
+      <QsMavenRunConfiguration>
+        <MavenSettings>
+          <option name="myGeneralSettings" />
+          <option name="myRunnerSettings" />
+          <option name="myRunnerParameters">
+            <MavenRunnerParameters>
+              <option name="cmdOptions" />
+              <option name="profiles">
+                <set />
+              </option>
+              <option name="goals">
+                <list>
+                  <option value="quarkus:dev" />
+                </list>
+              </option>
+              <option name="multimoduleDir" />
+              <option name="pomFileName" value="pom.xml" />
+              <option name="profilesMap">
+                <map />
+              </option>
+              <option name="projectsCmdOptionValues">
+                <list />
+              </option>
+              <option name="resolveToWorkspace" value="false" />
+              <option name="workingDirPath" value="$PROJECT_DIR$/Exam/payment_microservice" />
             </MavenRunnerParameters>
           </option>
         </MavenSettings>
@@ -237,6 +327,7 @@
       <workItem from="1705349369832" duration="9744000" />
       <workItem from="1705359799550" duration="223000" />
       <workItem from="1705396092870" duration="2707000" />
+      <workItem from="1705450033967" duration="6070000" />
     </task>
     <task id="LOCAL-00001" summary="PAYMENT: COMMENT, CUCUMBER TEST">
       <option name="closed" value="true" />
@@ -253,6 +344,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="PAYMENT: COMMENT, CUCUMBER TEST" />
     <option name="LAST_COMMIT_MESSAGE" value="PAYMENT: COMMENT, CUCUMBER TEST" />
   </component>
