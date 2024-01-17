@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-
 import com.google.gson.Gson;
 
 import jakarta.ws.rs.Consumes;
@@ -28,13 +27,17 @@ public class TokenFacadeResources {
         try {
 
             tokenFacadeBroker.received();
-            Object[] token_client = tokenFacadeBroker.createTokenForUser(token);
+            Object[] result = tokenFacadeBroker.createTokenForUser(token);
            
-            int status = typeTransfer(token_client[0],Integer.class);
+            Integer status = typeTransfer(result[0],Integer.class);
             if(status == 200){
                  List<UUID> tokens = new ArrayList<>();
 
-                for (Object element : tokens) {
+                 if (result[1] instanceof List) {
+                    List<UUID> retrievedUUIDList = (List<UUID>) result[1];
+        
+
+                for (Object element : retrievedUUIDList) {
                     System.out.println(element);
                     if (element instanceof UUID) {
                         tokens.add((UUID) element);
@@ -42,20 +45,23 @@ public class TokenFacadeResources {
                 }
                 return Response.status(200).entity(tokens).build();        
             }
+        }
                 
                 else{
-                    return Response.status(400).entity(typeTransfer(token_client[1],String.class)).build();
+                    return Response.status(400).entity(typeTransfer(result[1],String.class)).build();
                 }
-        } catch (Exception err) {
+         
+        }catch (Exception err) {
             err.printStackTrace();
             return Response.status(400).entity(err.getMessage()).build();
         }
+        return null;
     }
 
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
-		Gson gson = new Gson();
-		String json = gson.toJson(payload);
-		return gson.fromJson(json, objectClass);
-	}
+        Gson gson = new Gson();
+        String json = gson.toJson(payload);
+        return gson.fromJson(json, objectClass);
+    }
 
 }
