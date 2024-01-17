@@ -11,7 +11,7 @@ public class Token {
     private UUID customerID;
     private int tokenCount;
 
-    private boolean valid;
+    private boolean valid = true;
 
     public Token( UUID token, String tokenStatus, LocalDate tokenCreateDate, UUID customerID) {
    

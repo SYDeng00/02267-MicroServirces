@@ -123,7 +123,7 @@ public class paymentSteps {
             paymentHandler
                     .getBankAccount(new Object[] { paymentID, merchantBankAccount, customerBankAccount, "payment" });
         } catch (BankServiceException_Exception e) {
-            //e.printStackTrace();
+            
         }
 
     }

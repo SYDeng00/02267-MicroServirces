@@ -11,6 +11,10 @@ import org.acme.business_logic.TokenManagementServices;
 
 import java.util.logging.Logger;
 
+/**
+ * Author: Yingli
+ */
+
 public class TokenBroker implements IEventSubscriber {
     TokenManagementServices services = new TokenManagementServices();
     private static final Logger LOG = Logger.getLogger(String.valueOf(TokenBroker.class));
