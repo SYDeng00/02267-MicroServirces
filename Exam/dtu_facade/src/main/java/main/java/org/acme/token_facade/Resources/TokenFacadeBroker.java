@@ -22,8 +22,8 @@ public class TokenFacadeBroker implements IEventSubscriber {
 	Message message;
 	Token_client token_client; //= new Token_client();
 	int  request_token_number=0;
-
-	public Token_client createTokenForUser(Token_client token_client) {
+	Object[] rt;
+	public Object[] createTokenForUser(Token_client token_client) {
 		UUID costomerUuid = token_client.getCustomerID();
 		int request_token_num = token_client.getToken_number();
 		request_token_number = request_token_num;
@@ -40,7 +40,8 @@ public class TokenFacadeBroker implements IEventSubscriber {
 			waitFormessageReply.complete("404");
 			e.printStackTrace();
 		}
-		return this.token_client;
+		
+		return this.rt;
 	}
 
 	@Override
@@ -51,12 +52,18 @@ public class TokenFacadeBroker implements IEventSubscriber {
 		System.out.println("customerUuid:" + customerUuid);
 		List<UUID> tokens;
 		if(!status.equals("200")){
-			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], UUID.class)));
+			rt = new Object[]{400,payload[1]};
 		}else{
-			tokens = (List<UUID>) payload[1];
-		}
-		this.token_client = new Token_client(customerUuid,request_token_number,tokens);
+			List<?> rawTokens = (List<?>) payload[1];
 
+            boolean allUUIDs = rawTokens.stream().allMatch(element -> element instanceof UUID);
+
+            if (allUUIDs) {
+                // It's safe to cast to List<UUID> now
+                tokens = (List<UUID>) rawTokens;
+                rt = new Object[]{200, tokens};
+            }
+		} 
 		waitFormessageReply.complete(status);
 		
 	}

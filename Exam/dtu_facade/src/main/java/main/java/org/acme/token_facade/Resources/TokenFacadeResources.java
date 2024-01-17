@@ -1,7 +1,12 @@
 package main.java.org.acme.token_facade.Resources;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
+
+
+import com.google.gson.Gson;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -23,30 +28,33 @@ public class TokenFacadeResources {
         try {
 
             tokenFacadeBroker.received();
-            Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
-            if (!isUUID(token_client.getTokens().get(0)))
-                return Response.status(400).entity(token_client).build();
+            Object[] token_client = tokenFacadeBroker.createTokenForUser(token);
+           
+            int status = typeTransfer(token_client[0],Integer.class);
+            if(status == 200){
+                 List<UUID> tokens = new ArrayList<>();
 
-            return Response.status(200).entity(token_client).build();
+                for (Object element : tokens) {
+                    if (element instanceof UUID) {
+                        tokens.add((UUID) element);
+                    } 
+                }
+                return Response.status(200).entity(tokens).build();        
+            }
+                
+                else{
+                    return Response.status(200).entity(typeTransfer(token_client[1],String.class)).build();
+                }
         } catch (Exception err) {
             err.printStackTrace();
             return Response.status(400).entity(err.getMessage()).build();
         }
     }
-     public static boolean isUUID(Object obj) {
-        if (obj instanceof String) {
-            String input = (String) obj;
-            try {
-                UUID uuid = UUID.fromString(input);
-                return true; // If parsing as UUID succeeds, it's a valid UUID
-            } catch (IllegalArgumentException e) {
-                // If parsing fails, it's not a valid UUID
-                return false;
-            }
-        } else {
-            // If the object is not a String, it's not a valid UUID
-            return false;
-        }
-    }
+
+    public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
+		Gson gson = new Gson();
+		String json = gson.toJson(payload);
+		return gson.fromJson(json, objectClass);
+	}
 
 }
