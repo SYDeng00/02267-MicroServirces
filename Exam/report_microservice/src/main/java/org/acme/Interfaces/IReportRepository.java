@@ -9,8 +9,8 @@ import org.acme.Domains.Report;
 public interface IReportRepository {
     void addReport(Report report);
     Report getReport(UUID reportId);
-    List<Report> getAllReports();
-    List<Report> getReportsByStatus(String status);
-    List<Report> getReportsForCustomer(UUID customerId);
-    List<Report> getReportsForMerchant(UUID merchantId);
+    List<String> getAllReports();
+    //List<Report> getReportsByStatus(String status);
+    List<String> getReportsForCustomer(UUID customerId);
+    List<String> getReportsForMerchant(UUID merchantId);
 }

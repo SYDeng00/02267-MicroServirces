@@ -1,34 +1,49 @@
 package org.acme.Domains;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Report {
-    public enum Status {
-        SUCCESS,
-        FAILED,
-        CANCELLED,
-        REFUNDED
-    }
-
     private UUID reportId;
-    private UUID transactionId;
+    private UUID payOrRefundUUID;
+    private UUID token;
     private BigDecimal amount;
-    private LocalDateTime dateTime;
     private UUID customerId; // Optional based on privacy requirements
     private UUID merchantId;
-    private Status status;
 
-    // Constructor
-    public Report(UUID reportId, UUID transactionId, BigDecimal amount, LocalDateTime dateTime, UUID customerId, UUID merchantId, Status status) {
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+    public Report(){}
+    public Report(UUID reportId, UUID token, BigDecimal amount, UUID payOrRefundUUID, String payType , UUID merchantId) {
         this.reportId = reportId;
-        this.transactionId = transactionId;
+        this.payOrRefundUUID = payOrRefundUUID;
+        this.token = token;
         this.amount = amount;
-        this.dateTime = dateTime;
+        this.merchantId = merchantId;
+        this.payType = payType;
+    }
+
+    private String payType;
+    public UUID getToken() {
+        return token;
+    }
+
+    public void setToken(UUID token) {
+        this.token = token;
+    }
+
+    public Report(UUID payOrRefundUUID, UUID token, BigDecimal amount, UUID customerId, UUID merchantId, String payType) {
+        this.payOrRefundUUID = payOrRefundUUID;
+        this.token = token;
+        this.amount = amount;
         this.customerId = customerId;
         this.merchantId = merchantId;
-        this.status = status;
+        this.payType = payType;
     }
 
     // Getters and Setters
@@ -40,12 +55,12 @@ public class Report {
         this.reportId = reportId;
     }
 
-    public UUID getTransactionId() {
-        return transactionId;
+    public UUID getPayOrRefundUUID() {
+        return payOrRefundUUID;
     }
 
-    public void setTransactionId(UUID transactionId) {
-        this.transactionId = transactionId;
+    public void setPayOrRefundUUID(UUID payOrRefundUUID) {
+        this.payOrRefundUUID = payOrRefundUUID;
     }
 
     public BigDecimal getAmount() {
@@ -55,15 +70,6 @@ public class Report {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public UUID getCustomerId() {
         return customerId;
     }
@@ -78,13 +84,6 @@ public class Report {
 
     public void setMerchantId(UUID merchantId) {
         this.merchantId = merchantId;
-    }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }

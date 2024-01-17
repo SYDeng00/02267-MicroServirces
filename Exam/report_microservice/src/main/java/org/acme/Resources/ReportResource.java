@@ -24,7 +24,7 @@ public class ReportResource implements QuarkusApplication {
             e.printStackTrace();
         }
 
-        LOG.info("Payment service launched, start Broker");
+        LOG.info("Report microservice launched, start Broker");
 
         try {
             reportBroker.received();

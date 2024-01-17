@@ -33,6 +33,10 @@ public class ReportBroker implements IEventSubscriber {
                 LOG.info("-------------------------------DTU Report retrieval request received");
                 reportHandler.generateSummaryReport();
                 break;
+            case ReportConfig.SEND_UPDATE_PAYMENTS_REPORT:
+                LOG.info("-------------------------------DTU Report Repository update request received");
+                reportHandler.addReport(payload);
+                break;
             // Add additional cases for other report-related events
             default:
                 LOG.warn("Unhandled event type: " + eventType);
