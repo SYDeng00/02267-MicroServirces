@@ -46,7 +46,7 @@ public class AccountBroker implements IEventSubscriber {
 				String additionalInfo = (String) payload[3];
 				DTUPayAccount merchantAccount = accounts.get(merchantUuid);
 				DTUPayAccount customerAccount = accounts.get(customerUuid);
-
+				System.out.println("in SEND_REQUEST_BANK_ACCOUNTS");
 				if (merchantAccount != null && customerAccount != null) {
 					eventPublisher.publishEvent(new Message(AccountConfig.RECEIVE_GET_ACCOUNTS, "PaymentBroker",
 							new Object[]{paymentID, merchantAccount.getBankID(), customerAccount.getBankID(), additionalInfo}));
