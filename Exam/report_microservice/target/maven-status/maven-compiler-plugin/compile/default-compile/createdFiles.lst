@@ -1,0 +1,8 @@
+org\acme\Interfaces\IReportRepository.class
+org\acme\Repositories\ReportRepository.class
+org\acme\Resources\ReportConfig.class
+org\acme\Resources\ReportResource.class
+org\acme\Resources\ReportHandler.class
+org\acme\Resources\ReportBroker.class
+org\acme\Domains\Report.class
+org\acme\Domains\Report$Status.class
