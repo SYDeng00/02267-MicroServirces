@@ -1,8 +1,13 @@
 package org.acme.Domains;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
-
+/**
+ * Configuration class for report.
+ * @author Tama Sarker
+ * @author Divya
+ */
 public class Report {
     private UUID reportId;
     private UUID payOrRefundUUID;
@@ -10,6 +15,16 @@ public class Report {
     private BigDecimal amount;
     private UUID customerId; // Optional based on privacy requirements
     private UUID merchantId;
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    private LocalDateTime dateTime;
 
     public void setPayType(String payType) {
         this.payType = payType;

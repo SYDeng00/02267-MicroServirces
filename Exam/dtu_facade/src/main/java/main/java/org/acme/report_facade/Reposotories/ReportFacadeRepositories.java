@@ -4,12 +4,9 @@ import main.java.org.acme.payment_facade.Interfaces.IPaymentFacadeRepositories;
 import org.acme.Domains.Message;
 
 import java.util.*;
-
 /**
- * 
- * @author Yingli
- * @version 1.0
- * 
+ * Configuration class for report-facade repository.
+ * @author Tama Sarker
  */
 public class ReportFacadeRepositories implements IPaymentFacadeRepositories {
     private static final ReportFacadeRepositories instance = new ReportFacadeRepositories();
