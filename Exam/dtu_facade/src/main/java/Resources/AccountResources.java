@@ -61,7 +61,7 @@ public class AccountResources implements IEventSubscriber {
     EventSubscriber subscriber = new EventSubscriber(this); 
     String receivedId; 
 
-    private CompletableFuture<String> idFuture;
+    private CompletableFuture<String> idFuture = new CompletableFuture<>();
 
     public AccountResources() {
 
@@ -83,9 +83,8 @@ public class AccountResources implements IEventSubscriber {
             
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
 
-            idFuture = new CompletableFuture<>();
-
-            UUID uuid = UUID.fromString(idFuture.get(10, TimeUnit.SECONDS)); //wait for 10 seconds
+            idFuture.join();
+            UUID uuid = UUID.fromString(receivedId); //wait for 2 seconds
 
             return Response.status(201).entity(uuid).build();
         } catch (Exception err) {
@@ -95,11 +94,12 @@ public class AccountResources implements IEventSubscriber {
 
     @Override
     public void subscribeEvent(Message message) {
-
+		String status = message.getStatus();
         if (message.getEventType().equals(AccountConfig.RETURN_ID) && message.getService().equals("AccountResources")) {
             Gson gson = new Gson();
             receivedId = gson.fromJson(gson.toJson(message.getPayload()[0]), String.class);
-            idFuture.complete(receivedId); 
+            
+            idFuture.complete(status); 
         }
     }
 
