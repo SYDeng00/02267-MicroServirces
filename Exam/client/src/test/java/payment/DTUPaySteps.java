@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import Domains.DTUPayAccount;
 import Domains.DTUPay_Interface;
@@ -24,17 +24,17 @@ import io.cucumber.java.en.When;
 public class DTUPaySteps {
 
 	public String customerBankID;
-	public String customerDtuPayID;
+	public UUID customerDtuPayID;
 
 	public String merchantBankID;
-	public String merchantDtuPayID;
+	public UUID merchantDtuPayID;
 
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
 	
 	public Token_client token_client = new Token_client();
 
-	public List<String> tokens = new ArrayList<>();;
+	public List<UUID> tokens = new ArrayList<>();;
 
 
 	public BigDecimal payment_amount;
@@ -139,7 +139,7 @@ public class DTUPaySteps {
 
 	@When("the merchant has received a token from the customer")
 	public void theMerchantHasReceivedATokenFromTheCustomer() {
-		String token = null;
+		UUID token = null;
 		if (!tokens.isEmpty()) {
 		     token = tokens.get(0); 
 		}

@@ -1,26 +1,27 @@
 package Domains;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class Payment {
-	String merchantDtuPayID;
+	UUID merchantDtuPayID;
     BigDecimal amount;
-    String token;
+    UUID token;
 
     public Payment(){}
 
 
-    public Payment(String merchantDtuPayID2, String token, BigDecimal amount) {
+    public Payment(UUID merchantDtuPayID2, UUID token, BigDecimal amount) {
         this.merchantDtuPayID = merchantDtuPayID2;
         this.token = token;
         this.amount = amount;
     }
 
-    public String getMerchantDtuPayID() {
+    public UUID getMerchantDtuPayID() {
         return merchantDtuPayID;
     }
 
-    public void setMerchantDtuPayID(String merchantDtuPayID) {
+    public void setMerchantDtuPayID(UUID merchantDtuPayID) {
         this.merchantDtuPayID = merchantDtuPayID;
     }
 
@@ -32,11 +33,11 @@ public class Payment {
         this.amount = amount;
     }
 
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
 }
