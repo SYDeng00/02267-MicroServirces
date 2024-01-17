@@ -20,13 +20,14 @@ import main.java.org.acme.payment_facade.Repositories.PaymentFacadeRepositories;
  * 
  */
 public class PaymentFacadeBroker implements IEventSubscriber {
-    CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
+    CompletableFuture<String> waitFromessageReply ;
     PaymentFacadeRepositories paymentFacadeRepositories = PaymentFacadeRepositories.getInstance();
     Message message;
     String fianlStatus;
     public String sendPaymentRequestToPaymentService(Payment payment) {
         EventPublisher publisher = new EventPublisher();
         try {
+            waitFromessageReply = new CompletableFuture<>();
             message = new Message(PaymentFacadeConfig.RECEIVE_MERCHANT_ASK_PAYMENT,
                     "PaymentBroker",
                     new Object[] { payment.getMerchantDtuPayID(),
@@ -36,6 +37,7 @@ public class PaymentFacadeBroker implements IEventSubscriber {
             publisher.publishEvent(message);
             paymentFacadeRepositories.addMessage(message);
             waitFromessageReply.join();
+            
         } catch (Exception e) {
             waitFromessageReply.complete("404");
             fianlStatus = "404";
@@ -50,12 +52,12 @@ public class PaymentFacadeBroker implements IEventSubscriber {
         String status = message.getStatus();
         UUID messageUuid = typeTransfer(payload[1], UUID.class);
         paymentFacadeRepositories.getMessages();
-        System.out.println(paymentFacadeRepositories.getMessage(messageUuid));
-        if (paymentFacadeRepositories.getMessage(messageUuid)!=null) {
-            waitFromessageReply.complete(status);
-            fianlStatus = status;
-            paymentFacadeRepositories.removeMessage(message.getMessageID());
-        }
+        System.out.println(status);
+    
+        fianlStatus = status;
+        waitFromessageReply.complete(status);
+        paymentFacadeRepositories.removeMessage(message.getMessageID());
+    
     }
 
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {

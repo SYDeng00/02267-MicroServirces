@@ -21,9 +21,12 @@ public class PaymentFacadeResources {
     public Response registerPayment(Payment payment) {
         try {
             paymentBroker.received();
-            paymentBroker.sendPaymentRequestToPaymentService(payment);
+            String status = paymentBroker.sendPaymentRequestToPaymentService(payment);
             System.out.println("payment done?");
-            return Response.status(200).entity("payment is successful").build();
+            if (status.equals("200")){
+                return Response.status(200).entity("payment is successful").build();
+            }
+            return Response.status(400).entity("payment is failed").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
         }
