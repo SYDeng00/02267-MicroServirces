@@ -23,19 +23,16 @@ import main.java.org.acme.token_facade.Domains.Token_client;
 
 @Path("/")
 public class TokenFacadeResources {
-    TokenFacadeBroker tokenFacadeBroker;
-    TokenFacadeResources() throws Exception{
-        tokenFacadeBroker= new TokenFacadeBroker();
-        tokenFacadeBroker.received();
-    }
+    TokenFacadeBroker tokenFacadeBroker= new TokenFacadeBroker();
+
     @Path("tokens")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTokenSet(Token_client token) {
         try {
-            // Publish the event
             
+        tokenFacadeBroker.received();
             Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
             return Response.status(201).entity(token_client).build();
         } catch (Exception err) {
