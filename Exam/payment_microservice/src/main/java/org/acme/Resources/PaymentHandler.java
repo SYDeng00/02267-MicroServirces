@@ -100,6 +100,8 @@ public class PaymentHandler {
         UUID token;
         String debetorBankAccount;
         String creditorBankAccount;
+        UUID debetorID;
+        UUID creditorID;
         BigDecimal amount;
         Payment payment;
         if (payType.equals("refund")) {
@@ -108,6 +110,8 @@ public class PaymentHandler {
             creditorBankAccount = PaymentHandler.typeTransfer(payload[2], String.class);
             amount = refund.getAmount();
             payment = paymentRepository.getPayment(paymentRepository.getRefund(payOrRefundUuid).getPaymentId());
+            debetorID = payment.getCustomerId();
+            creditorID = payment.getMerchantId();
             token = payment.getToken();
         } else {
             payment = paymentRepository.getPayment(payOrRefundUuid);
@@ -115,6 +119,8 @@ public class PaymentHandler {
             creditorBankAccount = PaymentHandler.typeTransfer(payload[1], String.class);
             amount = payment.getAmount();
             token = paymentRepository.getPayment(payOrRefundUuid).getToken();
+            debetorID = payment.getMerchantId();
+            creditorID = payment.getCustomerId();
         }
         try {
             BankService bank = new BankServiceService().getBankServicePort();
@@ -129,8 +135,8 @@ public class PaymentHandler {
                     new Object[] {
                             payType,
                             payOrRefundUuid,
-                            creditorBankAccount,
-                            debetorBankAccount,
+                            creditorID,
+                            debetorID,
                             amount,
                             token});
             message.setStatus("200");
@@ -156,8 +162,8 @@ public class PaymentHandler {
                             payment.getMessageId(),
                             payType,
                             payOrRefundUuid,
-                            creditorBankAccount,
-                            debetorBankAccount,
+                            creditorID,
+                            debetorID,
                             amount });
             message.setStatus("404");
             eventPublisher.publishEvent(message);
@@ -184,7 +190,7 @@ public class PaymentHandler {
         BigDecimal amount = typeTransfer(payload[2], BigDecimal.class);
         UUID refundId = UUID.randomUUID();
         paymentRepository.addRefund(new Refund(refundId, paymentID, merchantUuid, amount));
-        UUID customerUuid = paymentRepository.getPayment(paymentID).getCustomerID();
+        UUID customerUuid = paymentRepository.getPayment(paymentID).getCustomerId();
         eventPublisher.publishEvent(new Message(PaymentConfig.SEND_REQUEST_BANK_ACCOUNTS, "AccountBroker",
                 new Object[] { refundId, merchantUuid, customerUuid, "refund" }));
     }

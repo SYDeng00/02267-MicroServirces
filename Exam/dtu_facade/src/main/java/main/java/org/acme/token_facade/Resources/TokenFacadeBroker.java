@@ -1,5 +1,7 @@
 package main.java.org.acme.token_facade.Resources;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -47,7 +49,13 @@ public class TokenFacadeBroker implements IEventSubscriber {
 		String status = message.getStatus();
 		String customerUuid = typeTransfer(payload[0], String.class);
 		System.out.println("customerUuid:" + customerUuid);
-		this.token_client = new Token_client(customerUuid,request_token_number,(List<String>) payload[1]);
+		List<String> tokens;
+		if(!status.equals("200")){
+			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], String.class)));
+		}else{
+			tokens = (List<String>) payload[1];
+		}
+		this.token_client = new Token_client(customerUuid,request_token_number,tokens);
 
 		waitFormessageReply.complete(status);
 		

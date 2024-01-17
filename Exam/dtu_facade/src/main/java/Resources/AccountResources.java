@@ -70,7 +70,6 @@ public class AccountResources implements IEventSubscriber {
 			idFuture = new CompletableFuture<>();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -80,11 +79,9 @@ public class AccountResources implements IEventSubscriber {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerAccount(DTUPayAccount account) {
         try {
-            
             publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
-
             idFuture.join();
-            UUID uuid = UUID.fromString(receivedId); //wait for 2 seconds
+            UUID uuid = UUID.fromString(receivedId); 
 
             return Response.status(201).entity(uuid).build();
         } catch (Exception err) {
@@ -103,14 +100,7 @@ public class AccountResources implements IEventSubscriber {
         }
     }
 
-    private String waitForIdOrRetrieveIt() throws InterruptedException {
-        int attempts = 0;
-        while (receivedId == null && attempts < 5) {
-            Thread.sleep(1);
-            attempts++;
-        }
-        return receivedId;
-    }
+ 
 
 }
 

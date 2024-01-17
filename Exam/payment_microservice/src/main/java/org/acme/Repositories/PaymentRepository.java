@@ -29,7 +29,7 @@ public class PaymentRepository implements IPaymentRepository{
     
     @Override
     public void addPayment(Payment payment) {
-        payments.put(payment.getPaymentID(), payment);
+        payments.put(payment.getPaymentId(), payment);
     }
 
     @Override
