@@ -57,7 +57,7 @@ public class ReportFacadBroker implements IEventSubscriber {
                         "ReportBroker",
                         new Object[] { id });
             } else if (event == ReportFacadeConfig.GENERATE_REPORT_DTU) {
-                message = new Message(ReportFacadeConfig.GENERATE_REPORT_FOR_CUSTOMER,
+                message = new Message(ReportFacadeConfig.GENERATE_REPORT_DTU,
                         "ReportBroker",
                         new Object[] {});
             }

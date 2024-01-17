@@ -21,8 +21,8 @@ public class ReportFacadeResources {
     public Response ReportForCustomer(@PathParam("id") String id) {
         try {
             reportFacadBroker = new ReportFacadBroker();
-            reportFacadBroker.received();
             reportFacadBroker.sendReportRequestToReportService(id,ReportFacadeConfig.GENERATE_REPORT_FOR_CUSTOMER);
+            reportFacadBroker.received();
             return Response.status(201).entity("Report Generated for Customer successfully - ").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
@@ -34,8 +34,8 @@ public class ReportFacadeResources {
     public Response ReportForMerchant(@PathParam("id") String id) {
         try {
             reportFacadBroker = new ReportFacadBroker();
-            reportFacadBroker.received();
             reportFacadBroker.sendReportRequestToReportService(id,ReportFacadeConfig.GENERATE_REPORT_FOR_MERCHANT);
+            reportFacadBroker.received();
             return Response.status(201).entity("Report Generated for Merchant successfully - ").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
@@ -47,8 +47,8 @@ public class ReportFacadeResources {
     public Response ReportForDTUPay() {
         try {
             reportFacadBroker = new ReportFacadBroker();
-            reportFacadBroker.received();
             reportFacadBroker.sendReportRequestToReportService(null,ReportFacadeConfig.GENERATE_REPORT_DTU);
+            reportFacadBroker.received();
             return Response.status(201).entity("Report Generated for DTUPay successfully - ").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();

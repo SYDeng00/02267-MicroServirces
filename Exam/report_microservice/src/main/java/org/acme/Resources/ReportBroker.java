@@ -31,7 +31,7 @@ public class ReportBroker implements IEventSubscriber {
                 break;
             case ReportConfig.RETRIEVE_REPORT_DTU:
                 LOG.info("-------------------------------DTU Report retrieval request received");
-                reportHandler.generateMerchantReport(payload);
+                reportHandler.generateSummaryReport();
                 break;
             // Add additional cases for other report-related events
             default:
