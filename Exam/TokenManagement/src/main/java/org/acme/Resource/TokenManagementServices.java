@@ -17,6 +17,7 @@ import static io.quarkus.arc.ComponentsProvider.LOG;
 
 /**
  * Auhtor: Yingli
+ * @author Tama Sarker
  */
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
@@ -47,7 +48,9 @@ public class TokenManagementServices {
 		}
 		System.out.println(repository.getCustomerTokenNumer(customerID));
 		if (repository.findCustomer(customerID) && repository.getCustomerTokenNumer(customerID) > 1) {
+
 			System.out.println( repository.getCustomerTokenNumer(customerID));
+			System.out.println(repository.getCustomerTokenNumer(customerID) );
 			message = new Message(TokenConfig.SEND_TOKENS, "TokenFacadeBroker",
 					new Object[] { customerID, "Stored token numebr is more than 2" });
 			message.setStatus("404");

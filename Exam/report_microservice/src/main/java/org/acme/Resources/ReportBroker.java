@@ -7,8 +7,11 @@ import org.acme.Resoures.EventSubscriber;
 import org.jboss.logging.Logger;
 
 
-//This class acts as a message broker for report-related events.
-
+/**
+ * Configuration class for report broker.
+ * @author Tama Sarker
+ * @author Divya
+ */
 
 public class ReportBroker implements IEventSubscriber {
     private ReportHandler reportHandler = new ReportHandler();
@@ -25,13 +28,25 @@ public class ReportBroker implements IEventSubscriber {
                 LOG.info("-------------------------------Customer Report generation request received");
                 reportHandler.generateCustomerReport(payload);
                 break;
+            case ReportConfig.RETRIEVE_LATEST_REPORT_FOR_CUSTOMER:
+                LOG.info("-------------------------------Customer Latest 5 Payment Report generation request received");
+                reportHandler.generateLatestCustomerReport(payload);
+                break;
             case ReportConfig.RETRIEVE_REPORT_FOR_MERCHANT:
                 LOG.info("-------------------------------Merchant Report retrieval request received");
                reportHandler.generateMerchantReport(payload);
                 break;
+            case ReportConfig.RETRIEVE_LATEST_REPORT_FOR_MERCHANT:
+                LOG.info("-------------------------------Merchant Latest 5 Payment Report retrieval request received");
+                reportHandler.generateLatestMerchantReport(payload);
+                break;
             case ReportConfig.RETRIEVE_REPORT_DTU:
                 LOG.info("-------------------------------DTU Report retrieval request received");
                 reportHandler.generateSummaryReport();
+                break;
+            case ReportConfig.RETRIEVE_LATEST_REPORT_DTU:
+                LOG.info("-------------------------------Latest 5 Payment Report retrieval request received");
+                reportHandler.generateLatestSummaryReport();
                 break;
             case ReportConfig.SEND_UPDATE_PAYMENTS_REPORT:
                 LOG.info("-------------------------------DTU Report Repository update request received");

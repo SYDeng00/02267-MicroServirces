@@ -34,8 +34,7 @@ public class DTUPay_Interface {
 	        	Token_client token_client = response.readEntity(Token_client.class);
 	            return token_client.getTokens();
 	        } else {
-	            // Handle non-OK responses
-	            throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+	            return null;
 	        }
 	    } catch (ProcessingException e) {
 	        // Handle processing exceptions

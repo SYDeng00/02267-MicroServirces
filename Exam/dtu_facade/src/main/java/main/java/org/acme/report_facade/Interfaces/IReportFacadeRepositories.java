@@ -6,10 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 
- * @author Tama
- * @version 1.0
- * 
+ * Configuration class for report-facade Repository interface.
+ * @author Tama Sarker
  */
 public interface IReportFacadeRepositories {
      void addMessage(Message message);

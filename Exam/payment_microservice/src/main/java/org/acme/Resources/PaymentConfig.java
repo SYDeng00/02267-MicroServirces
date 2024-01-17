@@ -21,10 +21,10 @@ public class PaymentConfig {
     // is null
 
     public static final String SEND_PAYMENT_RESULT = "PaymentResult";
-    // {UUID->paymmentID, String->reason}
+    // {UUID->paymmentID, UUID+:messageId,String->reason}
 
     public static final String SEND_REQUEST_BANK_ACCOUNTS = "RequestBankAccounts";
-    // {UUID->paymentID,  UUID->customerID, String->payment
+    // {UUID->paymentID, UUID->merchantID, UUID->customerID, String->payment
     // type(payment/refund)}
 
     public static final String RECEIVE_GET_ACCOUNTS = "RequestBankAccounts";
@@ -36,6 +36,6 @@ public class PaymentConfig {
     // UUID->customerID, BigDecimal->amount,UUID token}
 
     public static final String RECEIVE_REFUND_REQUEST = "MerchantAskRefund";
-    // {UUID->paymentID,  UUID->merchantID, BigDecimal->amount}
+    // {UUID->paymentID, UUID-> messageID, UUID->merchantID, BigDecimal->amount}
 
 }
