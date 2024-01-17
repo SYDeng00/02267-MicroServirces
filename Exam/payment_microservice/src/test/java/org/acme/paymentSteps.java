@@ -154,7 +154,7 @@ public class paymentSteps {
         //payment
         paymentID = UUID.randomUUID();
         Payment payment = new Payment(paymentID, merchantID, token, affordedAmount);
-        payment.setCustomerID(customerID);
+        payment.setCustomerId(customerID);
         paymentRepository.addPayment(payment);
         //refund
         paymentRepository.addRefund(new Refund(refundId, paymentID, merchantID, affordedAmount));

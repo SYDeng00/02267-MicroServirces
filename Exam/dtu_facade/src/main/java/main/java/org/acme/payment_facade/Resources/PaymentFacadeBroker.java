@@ -23,8 +23,8 @@ public class PaymentFacadeBroker implements IEventSubscriber {
     CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
     PaymentFacadeRepositories paymentFacadeRepositories = PaymentFacadeRepositories.getInstance();
     Message message;
-
-    public void sendPaymentRequestToPaymentService(Payment payment) {
+    String fianlStatus;
+    public String sendPaymentRequestToPaymentService(Payment payment) {
         EventPublisher publisher = new EventPublisher();
         try {
             message = new Message(PaymentFacadeConfig.RECEIVE_MERCHANT_ASK_PAYMENT,
@@ -38,8 +38,10 @@ public class PaymentFacadeBroker implements IEventSubscriber {
             waitFromessageReply.join();
         } catch (Exception e) {
             waitFromessageReply.complete("404");
+            fianlStatus = "404";
             e.printStackTrace();
         }
+        return fianlStatus;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class PaymentFacadeBroker implements IEventSubscriber {
         System.out.println(paymentFacadeRepositories.getMessage(messageUuid));
         if (paymentFacadeRepositories.getMessage(messageUuid)!=null) {
             waitFromessageReply.complete(status);
+            fianlStatus = status;
             paymentFacadeRepositories.removeMessage(message.getMessageID());
         }
     }

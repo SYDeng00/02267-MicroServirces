@@ -53,21 +53,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public UUID getPaymentID() {
-        return paymentId;
-    }
-
-    public void setPaymentID(UUID paymentID) {
-        this.paymentId = paymentID;
-    }
-
-    public UUID getCustomerID() {
-        return customerId;
-    }
-
-    public void setCustomerID(UUID customerID) {
-        this.customerId = customerID;
-    }
+    
 
     public UUID getPaymentId() {
         return paymentId;
