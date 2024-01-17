@@ -21,7 +21,7 @@ public class TokenFacadeResources {
             
         tokenFacadeBroker.received();
             Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
-            return Response.status(201).entity(token_client).build();
+            return Response.status(200).entity(token_client).build();
         } catch (Exception err) {
         	err.printStackTrace();
             return Response.status(400).entity(err.getMessage()).build();
