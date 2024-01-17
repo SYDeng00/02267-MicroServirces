@@ -1,5 +1,8 @@
 package main.java.org.acme.token_facade.Resources;
 
+import java.util.UUID;
+import java.util.regex.Pattern;
+
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -21,7 +24,7 @@ public class TokenFacadeResources {
 
             tokenFacadeBroker.received();
             Token_client token_client = tokenFacadeBroker.createTokenForUser(token);
-            if (!isUUID(token_client.getTokens()[0]))
+            if (!isUUID(token_client.getTokens().get(0)))
                 return Response.status(400).entity(token_client).build();
 
             return Response.status(200).entity(token_client).build();
@@ -30,4 +33,20 @@ public class TokenFacadeResources {
             return Response.status(400).entity(err.getMessage()).build();
         }
     }
+     public static boolean isUUID(Object obj) {
+        if (obj instanceof String) {
+            String input = (String) obj;
+            try {
+                UUID uuid = UUID.fromString(input);
+                return true; // If parsing as UUID succeeds, it's a valid UUID
+            } catch (IllegalArgumentException e) {
+                // If parsing fails, it's not a valid UUID
+                return false;
+            }
+        } else {
+            // If the object is not a String, it's not a valid UUID
+            return false;
+        }
+    }
+
 }

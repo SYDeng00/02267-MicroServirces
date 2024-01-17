@@ -22,7 +22,7 @@ public class PaymentFacadeResources {
         try {
             paymentBroker.received();
             paymentBroker.sendPaymentRequestToPaymentService(payment);
-            return Response.status(201).entity("The payment was successful - ").build();
+            return Response.status(200).entity("The payment was successful - ").build();
         } catch (Exception err) {
             return Response.status(400).entity(err.getMessage()).build();
         }

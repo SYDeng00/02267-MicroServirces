@@ -24,7 +24,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 	int  request_token_number=0;
 
 	public Token_client createTokenForUser(Token_client token_client) {
-		UUID costomerUuid = UUID.fromString(token_client.getCustomerID());
+		UUID costomerUuid = token_client.getCustomerID();
 		int request_token_num = token_client.getToken_number();
 		request_token_number = request_token_num;
 		EventPublisher publisher = new EventPublisher();
@@ -47,13 +47,13 @@ public class TokenFacadeBroker implements IEventSubscriber {
 	public void subscribeEvent(Message message) throws Exception {
 		Object[] payload = message.getPayload();
 		String status = message.getStatus();
-		String customerUuid = typeTransfer(payload[0], String.class);
+		UUID customerUuid = typeTransfer(payload[0], UUID.class);
 		System.out.println("customerUuid:" + customerUuid);
-		List<String> tokens;
+		List<UUID> tokens;
 		if(!status.equals("200")){
-			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], String.class)));
+			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], UUID.class)));
 		}else{
-			tokens = (List<String>) payload[1];
+			tokens = (List<UUID>) payload[1];
 		}
 		this.token_client = new Token_client(customerUuid,request_token_number,tokens);
 
