@@ -19,10 +19,12 @@ public class TokenFacadeBroker implements IEventSubscriber {
 	TokenFacadeRepositories tokenFacadeRepositories = TokenFacadeRepositories.getInstance();
 	Message message;
 	Token_client token_client; //= new Token_client();
+	int  request_token_number=0;
 
 	public Token_client createTokenForUser(Token_client token_client) {
 		UUID costomerUuid = UUID.fromString(token_client.getCustomerID());
 		int request_token_num = token_client.getToken_number();
+		request_token_number = request_token_num;
 		EventPublisher publisher = new EventPublisher();
 		try {
 			message = new Message(TokenFacadeConfig.SEND_RETURN_TOKEN,
@@ -30,8 +32,8 @@ public class TokenFacadeBroker implements IEventSubscriber {
 					new Object[] { costomerUuid, request_token_num });
 			publisher.publishEvent(message);
 			tokenFacadeRepositories.addMessage(message);
+			
 			waitFormessageReply.join();
-			return token_client;
 		} catch (Exception e) {
 			waitFormessageReply.complete("404");
 			e.printStackTrace();
@@ -45,7 +47,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 		String status = message.getStatus();
 		String customerUuid = typeTransfer(payload[0], String.class);
 		System.out.println("customerUuid:" + customerUuid);
-		token_client = new Token_client(customerUuid,(List<String>) payload[1]);
+		this.token_client = new Token_client(customerUuid,request_token_number,(List<String>) payload[1]);
 
 		waitFormessageReply.complete(status);
 		

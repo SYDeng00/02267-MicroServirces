@@ -16,6 +16,14 @@ public class Token_client {
 
     
 
+    public Token_client(String customerID, Integer token_number, List<String> tokens) {
+        this.customerID = customerID;
+        this.token_number = token_number;
+        this.tokens = tokens;
+    }
+
+
+
     public Token_client(String customerID, List<String> tokens) {
         this.customerID = customerID;
         this.tokens = tokens;
