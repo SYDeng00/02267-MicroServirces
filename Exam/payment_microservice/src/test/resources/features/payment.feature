@@ -1,5 +1,6 @@
 Feature: Payment
 ###################################Test call bank function###################################
+  # @author Yingli
   Scenario: Create a payment with valid account
     Given merchantID, token
     Given affordedAmount
@@ -7,6 +8,7 @@ Feature: Payment
     Then Ask bank for transaction
     Then the transaction succeed
 
+    # @author Yingli
    Scenario: Create a payment customer cannot affort
      Given merchantID, token
     Given unAffordedAmount
@@ -33,6 +35,7 @@ Feature: Payment
 
 
 ###################################Test ask back account function###################################
+  # @author Yingli
   Scenario Outline: Received token validation result with true
     Given merchantID, token
     Given customerID

@@ -6,7 +6,9 @@ import org.acme.Domains.Message;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
+/**
+ * @author Yingli
+ */
 public class TokenFacadeRepositories implements ITokenFacadeRepositories {
 
     static HashMap<UUID, Message> messages = new HashMap<>();

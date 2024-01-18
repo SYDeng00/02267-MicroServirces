@@ -7,7 +7,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import main.java.org.acme.token_facade.Domains.Token_client;
-
+/**
+ * @author Yingli
+ */
 @Path("/")
 public class TokenFacadeResources {
     TokenFacadeBroker tokenFacadeBroker= new TokenFacadeBroker();
