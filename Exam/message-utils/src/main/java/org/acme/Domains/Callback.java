@@ -1,6 +1,8 @@
 package org.acme.Domains;
 
-
+/**
+ * @author Yingli
+ */
 
 public class Callback {
     private String service;

@@ -1,7 +1,9 @@
 package org.acme.Domains;
 
 import java.util.UUID;
-
+/**
+ * @author Yingli
+ */
 public class Message {
     private String eventType;
     private Object[] payload;

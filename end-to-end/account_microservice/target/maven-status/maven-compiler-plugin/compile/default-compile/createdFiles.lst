@@ -1,0 +1,4 @@
+org\acme\Resources\AccountConfig.class
+org\acme\Resources\AccountBroker.class
+org\acme\Domains\DTUPayAccount.class
+org\acme\Resources\AccountResource.class

@@ -55,15 +55,12 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-
+/**
+ * @author Yingli
+ */
 public class EventSubscriber {
 
-    ConnectionFactory connectionfactory = new ConnectionFactory();
-    Connection connection;
-    Channel channel;
-    IEventSubscriber service;
-    Gson gson = new Gson();
-    //private String QUEUE_NAME="publisher_queue";
+
 
     private static final String EXCHANGE_NAME = "exchange_events";
     private IEventSubscriber callback;
