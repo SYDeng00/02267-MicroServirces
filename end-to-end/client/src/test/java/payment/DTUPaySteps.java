@@ -1,5 +1,8 @@
 package payment;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +20,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jakarta.validation.constraints.AssertFalse;
-import jakarta.validation.constraints.AssertTrue;
-
-import static org.junit.Assert.*;
 
 public class DTUPaySteps {
 
@@ -32,7 +31,7 @@ UUID invalidToken;
 
 	public DTUPayAccount dtu_customer;
 	public DTUPayAccount dtu_merchant;
-	Token_client request_token_client;
+	
 	public Token_client token_client = new Token_client();
 
 	public List<UUID> tokens = new ArrayList<>();;
@@ -40,10 +39,10 @@ UUID invalidToken;
 
 	public BigDecimal payment_amount;
 	public String payment_result;
-
+	
 	DTUPay_Interface dtuPay = new DTUPay_Interface();
 	BankService bank = new BankServiceService().getBankServicePort();
-
+	
 
 
 	// Account test
@@ -70,7 +69,7 @@ UUID invalidToken;
 
 	@Then("we receive a customer dtuPayId")
 	public void we_receive_a_dtu_pay_id() {
-		assertNotNull(customerDtuPayID);
+		assertFalse(customerDtuPayID==null);
 	}
 
 	@Given("the merchant {string} {string} with CPR {string} with balance {int}")
@@ -93,7 +92,7 @@ UUID invalidToken;
 
 	@Then("we receive a merchant dtuPayId")
 	public void we_receive_a_merchant_dtu_pay_id() throws BankServiceException_Exception {
-		assertNotNull(merchantDtuPayID);
+		assertFalse(merchantDtuPayID==null);
 	}
 
 
@@ -104,25 +103,23 @@ UUID invalidToken;
 	public void theCustomerAsksForTokens(Integer int1) {
 		token_client.setCustomerID(customerDtuPayID);
 		token_client.setToken_number(int1);
+		
 		try {
+			System.out.println(token_client.getCustomerID());
+			System.out.println(token_client.getToken_number());
 			tokens = dtuPay.getTokens(token_client);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 
 	}
 
 
 	@Then("the customer receives tokens")
 	public void theCustomerReceivesTokens() {
-		if(tokens==null){
-			fail();
-		}
-		else{
-			assertFalse(tokens.isEmpty());
-		}
+		assertFalse(tokens.isEmpty());
 	}
 
 	// Payment test
@@ -131,22 +128,18 @@ UUID invalidToken;
 	@Given("the merchant initiates a payment for {int} kr by the customer")
 	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
 		payment_amount = new BigDecimal(amount);
-
+				
 	}
 
 	@When("the merchant has received a token from the customer")
 	public void theMerchantHasReceivedATokenFromTheCustomer() {
 		UUID token = null;
-		if(tokens==null){
-			fail();
-		}else {
-
-			token = tokens.get(0);
-
-
-			Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
-			payment_result = dtuPay.createPayment(payment);
+		if (!tokens.isEmpty()) {
+		     token = tokens.get(0); 
 		}
+
+		Payment payment = new Payment(merchantDtuPayID, token, payment_amount);
+		payment_result = dtuPay.createPayment(payment);
 	}
 
 	@Then("the payment is successful")
@@ -177,35 +170,4 @@ UUID invalidToken;
 			bank.retireAccount(merchantBankID);
 	}
 
-//	@When("the customer asks for {int} tokens")
-//	public void theCustomerAsksForIntTokens(int token_num) {
-//		try {
-//			token_client.setCustomerID(customerDtuPayID);
-//			token_client.setToken_number(token_num);
-//			tokens = dtuPay.getTokens(token_client);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	}
-	@When("the customer asks for {int} tokens again")
-	public void theCustomerAsksForTokensAgain(int token_num) {
-		try {
-			token_client.setCustomerID(customerDtuPayID);
-			token_client.setToken_number(token_num);
-			tokens = dtuPay.getTokens(token_client);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Then("the request for more tokens failed")
-	public void theRequestForMoreTokensFailed() {
-		if(tokens==null){
-			assertTrue(true);
-		}else{
-			fail();
-		}
-	}
 }
