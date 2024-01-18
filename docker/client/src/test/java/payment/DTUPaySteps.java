@@ -2,7 +2,6 @@ package payment;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -152,25 +151,6 @@ public class DTUPaySteps {
 	@Then("the payment is successful")
 	public void thePaymentIsSuccessful() {
 		assertEquals("payment is successful",payment_result);
-	}
-	
-	@Then("the payment is Failed")
-	public void thePaymentIsFailed() {
-		assertNotEquals("payment is successful", payment_result);
-
-	}
-	
-	@When("the customer ask report")
-	public void theCustomerAskReport() {
-		String report = dtuPay.getReport(customerDtuPayID);
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the customer get all report")
-	public void theCustomerGetAllReport() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
 	}
 
 }
