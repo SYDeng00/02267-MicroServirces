@@ -55,6 +55,7 @@ public class TokenFacadeBroker implements IEventSubscriber {
 			tokens = new ArrayList<>(Arrays.asList(typeTransfer(payload[1], String.class)));
 		}else{
 			tokens = (List<String>) payload[1];
+			System.out.println(tokens);
 		}
 		this.token_client = new Token_client(customerUuid,request_token_number,tokens);
 

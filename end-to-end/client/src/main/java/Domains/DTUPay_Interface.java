@@ -25,20 +25,26 @@ public class DTUPay_Interface {
 	}
 
 	public List<UUID> getTokens(Token_client customerDtuPay) throws Exception {
+		Token_client token_client=null;
 	    try {
 	        Response response = dtuPayURL.path("/tokens/").request()
 	                .post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
 	        
 	        System.out.println("Response Status Code: " + response.getStatus());
 	        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-	        	Token_client token_client = response.readEntity(Token_client.class);
-	            return token_client.getTokens();
+
+					token_client= response.readEntity(Token_client.class);
+					return  token_client.getTokens();
+
 	        } else {
 	            return null;
 	        }
 	    } catch (ProcessingException e) {
 	        // Handle processing exceptions
-	        throw new RuntimeException("Error processing response: " + e.getMessage(), e);
+			System.out.println("Error processing response: " + e.getMessage());
+			//e.printStackTrace();
+			return null;
+			//throw new RuntimeException("Error processing response: " + e.getMessage(), e);
 	    } catch (Exception e) {
 	        // Handle other exceptions
 	        throw e;

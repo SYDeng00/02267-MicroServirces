@@ -2,7 +2,7 @@
 
 Feature: Account
 
-  Scenario: Create customer DTUPay account 
+  Scenario: Create customer DTUPay account
     Given the customer "First_C0480211010" "Last_C0811240010" with CPR "1230411200180" with balance 1000
     When the customer has registered with DTUPay
     Then we receive a customer dtuPayId
