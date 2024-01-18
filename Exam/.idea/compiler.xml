@@ -13,12 +13,12 @@
         <module name="code-with-quarkus (1)" />
         <module name="report_microservice" />
         <module name="message-utils" />
-        <module name="TokenManagement" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="code-with-quarkus (1) (org.client)" target="17" />
       <module name="code-with-quarkus (2) (org.acme)" target="17" />
+      <module name="TokenManagement" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
