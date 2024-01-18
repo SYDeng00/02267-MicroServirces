@@ -1,6 +1,7 @@
 package org.acme.Repositories;
 
 
+import io.cucumber.java.eo.Se;
 import org.acme.Domains.Report;
 import org.acme.Interfaces.IReportRepository;
 
@@ -16,13 +17,13 @@ import java.util.stream.Collectors;
 public class ReportRepository implements IReportRepository {
     private static HashMap<UUID, Report> reports = new HashMap<>();
     private Collection<Report> filteredReportList = new ArrayList<>();
-    private List<String> returnReportList = new ArrayList<>();
+    private Set<String> returnReportList = new HashSet<>();
 
     {
         UUID reportId1 = UUID.randomUUID();
         UUID reportId2 = UUID.randomUUID();
         UUID customerId1 = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
-        UUID merchantId1 = UUID.fromString("123r4567-e89b-12d3-a456-426614174001");
+        UUID merchantId1 = UUID.fromString("123e5567-e89b-12d3-a456-426614174001");
         UUID customerId2 =  UUID.fromString("111e2222-e89b-12d3-a456-426614174003");
         UUID merchantId2 = UUID.fromString("987e6543-e89b-12d3-a456-426614174002");
 
@@ -51,14 +52,16 @@ public class ReportRepository implements IReportRepository {
 
     @Override
     public List<String> getAllReports() {
-        filteredReportList = reports.values();
-        for (Report r : filteredReportList) {
-            // Perform actions with each report, for example, print its details
-            String reportString = "ReportID =" + r.getReportId() + ";token=" + r.getToken() + ";amount=" + r.getAmount() + ";paytype=" + r.getPayType() + ";merchantId=" + r.getMerchantId()+ ";customerId=" + r.getCustomerId();
-            // Add more details as needed
-            returnReportList.add(reportString);
+        for (Report report : reports.values()) {
+            String reportInfo = "Report ID: " + report.getReportId() +
+                    ", Amount: " + report.getAmount() +
+                    ", CustomerID: " + report.getCustomerId() +
+                    ", MerchantId: " + report.getMerchantId()+
+                    ", Token: " + report.getToken();
+            returnReportList.add(reportInfo);
         }
-        return returnReportList;
+        Set<String> uniqueSet = new HashSet<>(returnReportList);
+        return new ArrayList<>(uniqueSet);
     }
     @Override
     public List<String> getLatestReports() {
@@ -73,57 +76,55 @@ public class ReportRepository implements IReportRepository {
             // Add more details as needed
             returnReportList.add(reportString);
         }
-        return returnReportList;
+        return new ArrayList<>(returnReportList);
     }
     @Override
     public List<String> getReportsForCustomer(UUID customerId) {
-       /* filteredReportList = reports.values().stream()
-                .filter(report -> report.getCustomerId().equals(customerId))
+        for (Report report : reports.values()) {
+            String reportInfo="";
+            if (customerId.equals(report.getCustomerId())) {
+                reportInfo = "Report ID: " + report.getReportId() +
+                        ", Amount: " + report.getAmount() +
+                        ", MerchantId: " + report.getMerchantId()+
+                        ", Token: " + report.getToken(); // Add more fields as needed
+            }
+            if (!reportInfo.isEmpty())
+                returnReportList.add(reportInfo);
+        }
+        Set<String> uniqueSet = new HashSet<>(returnReportList);
+        return new ArrayList<>(uniqueSet);
+    }
+    @Override
+    public List<String> getLatestReportsForCustomer(UUID customerId) {
+        /*filteredReportList = reports.values().stream()
+                .filter(report -> report.getCustomerId().equals(customerId)).sorted(Comparator.comparing(Report::getDateTime).reversed())
+                .limit(5)
                 .collect(Collectors.toList());*/
-        returnReportList = null;
         filteredReportList.addAll(reports.values());
         if (filteredReportList!=null){
             for (Report r : filteredReportList) {
-                // Perform actions with each report, for example, print its details
-                if (r.getCustomerId()==customerId){
+                if (r.getCustomerId() == customerId){
                     String reportString = "ReportID =" + r.getReportId() + ";token=" + r.getToken() + ";amount=" + r.getAmount() + ";paytype=" + r.getPayType() + ";merchantId=" + r.getMerchantId();
-                    // Add more details as needed
-                    System.out.println(reportString);
                     returnReportList.add(reportString);
                 }
             }
         }
-
-        return returnReportList;
-    }
-    @Override
-    public List<String> getLatestReportsForCustomer(UUID customerId) {
-        filteredReportList = reports.values().stream()
-                .filter(report -> report.getCustomerId().equals(customerId)).sorted(Comparator.comparing(Report::getDateTime).reversed())
-                .limit(5)
-                .collect(Collectors.toList());
-        for (Report r : filteredReportList) {
-            // Perform actions with each report, for example, print its details
-            String reportString = "ReportID =" + r.getReportId() + ";token=" + r.getToken() + ";amount=" + r.getAmount() + ";paytype=" + r.getPayType() + ";merchantId=" + r.getMerchantId();
-            // Add more details as needed
-            returnReportList.add(reportString);
-        }
-        return returnReportList;
+        return new ArrayList<>(returnReportList);
     }
 
     @Override
     public List<String> getReportsForMerchant(UUID merchantId) {
-
-        filteredReportList = reports.values().stream()
-                .filter(report -> report.getMerchantId().equals(merchantId))
-                .collect(Collectors.toList());
-        for (Report r : filteredReportList) {
-            // Perform actions with each report, for example, print its details
-            String reportString ="ReportID =" +r.getReportId()+ ";token="+r.getToken()+";amount="+r.getAmount()+";paytype="+r.getPayType()+";merchantId="+r.getMerchantId();
-            // Add more details as needed
-            returnReportList.add(reportString);
+        for (Report report : reports.values()) {
+            String reportInfo ="";
+            if (merchantId.equals(report.getMerchantId())) {
+                reportInfo = "Report ID: " + report.getReportId() +
+                        ", Amount: " + report.getAmount() +
+                        ", Token: " + report.getToken();
+            }
+            if (!reportInfo.isEmpty())
+                returnReportList.add(reportInfo);
         }
-        return returnReportList;
+        return new ArrayList<>(returnReportList);
     }
     @Override
     public List<String> getLatestReportsForMerchant(UUID merchantId) {
@@ -138,7 +139,7 @@ public class ReportRepository implements IReportRepository {
             // Add more details as needed
             returnReportList.add(reportString);
         }
-        return returnReportList;
+        return new ArrayList<>(returnReportList);
     }
 }
 

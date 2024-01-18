@@ -128,6 +128,7 @@ public class ReportFacadeResources implements IEventSubscriber {
     @Override
     public void subscribeEvent(Message message) {
         String status = message.getStatus();
+        System.out.println("in facade recv");
         if (message.getEventType().equals(ReportFacadeConfig.RETRIEVE_REPORT_EVENT) && message.getService().equals("ReportFacadeResources")) {
             Gson gson = new Gson();
             receivedId = (List<String>)(message.getPayload()[0]);

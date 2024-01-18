@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="code-with-quarkus" />
         <module name="code-with-quarkus (3)" />
-        <module name="TokenManagement" />
         <module name="code-with-quarkus (1)" />
         <module name="code-with-quarkus (2)" />
         <module name="report_microservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TokenManagement" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

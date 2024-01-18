@@ -11,7 +11,7 @@ import org.jboss.logging.Logger;
 @QuarkusMain
 public class ReportResource implements QuarkusApplication {
 
-    ReportBroker reportBroker;
+    static ReportBroker reportBroker = new ReportBroker();
     private static final Logger LOG = Logger.getLogger(ReportResource.class);
 
     public static void main(String[] args) {

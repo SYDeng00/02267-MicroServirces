@@ -30,7 +30,6 @@ public class ReportHandler {
         LOG.info("Generated report for customer with ID: " + customerId+ " " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { customerReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public void generateLatestCustomerReport(Object[] payload) throws Exception {
         UUID customerId = typeTransfer(payload[0], UUID.class);
@@ -38,7 +37,6 @@ public class ReportHandler {
         LOG.info("Generated Latest 5 Payment  report for customer with ID: " + customerId+ " " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { customerReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public void generateMerchantReport(Object[] payload) throws Exception {
         UUID merchantId = typeTransfer(payload[0], UUID.class);
@@ -46,7 +44,6 @@ public class ReportHandler {
         LOG.info("Generated report for customer with ID: " + merchantId+ " " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { merchantReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public void generateLatestMerchantReport(Object[] payload) throws Exception {
         UUID merchantId = typeTransfer(payload[0], UUID.class);
@@ -54,21 +51,18 @@ public class ReportHandler {
         LOG.info("Generated report for customer with ID: " + merchantId+ " " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { merchantReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public void generateSummaryReport() throws Exception {
         List<String> summaryReports = reportRepository.getAllReports();
         LOG.info("Generated report for DTUPay: " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { summaryReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public void generateLatestSummaryReport() throws Exception {
         List<String> summaryReports = reportRepository.getLatestReports();
         LOG.info("Generated report for DTUPay: " +  ReportConfig.RETRIEVE_REPORT_EVENT + "-->");
         eventPublisher.publishEvent(
                 new Message(ReportConfig.RETRIEVE_REPORT_EVENT, "ReportFacadeResources", new Object[] { summaryReports }));
-        LOG.info("Report microservice send message to Report Facade:" + ReportConfig.RETRIEVE_REPORT_EVENT);
     }
     public static <T> T typeTransfer(Object payload, Class<T> objectClass) {
         Gson gson = new Gson();

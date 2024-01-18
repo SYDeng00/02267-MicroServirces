@@ -18,6 +18,7 @@ import static io.quarkus.arc.ComponentsProvider.LOG;
  */
 
 public class ReportBroker implements IEventSubscriber {
+    private static final Logger LOG = Logger.getLogger(ReportBroker.class); // Initialize the logger
     EventPublisher eventPublisher = new EventPublisher();
     private ReportHandler reportHandler = new ReportHandler();
     @Override
@@ -27,26 +28,26 @@ public class ReportBroker implements IEventSubscriber {
         switch (eventType) {
             case ReportConfig.GENERATE_REPORT_FOR_CUSTOMER:
                 reportHandler.generateCustomerReport(payload);
-                LOG.info("-------------------------------Customer Report generation request received");
+                LOG.info("-------------------------------Customer Report generation request Completed");
                 break;
             case ReportConfig.GENERATE_LATEST_REPORT_FOR_CUSTOMER:
-                LOG.info("-------------------------------Customer Latest 5 Payment Report generation request received");
+                LOG.info("-------------------------------Customer Latest 5 Payment Report generation request Completed");
                 reportHandler.generateLatestCustomerReport(payload);
                 break;
             case ReportConfig.GENERATE_REPORT_FOR_MERCHANT:
-                LOG.info("-------------------------------Merchant Report retrieval request received");
+                LOG.info("-------------------------------Merchant Report retrieval request Completed");
                 reportHandler.generateMerchantReport(payload);
                 break;
             case ReportConfig.GENERATE_LATEST_REPORT_FOR_MERCHANT:
-                LOG.info("-------------------------------Merchant Latest 5 Payment Report retrieval request received");
+                LOG.info("-------------------------------Merchant Latest 5 Payment Report retrieval request Completed");
                 reportHandler.generateLatestMerchantReport(payload);
                 break;
             case ReportConfig.GENERATE_REPORT_DTU:
-                LOG.info("-------------------------------DTU Report retrieval request received");
+                LOG.info("-------------------------------DTU Report retrieval request Completed");
                 reportHandler.generateSummaryReport();
                 break;
             case ReportConfig.GENERATE_LATEST_REPORT_DTU:
-                LOG.info("-------------------------------Latest 5 Payment Report retrieval request received");
+                LOG.info("-------------------------------Latest 5 Payment Report retrieval request Completed");
                 reportHandler.generateLatestSummaryReport();
                 break;
             case ReportConfig.SEND_UPDATE_PAYMENTS_REPORT:
