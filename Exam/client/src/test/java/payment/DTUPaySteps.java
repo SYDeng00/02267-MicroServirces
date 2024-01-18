@@ -22,6 +22,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
+import static org.junit.Assert.*;
 public class DTUPaySteps {
 
 	public String customerBankID;
@@ -70,7 +72,7 @@ public class DTUPaySteps {
 
 	@Then("we receive a customer dtuPayId")
 	public void we_receive_a_dtu_pay_id() {
-		assertFalse(customerDtuPayID==null);
+		assertNotNull(customerDtuPayID);
 	}
 
 	@Given("the merchant {string} {string} with CPR {string} with balance {int}")
@@ -158,6 +160,26 @@ public class DTUPaySteps {
 	public void thePaymentIsFailed() {
 		assertNotEquals("payment is successful", payment_result);
 
+	}
+
+	@When("the customer asks for {int} tokens again")
+	public void theCustomerAsksForTokensAgain(int token_num) {
+		try {
+			token_client.setCustomerID(customerDtuPayID);
+			token_client.setToken_number(token_num);
+			tokens = dtuPay.getTokens(token_client);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Then("the request for more tokens failed")
+	public void theRequestForMoreTokensFailed() {
+		if(tokens==null){
+			assertTrue(true);
+		}else{
+			fail();
+		}
 	}
 	
 	@When("the customer ask report")

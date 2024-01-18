@@ -151,8 +151,8 @@ public class PaymentHandler {
                             amount });
             message.setStatus("200");
             eventPublisher.publishEvent(message);
-        } catch (BankServiceException_Exception e) {
-            Message message = new Message(
+        } catch (Exception e) {
+            Message message_report  = new Message(
                     PaymentConfig.SEND_UPDATE_PAYMENTS_REPORT,
                     "ReportBroker",
                     new Object[] {
@@ -161,8 +161,21 @@ public class PaymentHandler {
                             creditorID,
                             debetorID,
                             amount });
-            message.setStatus("404");
-            eventPublisher.publishEvent(message);
+            message_report.setStatus("404");
+
+            Message message_facade = new Message(
+                    PaymentConfig.SEND_PAYMENT_RESULT,
+                    "PaymentFacadeBroker",
+                    new Object[] {
+                            payType,
+                            payOrRefundUuid,
+                            creditorBankAccount,
+                            debetorBankAccount,
+                            amount });
+            message_facade.setStatus("404");
+
+            eventPublisher.publishEvent(message_report);
+            eventPublisher.publishEvent(message_facade);
             Log.error("Transfer failed");
             e.printStackTrace();
         } finally {

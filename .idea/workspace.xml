@@ -5,22 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="All Report Updated">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenManagementServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenManagementServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Domains/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Domains/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Interfaces/IReportFacadeRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Interfaces/IReportFacadeRepositories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Reposotories/ReportFacadeRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Reposotories/ReportFacadeRepositories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadBroker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeResources.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Domains/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Domains/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Interfaces/IReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Interfaces/IReportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/docker/Dockerfile.jvm" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/docker/Dockerfile.jvm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/docker/Dockerfile.legacy-jar" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/docker/Dockerfile.legacy-jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/docker/Dockerfile.native" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/docker/Dockerfile.native" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/docker/Dockerfile.native-micro" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/docker/Dockerfile.native-micro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Domain/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Domain/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Interfaces/ITokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Interfaces/ITokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Repositories/TokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Repositories/TokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Resource/TokenBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Resource/TokenConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenManagementServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Resource/TokenManagementServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/java/org/acme/Resource/TokenResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/java/org/acme/Resource/TokenResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/resources/META-INF/resources/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/resources/META-INF/resources/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/test/java/org/acme/TokenSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/test/java/org/acme/TokenSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/TokenManagement/src/test/resources/token.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/token_microservice/src/test/resources/token.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/client/features/Payment.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/client/features/Payment.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/client/features/Token.feature" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/client/features/Token.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/client/src/main/java/Domains/DTUPay_Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/client/src/main/java/Domains/DTUPay_Interface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/client/src/test/java/payment/CucumberTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/client/src/test/java/payment/CucumberTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/payment_microservice/src/main/java/org/acme/Resources/PaymentHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/payment_microservice/src/main/java/org/acme/Resources/PaymentHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,34 +69,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;JUnit.All in TokenManagement.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.report_microservice [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.report_microservice [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.report_microservice [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;G:/My Drive/Study Materials/All Semesters/Autumn 2023/3 Week January-02267/02267-Web/report_microservice/src/main/java/org/acme&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "JUnit.All in TokenManagement.executor": "Run",
+    "Maven.report_microservice [clean].executor": "Run",
+    "Maven.report_microservice [install].executor": "Run",
+    "Maven.report_microservice [package].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/workplace/webService/webFinalProject/02267-Web/Exam",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="main.java.org.acme.report_facade.Resources" />

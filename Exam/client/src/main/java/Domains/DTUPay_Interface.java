@@ -8,9 +8,9 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 
 public class DTUPay_Interface {
 	Client clientPayment = ClientBuilder.newClient();
@@ -25,24 +25,30 @@ public class DTUPay_Interface {
 	}
 
 	public List<UUID> getTokens(Token_client customerDtuPay) throws Exception {
-	    try {
-	        Response response = dtuPayURL.path("/tokens/").request()
-	                .post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
-	        
-	        System.out.println("Response Status Code: " + response.getStatus());
-	        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-	        	Token_client token_client = response.readEntity(Token_client.class);
-	            return token_client.getTokens();
-	        } else {
-	            return null;
-	        }
-	    } catch (ProcessingException e) {
-	        // Handle processing exceptions
-	        throw new RuntimeException("Error processing response: " + e.getMessage(), e);
-	    } catch (Exception e) {
-	        // Handle other exceptions
-	        throw e;
-	    }
+		Token_client token_client=null;
+		try {
+			Response response = dtuPayURL.path("/tokens/").request()
+					.post(Entity.entity(customerDtuPay, MediaType.APPLICATION_JSON));
+
+			System.out.println("Response Status Code: " + response.getStatus());
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+
+				token_client= response.readEntity(Token_client.class);
+				return  token_client.getTokens();
+
+			} else {
+				return null;
+			}
+		} catch (ProcessingException e) {
+			// Handle processing exceptions
+			System.out.println("Error processing response: " + e.getMessage());
+			//e.printStackTrace();
+			return null;
+			//throw new RuntimeException("Error processing response: " + e.getMessage(), e);
+		} catch (Exception e) {
+			// Handle other exceptions
+			throw e;
+		}
 	}
 
 
