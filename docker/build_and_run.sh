@@ -12,7 +12,7 @@ popd
 
 #dtu-pay-facade
 pushd dtu_facade
-mvn package -Dquarkus.package.type=uber-jar
+mvn package package
 popd
 
 #Account

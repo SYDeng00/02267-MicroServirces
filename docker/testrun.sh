@@ -1,3 +1,4 @@
+#!/bin/bash
 
 pushd message-utils
 chmod +x build.sh 
@@ -6,7 +7,6 @@ popd
 
 docker image prune -f 
 
-#Docker Compose
 docker-compose up  -d --build rabbitMq
 sleep 10s
 docker-compose up  -d --build tokens
