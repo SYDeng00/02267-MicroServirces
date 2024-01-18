@@ -22,7 +22,6 @@ public class PaymentFacadeResources {
         try {
             paymentBroker.received();
             String status = paymentBroker.sendPaymentRequestToPaymentService(payment);
-            System.out.println("payment done?");
             if (status.equals("200")){
                 return Response.status(200).entity("payment is successful").build();
             }

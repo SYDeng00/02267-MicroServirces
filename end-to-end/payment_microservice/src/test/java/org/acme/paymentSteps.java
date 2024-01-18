@@ -118,13 +118,11 @@ public class paymentSteps {
     }
 
     @Then("Ask bank for transaction a lot of money")
-    public void askBankForTransactionALotOfMoney() throws Exception {
-        try {
+    public void askBankForTransactionALotOfMoney() {
+    
             paymentHandler
                     .getBankAccount(new Object[] { paymentID, merchantBankAccount, customerBankAccount, "payment" });
-        } catch (BankServiceException_Exception e) {
-            
-        }
+       
 
     }
 
@@ -193,13 +191,11 @@ public class paymentSteps {
     }
     @Then("Ask bank for refund a lot of money")
     public void ask_bank_for_refund_a_lot_of_money() throws Exception {
-        try {
+  
             System.out.println(refundId.toString());
             paymentHandler
                     .getBankAccount(new Object[] { refundId, merchantBankAccount, customerBankAccount, "refund" });
-        } catch (BankServiceException_Exception e) {
-            e.printStackTrace();
-        }
+        
     }
     @Then("the refund transaction failed")
     public void the_refund_transaction_failed() throws Exception {

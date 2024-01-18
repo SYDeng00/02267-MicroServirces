@@ -25,7 +25,7 @@ public class DTUPaySteps {
 
 	public String customerBankID;
 	public UUID customerDtuPayID;
-
+UUID invalidToken;
 	public String merchantBankID;
 	public UUID merchantDtuPayID;
 
@@ -95,13 +95,7 @@ public class DTUPaySteps {
 		assertFalse(merchantDtuPayID==null);
 	}
 
-	@After
-	public void resetUsers() throws BankServiceException_Exception {
-		if (customerBankID != null)
-			bank.retireAccount(customerBankID);
-		if (merchantBankID != null)
-			bank.retireAccount(merchantBankID);
-	}
+
 
 	// Token test
 	// Author: Siyuan Deng
@@ -151,6 +145,29 @@ public class DTUPaySteps {
 	@Then("the payment is successful")
 	public void thePaymentIsSuccessful() {
 		assertEquals("payment is successful",payment_result);
+	}
+
+	@Then("the payment is Failed")
+	public void thePaymentIsFailed() throws BankServiceException_Exception {
+		BigDecimal merchantBalance = bank.getAccount(merchantBankID).getBalance();
+		BigDecimal customerBalance = bank.getAccount(customerBankID).getBalance();
+		assertEquals(BigDecimal.valueOf(1000), merchantBalance);
+		assertEquals(BigDecimal.valueOf(1000),customerBalance);
+		assertEquals("payment fail",payment_result);
+	}
+
+	@When("the merchant has received a invalid from the customer")
+	public void theMerchantHasReceivedAInvalidFromTheCustomer() {
+		invalidToken = UUID.randomUUID();
+
+	}
+
+	@After
+	public void resetUsers() throws BankServiceException_Exception {
+		if (customerBankID != null)
+			bank.retireAccount(customerBankID);
+		if (merchantBankID != null)
+			bank.retireAccount(merchantBankID);
 	}
 
 }

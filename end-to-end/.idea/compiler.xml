@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="code-with-quarkus" />
+        <module name="code-with-quarkus (1) (org.acme)" />
+        <module name="report_microservice" />
+        <module name="code-with-quarkus (2) (org.acme)" />
+        <module name="code-with-quarkus (3) (org.acme)" />
+        <module name="message-utils" />
+        <module name="TokenManagement" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="code-with-quarkus" target="17" />
+      <module name="code-with-quarkus (1) (org.acme)" target="17" />
+      <module name="code-with-quarkus (2) (org.acme)" target="17" />
+      <module name="code-with-quarkus (3) (org.acme)" target="17" />
+      <module name="message-utils" target="17" />
+      <module name="report_microservice" target="17" />
+      <module name="TokenManagement" target="18" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="TokenManagement" options="-parameters" />
+      <module name="code-with-quarkus" options="-parameters" />
+      <module name="code-with-quarkus (1) (org.acme)" options="-parameters" />
+      <module name="code-with-quarkus (2) (org.acme)" options="-parameters" />
+      <module name="code-with-quarkus (3) (org.acme)" options="-parameters" />
+      <module name="message-utils" options="-parameters" />
+      <module name="report_microservice" options="-parameters" />
+    </option>
+  </component>
+</project>
