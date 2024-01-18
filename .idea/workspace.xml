@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="All Report Updated with filter">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/dtu_facade/src/main/java/main/java/org/acme/report_facade/Resources/ReportFacadeResources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Repositories/ReportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportBroker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/java/org/acme/Resources/ReportResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exam/report_microservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Exam/report_microservice/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -332,7 +327,7 @@
       <workItem from="1705517959320" duration="4714000" />
       <workItem from="1705531651736" duration="3487000" />
       <workItem from="1705562378217" duration="22076000" />
-      <workItem from="1705600281708" duration="4570000" />
+      <workItem from="1705600281708" duration="7991000" />
     </task>
     <task id="LOCAL-00001" summary="PAYMENT: COMMENT, CUCUMBER TEST">
       <option name="closed" value="true" />

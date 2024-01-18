@@ -9,23 +9,6 @@ import java.util.stream.Collectors;
 
 public class ReportRepository implements IReportRepository {
     private static final HashMap<UUID, Report> reports = new HashMap<>();
-
-    static {
-        // Initialize with some demo data
-        populateDemoData();
-    }
-
-    private static void populateDemoData() {
-        UUID customerId1 = UUID.fromString("123e4567-e89b-12d3-a456-426614174001");
-        UUID merchantId1 = UUID.fromString("123e5567-e89b-12d3-a456-426614174001");
-        UUID customerId2 = UUID.fromString("111e2222-e89b-12d3-a456-426614174003");
-        UUID merchantId2 = UUID.fromString("987e6543-e89b-12d3-a456-426614174002");
-
-        LocalDateTime now = LocalDateTime.now();
-        reports.put(UUID.randomUUID(), new Report(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), new BigDecimal("100.00"), customerId1, merchantId1, now, "Credit"));
-        reports.put(UUID.randomUUID(), new Report(UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), new BigDecimal("150.50"), customerId2, merchantId2, now.minusDays(1), "Debit"));
-    }
-
     @Override
     public void addReport(Report report) {
         reports.put(UUID.randomUUID(), report);
