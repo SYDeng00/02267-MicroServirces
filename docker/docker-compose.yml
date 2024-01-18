@@ -1,0 +1,21 @@
+version: '3'
+services:
+  rabbitMq:
+    image: rabbitmq
+    container_name: rabbitMq_container
+  account:
+    build: ./account_microservice
+    container_name: account
+  tokens:
+    build: ./TokenManagement
+    container_name: tokens
+  payment:
+    build: ./payment_microservice
+    container_name: payment
+  facade:
+    build: ./dtu_facade
+    container_name: facade
+    ports:
+    - "9000:8080"
+  
+
