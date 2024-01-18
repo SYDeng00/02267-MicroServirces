@@ -16,6 +16,18 @@ public class Report {
     private UUID customerId; // Optional based on privacy requirements
     private UUID merchantId;
 
+    public Report(){}
+    public Report(UUID reportId, UUID payOrRefundUUID, UUID token, BigDecimal amount, UUID customerId, UUID merchantId, LocalDateTime dateTime, String payType) {
+        this.reportId = reportId;
+        this.payOrRefundUUID = payOrRefundUUID;
+        this.token = token;
+        this.amount = amount;
+        this.customerId = customerId;
+        this.merchantId = merchantId;
+        this.dateTime = dateTime;
+        this.payType = payType;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -33,7 +45,7 @@ public class Report {
     public String getPayType() {
         return payType;
     }
-    public Report(){}
+    public Report(UUID reportId, UUID payOrRefundUUID, UUID token, BigDecimal amount, UUID customerId, LocalDateTime now, String credit, UUID uuid){}
     public Report(UUID reportId, UUID token, BigDecimal amount, UUID payOrRefundUUID, String payType , UUID merchantId) {
         this.reportId = reportId;
         this.payOrRefundUUID = payOrRefundUUID;
