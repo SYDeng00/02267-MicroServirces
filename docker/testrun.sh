@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 pushd message-utils
 chmod +x build.sh 

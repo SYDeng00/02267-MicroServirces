@@ -1,0 +1,7 @@
+org/acme/Resource/TokenConfig.class
+org/acme/Domain/Token.class
+org/acme/Interfaces/ITokenRepository.class
+org/acme/Resource/TokenManagementServices.class
+org/acme/Resource/TokenResource.class
+org/acme/Repositories/TokenRepository.class
+org/acme/Resource/TokenBroker.class
