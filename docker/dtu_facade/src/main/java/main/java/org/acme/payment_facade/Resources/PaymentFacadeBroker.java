@@ -45,27 +45,6 @@ public class PaymentFacadeBroker implements IEventSubscriber {
         }
         return fianlStatus;
     }
-    public String sendRefundRequestToPaymentService(Payment payment) {
-        EventPublisher publisher = new EventPublisher();
-        try {
-            waitFromessageReply = new CompletableFuture<>();
-            message = new Message(PaymentFacadeConfig.RECEIVE_MERCHANT_ASK_PAYMENT,
-                    "PaymentBroker",
-                    new Object[] { payment.getMerchantDtuPayID(),
-                            payment.getToken(),
-                            payment.getAmount() });
-            System.out.println(this.message.getMessageID());
-            publisher.publishEvent(message);
-            paymentFacadeRepositories.addMessage(message);
-            waitFromessageReply.join();
-            
-        } catch (Exception e) {
-            waitFromessageReply.complete("404");
-            fianlStatus = "404";
-            e.printStackTrace();
-        }
-        return fianlStatus;
-    }
 
     @Override
     public void subscribeEvent(Message message) throws Exception {

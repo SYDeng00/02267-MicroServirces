@@ -4,6 +4,9 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 
+/**
+ * @author Yingli
+ */
 @QuarkusMain
 public class TokenResource implements QuarkusApplication {
 

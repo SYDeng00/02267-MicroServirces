@@ -20,63 +20,69 @@ public class AccountBroker implements IEventSubscriber {
 		Object[] payload = message.getPayload();
 
 		switch (event) {
-			case AccountConfig.REGISTER:
-				System.out.println("in REGISTER");
-				DTUPayAccount account = typeTransfer(payload[0], DTUPayAccount.class);
-				String cpr = account.getCpr();
+		case AccountConfig.REGISTER:
+			System.out.println("in REGISTER");
+			DTUPayAccount account = typeTransfer(payload[0], DTUPayAccount.class);
+			String cpr = account.getCpr();
 
-				if (cprToIdMap.containsKey(cpr)) {
-					// If CPR  already exist
-					UUID existingId = cprToIdMap.get(cpr);
-					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
-							new Object[]{existingId, "User already registered"}));
-				} else {
-					// If CPR not exist
-					UUID ID = UUID.randomUUID();
-					accounts.put(ID, account);
-					cprToIdMap.put(cpr, ID); // Update CPR map
-					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
-							new Object[]{ID}));
-				}
-				break;
+//				if (cprToIdMap.containsKey(cpr)) {
+//					// If CPR  already exist
+//					UUID existingId = cprToIdMap.get(cpr);
+//					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
+//							new Object[]{existingId, "User already registered"}));
+//				} else {
+//					// If CPR not exist
+//					UUID ID = UUID.randomUUID();
+//					accounts.put(ID, account);
+//					cprToIdMap.put(cpr, ID); // Update CPR map
+//					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
+//							new Object[]{ID}));
+//				}
+			UUID ID = UUID.randomUUID();
+			accounts.put(ID, account);
+			cprToIdMap.put(cpr, ID); // Update CPR map
+			eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources", new Object[] { ID }));
 
-			case AccountConfig.SEND_REQUEST_BANK_ACCOUNTS:
+			break;
+
+		case AccountConfig.SEND_REQUEST_BANK_ACCOUNTS:
 
 //				UUID paymentID = (UUID) payload[0];
-				UUID paymentID = typeTransfer(payload[0],UUID.class);
-				UUID merchantUuid = typeTransfer(payload[1],UUID.class);
-				UUID customerUuid = typeTransfer(payload[2],UUID.class);
-				String additionalInfo = (String) payload[3];
-				System.out.println("in SEND_REQUEST_BANK_ACCOUNTS");
-				DTUPayAccount merchantAccount = accounts.get(merchantUuid);
-				DTUPayAccount customerAccount = accounts.get(customerUuid);
+			UUID paymentID = typeTransfer(payload[0], UUID.class);
+			UUID merchantUuid = typeTransfer(payload[1], UUID.class);
+			UUID customerUuid = typeTransfer(payload[2], UUID.class);
+			String additionalInfo = (String) payload[3];
+			System.out.println("in SEND_REQUEST_BANK_ACCOUNTS");
+			DTUPayAccount merchantAccount = accounts.get(merchantUuid);
+			DTUPayAccount customerAccount = accounts.get(customerUuid);
 
-				if (merchantAccount != null && customerAccount != null) {
-					eventPublisher.publishEvent(new Message(AccountConfig.RECEIVE_GET_ACCOUNTS, "PaymentBroker",
-							new Object[]{paymentID, merchantAccount.getBankID(), customerAccount.getBankID(), additionalInfo}));
-				} else {
-					// Construct error message
-					String errorMessage = "Account information not found for ";
-					if (merchantAccount == null) {
-						errorMessage += "merchant with UUID: " + merchantUuid;
-					}
-					if (customerAccount == null) {
-						if (merchantAccount == null) {
-							errorMessage += " and ";
-						}
-						errorMessage += "customer with UUID: " + customerUuid;
-					}
-
-					// Error event
-					eventPublisher.publishEvent(new Message(AccountConfig.ERROR, "PaymentBroker",
-							new Object[]{errorMessage}));
-
-					System.out.println(errorMessage);
+			if (merchantAccount != null && customerAccount != null) {
+				eventPublisher
+						.publishEvent(new Message(AccountConfig.RECEIVE_GET_ACCOUNTS, "PaymentBroker", new Object[] {
+								paymentID, merchantAccount.getBankID(), customerAccount.getBankID(), additionalInfo }));
+			} else {
+				// Construct error message
+				String errorMessage = "Account information not found for ";
+				if (merchantAccount == null) {
+					errorMessage += "merchant with UUID: " + merchantUuid;
 				}
-				break;
+				if (customerAccount == null) {
+					if (merchantAccount == null) {
+						errorMessage += " and ";
+					}
+					errorMessage += "customer with UUID: " + customerUuid;
+				}
 
-			default:
-				break;
+				// Error event
+				eventPublisher
+						.publishEvent(new Message(AccountConfig.ERROR, "PaymentBroker", new Object[] { errorMessage }));
+
+				System.out.println(errorMessage);
+			}
+			break;
+
+		default:
+			break;
 		}
 	}
 

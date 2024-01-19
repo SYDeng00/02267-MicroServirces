@@ -1,21 +1,52 @@
 version: '3'
+
 services:
   rabbitMq:
-    image: rabbitmq
+    image: rabbitmq:management
     container_name: rabbitMq_container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   account:
     build: ./account_microservice
     container_name: account
+    depends_on:
+      rabbitMq:
+        condition: service_healthy
+    environment:
+      RABBITMQ_HOST: rabbitMq
+
   tokens:
-    build: ./TokenManagement
+    build: ./token_microservice
     container_name: tokens
+    depends_on:
+      rabbitMq:
+        condition: service_healthy
+    environment:
+      RABBITMQ_HOST: rabbitMq
+
   payment:
     build: ./payment_microservice
     container_name: payment
+    depends_on:
+      rabbitMq:
+        condition: service_healthy
+    environment:
+      RABBITMQ_HOST: rabbitMq
+
   facade:
     build: ./dtu_facade
     container_name: facade
+    depends_on:
+      rabbitMq:
+        condition: service_healthy
+    environment:
+      RABBITMQ_HOST: rabbitMq
     ports:
-    - "9000:8080"
-  
-
+      - "8080:8080"

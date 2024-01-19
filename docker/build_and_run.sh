@@ -12,7 +12,7 @@ popd
 
 #dtu-pay-facade
 pushd dtu_facade
-mvn package package
+mvn clean package 
 popd
 
 #Account
@@ -21,7 +21,7 @@ mvn clean package
 popd
 
 #Token
-pushd TokenManagement
+pushd token_microservice
 mvn clean package
 popd
 
@@ -36,15 +36,15 @@ docker image prune -f
 
 #Docker Compose
 docker-compose up  -d --build rabbitMq
-sleep 10s
+sleep 10
 docker-compose up  -d --build tokens
-sleep 3s
+sleep 3
 docker-compose up  -d --build account
-sleep 3s
+sleep 3
 docker-compose up -d --build payment
-sleep 3s
+sleep 3
 docker-compose up  -d --build facade
-sleep 3s
+sleep 3
 
 
 

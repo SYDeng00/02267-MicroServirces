@@ -1,23 +1,27 @@
 #!/bin/bash
 set -e
 
+# Build and install the libraries
+# abstracting away from using the
+# RabbitMq message queue
 pushd message-utils
 chmod +x build.sh 
 ./build.sh
 popd 
 
+
 docker image prune -f 
 
 docker-compose up  -d --build rabbitMq
-sleep 10s
+sleep 10
 docker-compose up  -d --build tokens
-sleep 3s
+sleep 3
 docker-compose up  -d --build account
-sleep 3s
+sleep 3
 docker-compose up -d --build payment
-sleep 3s
+sleep 3
 docker-compose up  -d --build facade
-sleep 3s
+sleep 3
 
 pushd client
 mvn test

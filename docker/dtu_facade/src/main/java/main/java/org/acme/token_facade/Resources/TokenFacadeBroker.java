@@ -15,7 +15,9 @@ import com.google.gson.Gson;
 
 import main.java.org.acme.token_facade.Domains.Token_client;
 import main.java.org.acme.token_facade.Repositories.TokenFacadeRepositories;
-
+/**
+ * @author Yingli
+ */
 public class TokenFacadeBroker implements IEventSubscriber {
 	CompletableFuture<String> waitFormessageReply;
 	TokenFacadeRepositories tokenFacadeRepositories = TokenFacadeRepositories.getInstance();
