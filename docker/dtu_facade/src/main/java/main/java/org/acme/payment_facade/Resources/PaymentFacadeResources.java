@@ -16,7 +16,8 @@ import main.java.org.acme.payment_facade.Domains.Payment;
 public class PaymentFacadeResources {
     PaymentFacadeBroker paymentBroker= new PaymentFacadeBroker();;
     @POST
-    @Path("payments")
+    @Path("merchant/payments")
+    
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerPayment(Payment payment) {
         try {

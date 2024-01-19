@@ -10,6 +10,10 @@ import org.acme.Domains.DTUPayAccount;
 import java.util.HashMap;
 import java.util.UUID;
 
+/*
+Author: Siyuan Deng s232275  Collaborators：Jiahe Liu s232276
+*/
+
 public class AccountBroker implements IEventSubscriber {
 	EventPublisher eventPublisher = new EventPublisher();
 	private static HashMap<UUID, DTUPayAccount> accounts = new HashMap<>();
@@ -25,19 +29,6 @@ public class AccountBroker implements IEventSubscriber {
 			DTUPayAccount account = typeTransfer(payload[0], DTUPayAccount.class);
 			String cpr = account.getCpr();
 
-//				if (cprToIdMap.containsKey(cpr)) {
-//					// If CPR  already exist
-//					UUID existingId = cprToIdMap.get(cpr);
-//					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
-//							new Object[]{existingId, "User already registered"}));
-//				} else {
-//					// If CPR not exist
-//					UUID ID = UUID.randomUUID();
-//					accounts.put(ID, account);
-//					cprToIdMap.put(cpr, ID); // Update CPR map
-//					eventPublisher.publishEvent(new Message(AccountConfig.RETURN_ID, "AccountResources",
-//							new Object[]{ID}));
-//				}
 			UUID ID = UUID.randomUUID();
 			accounts.put(ID, account);
 			cprToIdMap.put(cpr, ID); // Update CPR map
@@ -47,7 +38,6 @@ public class AccountBroker implements IEventSubscriber {
 
 		case AccountConfig.SEND_REQUEST_BANK_ACCOUNTS:
 
-//				UUID paymentID = (UUID) payload[0];
 			UUID paymentID = typeTransfer(payload[0], UUID.class);
 			UUID merchantUuid = typeTransfer(payload[1], UUID.class);
 			UUID customerUuid = typeTransfer(payload[2], UUID.class);
@@ -101,7 +91,6 @@ public class AccountBroker implements IEventSubscriber {
 		return gson.fromJson(json, objectClass);
 	}
 
-	// Retrieving stored account information
 	public DTUPayAccount getAccount(String ID) {
 		return accounts.get(ID);
 	}

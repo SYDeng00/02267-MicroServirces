@@ -1,5 +1,9 @@
 package org.acme.Domains;
 
+/*
+Author: Siyuan Deng s232275
+*/
+
 public class DTUPayAccount {
     String firstName;
     String lastName;

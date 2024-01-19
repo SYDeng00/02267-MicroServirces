@@ -12,6 +12,18 @@ Feature: Payment
 	    And the merchant initiates a payment for 50 kr by the customer
 	    When the merchant has received a token from the customer
 	    Then the payment is successful
+	    
+#Author: Siyuan Deng
+	  Scenario: Payment from customer to merchant
+	    Given the customer "First_C01ssds0ddd010" "Last_C00d1s1sw0dd1s0" with CPR "1d211ssd1dsddds0" with balance 1000
+	    And the customer has registered with DTUPay
+	    And the merchant "First_M0ssdsddd10010" "Lasst_M1sd0d0ds010" with CPR "454ddssdddsfsdd11110" with balance 1000
+	    And the merchant has registered with DTUPay
+	    And the customer asks for 3 tokens
+	    And the customer receives tokens
+	    And the merchant initiates a payment for 50 kr by the customer
+	    When the merchant has received a token from the customer
+	    Then the payment is successful
    
 #Author: Yingli Duan
 

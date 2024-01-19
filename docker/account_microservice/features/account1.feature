@@ -1,4 +1,4 @@
-#Author: your.email@your.domain.com
+#Author: Siyuan Deng s232275
 
 Feature: Account management
   Scenario: Create account

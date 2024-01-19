@@ -3,6 +3,11 @@ package Domains;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/*
+Author: Siyuan Deng s232275  Collaborators：Jiahe Liu s232276
+*/
+
+
 public class Payment {
 	UUID merchantDtuPayID;
 	BigDecimal amount;

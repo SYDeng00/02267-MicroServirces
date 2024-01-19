@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import Adapter.DTUPay_Interface;
 import Domains.DTUPayAccount;
-import Domains.DTUPay_Interface;
 import Domains.Payment;
 import Domains.Token_client;
 import dtu.ws.fastmoney.BankService;
@@ -24,6 +24,9 @@ import io.cucumber.java.en.When;
 
 import static org.junit.Assert.*;
 
+/*
+Author: Siyuan Deng s232275   Yingli Duan s222462
+*/
 public class DTUPaySteps {
 
 	public String customerBankID;
@@ -49,7 +52,6 @@ public class DTUPaySteps {
 	private UUID token;
 
 	// Account test
-	// Author: Siyuan Deng
 
 	@Given("the customer {string} {string} with CPR {string} with balance {int}")
 	public void the_customer_with_cpr_with_balance(String firstName, String lastName, String cpr, Integer balance)
@@ -68,7 +70,7 @@ public class DTUPaySteps {
 
 	@When("the customer has registered with DTUPay")
 	public void the_customer_has_registered_with_dtu_pay() throws Exception {
-		customerDtuPayID = dtuPay.createDTUPayAccount(dtu_customer);
+		customerDtuPayID = dtuPay.create_customerDTUPayAccount(dtu_customer);
 	}
 
 	@Then("we receive a customer dtuPayId")
@@ -92,7 +94,7 @@ public class DTUPaySteps {
 
 	@When("the merchant has registered with DTUPay")
 	public void the_merchant_has_registered_with_dtu_pay() throws Exception {
-		merchantDtuPayID = dtuPay.createDTUPayAccount(dtu_merchant);
+		merchantDtuPayID = dtuPay.create_merchantDTUPayAccount(dtu_merchant);
 	}
 
 	@Then("we receive a merchant dtuPayId")
@@ -101,7 +103,7 @@ public class DTUPaySteps {
 	}
 
 	// Token test
-	// Author: Siyuan Deng
+	
 	@When("the customer asks for {int} tokens")
 	public void theCustomerAsksForTokens(Integer int1) {
 		token_client.setCustomerID(customerDtuPayID);
@@ -132,7 +134,6 @@ public class DTUPaySteps {
 	}
 
 	// Payment test
-	// Author: Siyuan Deng
 
 	@Given("the merchant initiates a payment for {int} kr by the customer")
 	public void theMerchantInitiatesAPaymentForKrByTheCustomer(int amount) {
@@ -209,18 +210,6 @@ public class DTUPaySteps {
 		}
 	}
 
-	@When("the customer ask report")
-	public void theCustomerAskReport() {
-		String report = dtuPay.getReport(customerDtuPayID);
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the customer get all report")
-	public void theCustomerGetAllReport() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
-	}
 
 	@After
 	public void resetUsers() throws BankServiceException_Exception {

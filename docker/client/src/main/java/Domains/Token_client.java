@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+/*
+Author: Siyuan Deng s232275  
+*/
 public class Token_client {
     private UUID customerID;
     private Integer token_number;

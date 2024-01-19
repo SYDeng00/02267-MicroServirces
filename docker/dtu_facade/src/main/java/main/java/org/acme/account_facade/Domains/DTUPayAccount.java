@@ -1,5 +1,8 @@
 package main.java.org.acme.account_facade.Domains;
 
+/*
+Author: Siyuan Deng s232275  
+*/
 public class DTUPayAccount {
     String firstName;
     String lastName;

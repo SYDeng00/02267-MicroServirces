@@ -14,7 +14,7 @@ import main.java.org.acme.token_facade.Domains.Token_client;
 public class TokenFacadeResources {
     TokenFacadeBroker tokenFacadeBroker= new TokenFacadeBroker();
 
-    @Path("tokens")
+    @Path("customers/tokens")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

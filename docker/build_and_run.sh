@@ -1,3 +1,7 @@
+# /*
+# Author: Siyuan Deng s232275  
+# */
+
 #!/bin/bash
 set -e
 

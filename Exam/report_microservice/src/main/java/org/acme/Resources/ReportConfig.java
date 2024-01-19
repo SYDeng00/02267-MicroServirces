@@ -23,7 +23,7 @@ public class ReportConfig {
     public static final String RETRIEVE_LATEST_REPORT_FOR_MERCHANT = "RetrieveLatestReportForMerchant";
     public static final String GENERATE_REPORT_DTU = "GenerateReportForDTU";
     public static final String GENERATE_LATEST_REPORT_DTU = "GenerateLatestReportForDTU";
-    public static final String SEND_UPDATE_PAYMENTS_REPORT = "ReceiveReportForReportService";
+    public static final String SEND_UPDATE_PAYMENTS_REPORT = "UpdatePaymentsReport";
     public static final String RETRIEVE_REPORT_DTU = "RetrieveReportForDTU";
     public static final String RETRIEVE_LATEST_REPORT_DTU = "RetrieveLatestReportForDTU";
 }

@@ -51,6 +51,10 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import main.java.org.acme.account_facade.Domains.DTUPayAccount;
 
+/*
+Author: Siyuan Deng s232275  
+*/
+
 @Path("/")
 public class AccountResources implements IEventSubscriber {
 	EventPublisher publisher = new EventPublisher();
@@ -63,35 +67,35 @@ public class AccountResources implements IEventSubscriber {
 
 		try {
 			subscriber.subscribeEvent("AccountResources");
-//			idFuture = new CompletableFuture<>();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// @POST
-	// @Path("accounts")
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// public Response registerAccount(DTUPayAccount account) {
-	// try {
-	// idFuture = new CompletableFuture<>();
-	// publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker",
-	// new Object[] { account }));
-	// idFuture.join();
-	// UUID uuid = UUID.fromString(receivedId);
-
-	// return Response.status(201).entity(uuid).build();
-	// } catch (Exception err) {
-	// return Response.status(400).entity(err.getMessage()).build();
-	// }
-	// }
 
 	@POST
-	@Path("accounts")
+	@Path("customers/accounts")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN) // Specify that the server produces text/plain UUID
-	public Response registerAccount(DTUPayAccount account) {
+	public Response register_customerAccount(DTUPayAccount account) {
+		try {
+			idFuture = new CompletableFuture<>();
+			publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));
+			idFuture.join();
+			UUID uuid = UUID.fromString(receivedId);
+
+			return Response.status(201).entity(uuid.toString()).build(); // Return UUID as a string
+		} catch (Exception err) {
+			return Response.status(400).entity(err.getMessage()).build();
+		}
+	}
+	
+	@POST
+	@Path("merchant/accounts")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN) // Specify that the server produces text/plain UUID
+	public Response register_merchantAccount(DTUPayAccount account) {
 		try {
 			idFuture = new CompletableFuture<>();
 			publisher.publishEvent(new Message(AccountConfig.REGISTER, "AccountBroker", new Object[] { account }));

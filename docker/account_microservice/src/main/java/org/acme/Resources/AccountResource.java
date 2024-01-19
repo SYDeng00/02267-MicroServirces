@@ -4,6 +4,10 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.runtime.QuarkusApplication;
 
+/*
+Author: Siyuan Deng s232275  
+*/
+
 @QuarkusMain
 public class AccountResource implements QuarkusApplication {
 
