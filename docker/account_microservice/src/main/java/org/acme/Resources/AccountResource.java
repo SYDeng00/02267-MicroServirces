@@ -5,7 +5,7 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.runtime.QuarkusApplication;
 
 /*
-Author: Siyuan Deng s232275  
+Author: Siyuan Deng s232275
 */
 
 @QuarkusMain

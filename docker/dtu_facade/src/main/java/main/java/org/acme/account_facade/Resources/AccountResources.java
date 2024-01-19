@@ -52,7 +52,7 @@ import jakarta.ws.rs.core.Response;
 import main.java.org.acme.account_facade.Domains.DTUPayAccount;
 
 /*
-Author: Siyuan Deng s232275  
+Author: Siyuan Deng s232275  Collaborators：Jiahe Liu s232276
 */
 
 @Path("/")
