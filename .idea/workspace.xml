@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c96544c3-f524-4d98-9174-6a0815692f82" name="Changes" comment="All Report Updated with filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/account_microservice/src/main/java/org/acme/Resources/AccountResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/docker/account_microservice/src/main/java/org/acme/Resources/AccountResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/dtu_facade/src/main/java/main/java/org/acme/account_facade/Resources/AccountResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/docker/dtu_facade/src/main/java/main/java/org/acme/account_facade/Resources/AccountResources.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,6 +358,8 @@
       <workItem from="1705600281708" duration="8596000" />
       <workItem from="1705652121561" duration="1549000" />
       <workItem from="1705670060215" duration="1430000" />
+      <workItem from="1705672248626" duration="88000" />
+      <workItem from="1705672357361" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="PAYMENT: COMMENT, CUCUMBER TEST">
       <option name="closed" value="true" />
