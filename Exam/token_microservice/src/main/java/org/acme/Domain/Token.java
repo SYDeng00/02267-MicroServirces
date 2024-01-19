@@ -4,6 +4,10 @@ package org.acme.Domain;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * @Author:  Divya
+ */
+
 public class Token {
     private UUID token;
     private String tokenStatus;

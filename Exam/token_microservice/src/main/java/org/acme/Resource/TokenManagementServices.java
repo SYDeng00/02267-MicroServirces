@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import static io.quarkus.arc.ComponentsProvider.LOG;
 
 /**
- * @Auhtor: Yingli, Tama Sarker
+ * @Auhtor: Yingli, Tama Sarker, Divya
  */
 public class TokenManagementServices {
 	EventPublisher eventPublisher = new EventPublisher();
