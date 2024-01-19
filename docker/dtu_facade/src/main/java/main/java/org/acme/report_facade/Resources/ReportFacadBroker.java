@@ -1,3 +1,4 @@
+/*
 package main.java.org.acme.report_facade.Resources;
 
 import com.google.gson.Gson;
@@ -13,10 +14,12 @@ import org.w3c.dom.events.Event;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+*/
 /**
  * Configuration class for report-facade broker.
  * @author Tama Sarker
- */
+ *//*
+
 public class ReportFacadBroker implements IEventSubscriber {
     CompletableFuture<String> waitFromessageReply = new CompletableFuture<>();
     ReportFacadeRepositories reportFacadeRepositories = ReportFacadeRepositories.getInstance();
@@ -98,3 +101,4 @@ public class ReportFacadBroker implements IEventSubscriber {
         }
     }
 }
+*/

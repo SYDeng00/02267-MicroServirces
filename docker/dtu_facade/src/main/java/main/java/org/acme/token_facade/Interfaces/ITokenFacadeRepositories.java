@@ -1,5 +1,8 @@
 package main.java.org.acme.token_facade.Interfaces;
-
+/**
+ * Configuration class for report-facade Repository interface.
+ * @author Tama Sarker
+ */
 import org.acme.Domains.Message;
 
 import java.util.List;

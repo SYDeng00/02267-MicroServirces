@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 /**
  * Configuration class for report-facade broker.
  * @author Tama Sarker
- * @author Divya
  */
 public class ReportHandler {
     EventPublisher eventPublisher = new EventPublisher();

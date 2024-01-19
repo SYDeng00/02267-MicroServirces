@@ -10,7 +10,6 @@ import org.jboss.logging.Logger;
 /**
  * Configuration class for report broker.
  * @author Tama Sarker
- * @author Divya
  */
 
 public class ReportBroker implements IEventSubscriber {

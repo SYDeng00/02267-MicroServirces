@@ -1,5 +1,8 @@
 package main.java.org.acme.token_facade.Domains;
-
+/**
+ * Configuration class for report-facade Repository interface.
+ * @author Tama Sarker
+ */
 
 import java.time.LocalDate;
 import java.util.UUID;
