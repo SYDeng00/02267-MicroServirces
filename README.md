@@ -22,7 +22,7 @@ Builds Docker images for each of the microservices.
 Starts the Docker containers.
 Configures the necessary network settings to allow communication between the microservices.
 Architecture
-This project is divided into three main microservices:
+This project is divided into two main microservices:
 
 Bank Service: Manages banking operations and interactions.
 Customer Service: Handles customer information and transactions.
